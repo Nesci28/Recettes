@@ -1,0 +1,59 @@
+<div class="v-100">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary mb-3">
+    <a class="navbar-brand text-success" [routerLink]="['/']">
+      <i class="fas fa-book-open"></i> Recettes
+    </a>
+    <button
+      class="navbar-toggler hidden-sm-up"
+      type="button"
+      (click)="isNavbarCollapsed = !isNavbarCollapsed"
+      data-target="#navbarsDefault"
+      aria-controls="navbarsDefault"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      [ngbCollapse]="isNavbarCollapsed"
+      class="collapse navbar-collapse"
+      id="navbarsDefault"
+    >
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown" ngbDropdown>
+          <a class="nav-link dropdown-toggle" id="id01" ngbDropdownToggle
+            >Listes</a
+          >
+          <div class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
+            <a class="dropdown-item" [routerLink]="['/liste/entrees']"
+              >Entrées</a
+            >
+            <a class="dropdown-item" [routerLink]="['/liste/repas']"
+              >Principals</a
+            >
+            <a class="dropdown-item" [routerLink]="['/liste/desserts']"
+              >Desserts</a
+            >
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/ajouter']">Ajouter</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input
+          class="form-control mr-sm-2"
+          type="text"
+          [(ngModel)]="query"
+          name="searchBarQuery"
+        />
+        <button class="btn btn-secondary my-2 my-sm-0" (click)="search()">
+          Recherche
+        </button>
+      </form>
+    </div>
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

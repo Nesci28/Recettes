@@ -1,0 +1,54 @@
+<div>
+  <div>
+    <button class="btn btn-success mr-5">Modifier</button>
+    <h2 class="d-inline vertical-align-middle">{{ meal.name }}</h2>
+  </div>
+
+  <div *ngIf="meal" class="mt-3">
+    <div class="row">
+      <div class="col-md-4">
+        <ul class="list-group">
+          <li
+            *ngFor="let ingredient of meal.ingredients"
+            class="list-group-item d-flex justify-content-between align-items-center pointer"
+            [ngClass]="{
+              'list-disabled': ingredient.disabled,
+              'ingredient-legume': ingredient.type === 'legume',
+              'ingredient-viande': ingredient.type === 'viande',
+              'ingredient-dairy': ingredient.type === 'dairy',
+              'ingredient-fruit': ingredient.type === 'fruit',
+              'ingredient-autre': ingredient.type === 'autre'
+            }"
+            (click)="ingredient.disabled = !ingredient.disabled"
+          >
+            {{ ingredient.name }}
+            <span class="badge badge-primary badge-pill">{{
+              ingredient.quantity
+            }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-7">
+        <img [src]="getImage()" class="border img-height" alt="Aucune image" />
+      </div>
+    </div>
+
+    <div class="mt-3 col-md-12">
+      <ul class="list-group">
+        <li
+          *ngFor="let step of meal.steps; index as i; let odd = odd"
+          class="list-group-item d-flex justify-content-between align-items-center pointer"
+          (click)="step.disabled = !step.disabled"
+          [ngClass]="{ 'list-disabled': step.disabled, 'list-odd': odd }"
+        >
+          {{ i + 1 }}) {{ step.step }}
+          <span
+            *ngIf="step.disabled"
+            class="badge badge-primary badge-pill text-decoration-none"
+            >Finit</span
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

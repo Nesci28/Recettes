@@ -1,0 +1,30 @@
+<form class="mb-3 row mx-auto" [formGroup]="nameForm">
+  <input
+    autocomplete="off"
+    type="text"
+    class="form-control col-sm-8"
+    placeholder="Nom de la Recette"
+    formControlName="name"
+    [ngClass]="{ 'is-invalid': name.invalid && (name.dirty || name.touched) }"
+  />
+  <select
+    class="custom-select py-2 col-sm-4"
+    formControlName="type"
+    [ngClass]="{ 'is-invalid': type.invalid && (type.dirty || type.touched) }"
+  >
+    <option value="" disabled selected hidden>Type</option>
+    <option value="1">Entrée</option>
+    <option value="2">Principal</option>
+    <option value="3">Dessert</option>
+  </select>
+  <textarea
+    class="form-control"
+    rows="3"
+    formControlName="description"
+    placeholder="Description"
+    [ngClass]="{
+      'is-invalid':
+        description.invalid && (description.dirty || description.touched)
+    }"
+  ></textarea>
+</form>

@@ -1,0 +1,18 @@
+<div class="mb-3">
+  <div *ngIf="!croppedImg">
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-info" (click)="open()">
+        Importer une image
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="croppedImg" class="row mx-auto align-items-center mb-3">
+    <img src="{{ croppedImg }}" alt="" class="col-sm-8 img-thumbnail" />
+    <div class="col-sm-4 text-center">
+      <button class="btn btn-info" (click)="open()">
+        Changer l'image
+      </button>
+    </div>
+  </div>
+</div>
