@@ -2,43 +2,8 @@
   <app-add-header #addHeader></app-add-header>
   <app-add-img></app-add-img>
   <app-add-ingredients></app-add-ingredients>
-
-  <!-- Ingredients -->
-  <!-- 
-
-  <div class="d-flex justify-content-center">
-    <input
-      autocomplete="off"
-      type="text"
-      class="form-control"
-      placeholder="Étape"
-    />
-    <button class="btn btn-info">+</button>
-  </div>
-  <ul class="list-group mb-3">
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      Cras justo odio
-      <span class="badge badge-primary badge-pill">14</span>
-    </li>
-  </ul>
-  <div class="d-flex justify-content-center">
-    <input
-      autocomplete="off"
-      type="text"
-      class="form-control"
-      placeholder="Mots clés de Recherche"
-      [(ngModel)]="keyword"
-    />
-    <button class="btn btn-info">+</button>
-  </div>
-  <div class="d-flex mb-3">
-    <span class="badge badge-pill badge-info mr-2">Info</span>
-    <span class="badge badge-pill badge-info mr-2">Info</span>
-    <span class="badge badge-pill badge-info">Info</span>
-  </div> -->
-
+  <app-add-instructions></app-add-instructions>
+  <app-add-keywords></app-add-keywords>
   <button class="btn btn-success mx-auto d-flex" (click)="onSubmit()">
     Ajouter
   </button>

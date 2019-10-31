@@ -2,6 +2,8 @@ import { Component, OnInit, QueryList } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { IngredientList } from "src/app/models/add.model";
 import { AddService } from "../add.service";
+import { ActivatedRoute } from "@angular/router";
+import { MealService } from "src/app/meal.service";
 
 @Component({
   selector: "app-add-ingredients",
@@ -32,9 +34,17 @@ export class AddIngredientsComponent implements OnInit {
 
   ingredientList: IngredientList[] = [];
 
-  constructor(private addService: AddService) {}
+  constructor(
+    private addService: AddService,
+    private router: ActivatedRoute,
+    private mealService: MealService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.router.snapshot.url[0].path === "modification") {
+      this.ingredientList = this.mealService.meal.ingredients;
+    }
+  }
 
   get ingredient() {
     return this.ingredientForm.get("ingredient");
@@ -63,9 +73,12 @@ export class AddIngredientsComponent implements OnInit {
       quantity: this.quantity.value,
       unit: this.unitArr[this.unit.value - 1].toLowerCase()
     });
+    this.ingredientForm.reset();
   }
 
   removeIngredient(ingredient: IngredientList): void {
-    console.log("ingredient :", ingredient);
+    this.ingredientList = this.ingredientList.filter(
+      e => e.ingredient !== ingredient.ingredient
+    );
   }
 }

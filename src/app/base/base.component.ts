@@ -3,8 +3,10 @@ import { Subject } from "rxjs";
 
 @Component({
   selector: "app-base",
-  templateUrl: "./base.component.html",
-  styleUrls: ["./base.component.scss"]
+  template: `
+    <p></p>
+  `,
+  styles: []
 })
 export class BaseComponent implements OnInit, OnDestroy {
   destroy$: Subject<void> = new Subject();

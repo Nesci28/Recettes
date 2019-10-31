@@ -1,13 +1,15 @@
 <div>
   <div>
-    <button class="btn btn-success mr-5">Modifier</button>
+    <button class="btn btn-success mr-5" (click)="changeToModification()">
+      Modifier
+    </button>
     <h2 class="d-inline vertical-align-middle">{{ meal.name }}</h2>
   </div>
 
   <div *ngIf="meal" class="mt-3">
     <div class="row">
       <div class="col-md-4">
-        <ul class="list-group">
+        <ul [sortablejs]="meal.ingredients" class="list-group">
           <li
             *ngFor="let ingredient of meal.ingredients"
             class="list-group-item d-flex justify-content-between align-items-center pointer"
@@ -21,7 +23,7 @@
             }"
             (click)="ingredient.disabled = !ingredient.disabled"
           >
-            {{ ingredient.name }}
+            {{ ingredient.ingredient }}
             <span class="badge badge-primary badge-pill">{{
               ingredient.quantity
             }}</span>
@@ -29,21 +31,29 @@
         </ul>
       </div>
       <div class="col-md-7">
-        <img [src]="getImage()" class="border img-height" alt="Aucune image" />
+        <img
+          [src]="getImage()"
+          class="img-thumbnail img-height"
+          alt="Aucune image"
+        />
       </div>
     </div>
 
     <div class="mt-3 col-md-12">
-      <ul class="list-group">
+      <ul [sortablejs]="meal.instructions" class="list-group">
         <li
-          *ngFor="let step of meal.steps; index as i; let odd = odd"
+          *ngFor="
+            let instruction of meal.instructions;
+            index as i;
+            let odd = odd
+          "
           class="list-group-item d-flex justify-content-between align-items-center pointer"
-          (click)="step.disabled = !step.disabled"
-          [ngClass]="{ 'list-disabled': step.disabled, 'list-odd': odd }"
+          (click)="instruction.disabled = !instruction.disabled"
+          [ngClass]="{ 'list-disabled': instruction.disabled, 'list-odd': odd }"
         >
-          {{ i + 1 }}) {{ step.step }}
+          {{ i + 1 }}) {{ instruction.instruction }}
           <span
-            *ngIf="step.disabled"
+            *ngIf="instruction.disabled"
             class="badge badge-primary badge-pill text-decoration-none"
             >Finit</span
           >

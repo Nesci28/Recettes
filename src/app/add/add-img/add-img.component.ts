@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { CropperComponent } from "angular-cropperjs";
 import { AddService } from "../add.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "ngbd-cropper-modal",
@@ -22,7 +23,11 @@ import { AddService } from "../add.service";
         *ngIf="!imageUrl"
         class="img-thumbnail"
         style="height: 150px; width; 150px;"
-      ></div>
+      >
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <h5>Image ici</h5>
+        </div>
+      </div>
       <angular-cropper
         *ngIf="imageUrl"
         #angularCropper
@@ -103,9 +108,14 @@ export class NgbdCropperModal {
 export class AddImgComponent implements OnInit {
   croppedImg: string;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private router: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.router.snapshot.url[0].path === "modification") {
+      this.croppedImg =
+        "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
+    }
+  }
 
   async open() {
     await this.modalService.open(NgbdCropperModal).result.then(

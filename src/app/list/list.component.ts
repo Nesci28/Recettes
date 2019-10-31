@@ -5,7 +5,7 @@ import { takeUntil, debounceTime, distinctUntilChanged } from "rxjs/operators";
 
 import { BaseComponent } from "../base/base.component";
 import { Meal } from "../models/repas.model";
-import data from "./meals.json";
+import data from "../../assets/meals.json";
 import { MealService } from "../meal.service";
 
 @Component({
@@ -16,7 +16,7 @@ import { MealService } from "../meal.service";
 export class ListComponent extends BaseComponent implements OnInit {
   id: string;
   meals: Meal[] = data;
-  selectedMeals: Meal[][] = [];
+  selectedMeals: Meal[] = [];
   meal: Meal;
   image: string;
 
@@ -39,14 +39,11 @@ export class ListComponent extends BaseComponent implements OnInit {
         this.query = model;
         this.resetFilter();
         this.selectedMeals.forEach(x => {
-          x.forEach(e => {
-            if (model) {
-              e.filtered = !e.name.toLowerCase().includes(model.toLowerCase());
-            } else {
-              console.log("empty");
-              e.filtered = false;
-            }
-          });
+          if (model) {
+            x.filtered = !x.name.toLowerCase().includes(model.toLowerCase());
+          } else {
+            x.filtered = false;
+          }
         });
         this.filteredMeals();
       });
@@ -54,12 +51,25 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(x => {
-      this.image = null;
-      this.meal = null;
-      this.selectedMeals = [];
+      if (this.route.snapshot.params.id === "recherche") {
+        this.selectedMeals = this.meals.filter(
+          meal =>
+            meal.name
+              .toLowerCase()
+              .includes(this.route.snapshot.params.query.toLowerCase()) ||
+            meal.keywords
+              .join("")
+              .toLowerCase()
+              .includes(this.route.snapshot.params.query.toLowerCase())
+        );
+      } else {
+        this.image = null;
+        this.meal = null;
+        this.selectedMeals = [];
 
-      this.id = this.route.snapshot.params.id;
-      this.resetFilter();
+        this.id = this.route.snapshot.params.id;
+        this.resetFilter();
+      }
     });
   }
 
@@ -69,13 +79,11 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   getMeal(repas): void {
     let cont = true;
-    for (const meals of this.selectedMeals) {
-      for (const meal of meals) {
-        if (meal.id === repas.id) {
-          this.mealService.meal = meal;
-          cont = false;
-          break;
-        }
+    for (const meal of this.selectedMeals) {
+      if (meal.id === repas.id) {
+        this.mealService.meal = meal;
+        cont = false;
+        break;
       }
       if (!cont) break;
     }
@@ -92,12 +100,10 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   filteredMeals(): void {
     const mealsArr = [];
-    this.selectedMeals.forEach(meals => {
-      meals.forEach(meal => {
-        if (!meal.filtered) {
-          mealsArr.push(meal);
-        }
-      });
+    this.selectedMeals.forEach(meal => {
+      if (!meal.filtered) {
+        mealsArr.push(meal);
+      }
     });
     this.createArrayOfMeals(mealsArr);
   }
@@ -109,9 +115,6 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   createArrayOfMeals(meals): void {
-    this.selectedMeals = [];
-    while (meals.length > 0) {
-      this.selectedMeals.push(meals.splice(0, 4));
-    }
+    this.selectedMeals = meals;
   }
 }

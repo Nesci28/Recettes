@@ -1,0 +1,27 @@
+<form
+  [formGroup]="keywordForm"
+  class="row mx-auto"
+  [ngClass]="{
+    'mb-3': keywordsList.length === 0,
+    'mb-1': 'keywordsList.length > 0'
+  }"
+>
+  <input
+    #keyword
+    type="text"
+    placeholder="Mots clés"
+    class="form-control col-sm"
+    autocomplete="off"
+    formControlName="keyword"
+  />
+  <button class="btn btn-info" (click)="submitKeyword()">+</button>
+</form>
+
+<div class="d-flex mb-3">
+  <span
+    class="badge badge-pill badge-info mr-2 pointer"
+    *ngFor="let keyword of keywordsList"
+    (click)="removeKeyword(keyword)"
+    >{{ keyword }}</span
+  >
+</div>

@@ -29,7 +29,11 @@
 </form>
 
 <div class="mb-3">
-  <ul *ngIf="ingredientList.length > 0" class="list-group row mx-auto flex-row">
+  <ul
+    [sortablejs]="ingredientList"
+    *ngIf="ingredientList.length > 0"
+    class="list-group row mx-auto flex-row"
+  >
     <li
       class="list-group-item d-flex justify-content-between align-items-center col-sm-6 col-md-6 col-lg-4"
       *ngFor="let ingredient of ingredientList"

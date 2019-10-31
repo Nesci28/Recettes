@@ -1,0 +1,34 @@
+<form
+  [formGroup]="instructionForm"
+  class="row mx-auto"
+  [ngClass]="{ 'mb-3': instructionList.length === 0 }"
+>
+  <input
+    #instruction
+    type="text"
+    placeholder="Instruction"
+    class="form-control col-sm"
+    autocomplete="off"
+    formControlName="instruction"
+  />
+  <button class="btn btn-info" (click)="submitInstruction()">+</button>
+</form>
+
+<div *ngIf="instructionList.length > 0" class="mb-3">
+  <ul [sortablejs]="instructionList" class="list-group row mx-auto">
+    <li
+      *ngFor="let instruction of instructionList"
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      {{ instruction.instruction }}
+      <div>
+        <span
+          class="badge badge-pill badge-danger pointer"
+          (click)="removeInstruction(instruction)"
+        >
+          <span aria-hidden="true">&times;</span>
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -6,25 +6,25 @@
     "keywords": ["Riz"],
     "ingredients": [
       {
-        "name": "Riz",
+        "ingredient": "Riz",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Lait",
+        "ingredient": "Lait",
         "quantity": "3 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -37,25 +37,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -68,25 +68,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -99,25 +99,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -130,25 +130,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -161,25 +161,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -192,25 +192,25 @@
     "keywords": ["Riz"],
     "ingredients": [
       {
-        "name": "Riz",
+        "ingredient": "Riz",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Lait",
+        "ingredient": "Lait",
         "quantity": "3 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -223,25 +223,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -254,25 +254,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -285,25 +285,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -316,25 +316,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -347,25 +347,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -378,25 +378,25 @@
     "keywords": ["Riz"],
     "ingredients": [
       {
-        "name": "Riz",
+        "ingredient": "Riz",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Lait",
+        "ingredient": "Lait",
         "quantity": "3 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -409,25 +409,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -440,25 +440,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -471,25 +471,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -502,25 +502,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -533,25 +533,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -564,25 +564,25 @@
     "keywords": ["Riz"],
     "ingredients": [
       {
-        "name": "Riz",
+        "ingredient": "Riz",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Lait",
+        "ingredient": "Lait",
         "quantity": "3 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -595,25 +595,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -626,25 +626,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -657,25 +657,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -688,25 +688,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -719,25 +719,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -750,25 +750,25 @@
     "keywords": ["Riz"],
     "ingredients": [
       {
-        "name": "Riz",
+        "ingredient": "Riz",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Lait",
+        "ingredient": "Lait",
         "quantity": "3 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -781,25 +781,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -812,25 +812,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -843,25 +843,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -874,25 +874,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -905,25 +905,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -936,25 +936,25 @@
     "keywords": ["Riz"],
     "ingredients": [
       {
-        "name": "Riz",
+        "ingredient": "Riz",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Lait",
+        "ingredient": "Lait",
         "quantity": "3 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -967,25 +967,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -998,25 +998,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -1029,25 +1029,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -1060,25 +1060,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],
@@ -1091,25 +1091,25 @@
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
-        "name": "Sirop d'érable",
+        "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
         "type": "autre",
         "disabled": false
       },
       {
-        "name": "Beurre",
+        "ingredient": "Beurre",
         "quantity": "1/2 tasses",
         "type": "dairy",
         "disabled": false
       }
     ],
-    "steps": [
+    "instructions": [
       {
-        "step": "test test test",
+        "instruction": "test test test",
         "disabled": false
       },
       {
-        "step": "test1 test1 test1",
+        "instruction": "test1 test1 test1",
         "disabled": false
       }
     ],

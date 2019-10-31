@@ -16,7 +16,11 @@ import {
   AddImgComponent,
   NgbdCropperModal
 } from "./add/add-img/add-img.component";
-import { AddIngredientsComponent } from './add/add-ingredients/add-ingredients.component';
+import { AddIngredientsComponent } from "./add/add-ingredients/add-ingredients.component";
+import { AddInstructionsComponent } from "./add/add-instructions/add-instructions.component";
+import { AddKeywordsComponent } from "./add/add-keywords/add-keywords.component";
+import { HttpClientModule } from "@angular/common/http";
+import { SortablejsModule } from "ngx-sortablejs";
 
 @NgModule({
   declarations: [
@@ -29,7 +33,9 @@ import { AddIngredientsComponent } from './add/add-ingredients/add-ingredients.c
     AddHeaderComponent,
     AddImgComponent,
     NgbdCropperModal,
-    AddIngredientsComponent
+    AddIngredientsComponent,
+    AddInstructionsComponent,
+    AddKeywordsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,9 @@ import { AddIngredientsComponent } from './add/add-ingredients/add-ingredients.c
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularCropperjsModule
+    AngularCropperjsModule,
+    HttpClientModule,
+    SortablejsModule.forRoot({ animation: 150 })
   ],
   entryComponents: [NgbdCropperModal],
   providers: [],

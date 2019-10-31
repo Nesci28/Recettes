@@ -46,7 +46,6 @@ export class AddService {
     components.forEach(component => {
       Object.keys(component.first).forEach(form => {
         if (form !== "addService") {
-          console.log("form :", form);
           Object.keys(component.first[form].controls).forEach(input => {
             if (!values[form]) {
               values[form] = {};

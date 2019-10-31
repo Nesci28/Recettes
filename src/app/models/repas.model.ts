@@ -1,21 +1,23 @@
 export interface Ingredients {
-  name: string;
+  ingredient: string;
   quantity: string;
   type: string;
-  disabled: boolean;
+  unit: string;
+  disabled?: boolean;
 }
 
-export interface Step {
-  step: string;
-  disabled: boolean;
+export interface Instruction {
+  instruction: string;
+  disabled?: boolean;
 }
 
 export interface Meal {
   name: string;
   id: number;
   type: string;
+  description?: string;
   keywords: string[];
   ingredients: Ingredients[];
-  steps: Step[];
+  instructions: Instruction[];
   filtered: boolean;
 }
