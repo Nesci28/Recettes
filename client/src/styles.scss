@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "./bootstrap.min.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import './bootstrap.min.css';
 
 .pointer {
   cursor: pointer;
@@ -34,18 +34,25 @@ a {
 
 .ingredient {
   &-legume {
-    background-color: #61df15;
+    background-color: #d1ffd3;
   }
   &-viande {
-    background-color: #fb0000;
+    background-color: #febcbf;
+  }
+  &-poisson {
+    background-color: #ffa4dc;
   }
   &-dairy {
-    background-color: #f6e6d6;
+    background-color: #ffffd8;
   }
   &-fruit {
-    background-color: #ff57ab;
+    background-color: #d3eeff;
   }
   &-autre {
-    background-color: #e6e6e6;
+    background-color: #eaebff;
   }
+}
+
+.list-group-item {
+  padding: 0.15rem 1.25rem;
 }

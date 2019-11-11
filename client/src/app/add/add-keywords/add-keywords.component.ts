@@ -1,20 +1,20 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { AddService } from "../add.service";
-import { ActivatedRoute } from "@angular/router";
-import { MealService } from "src/app/meal.service";
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AddService } from '../add.service';
+import { ActivatedRoute } from '@angular/router';
+import { MealService } from 'src/app/meal.service';
 
 @Component({
-  selector: "app-add-keywords",
-  templateUrl: "./add-keywords.component.html",
-  styleUrls: ["./add-keywords.component.scss"]
+  selector: 'app-add-keywords',
+  templateUrl: './add-keywords.component.html',
+  styleUrls: ['./add-keywords.component.scss'],
 })
 export class AddKeywordsComponent implements OnInit {
-  @ViewChild("keyword", { static: false }) keywordRef: ElementRef;
+  @ViewChild('keyword', { static: false }) keywordRef: ElementRef;
 
   // Forms
   keywordForm = new FormGroup({
-    keyword: new FormControl("", Validators.required)
+    keyword: new FormControl('', Validators.required),
   });
 
   keywordsList: string[] = [];
@@ -22,22 +22,22 @@ export class AddKeywordsComponent implements OnInit {
   constructor(
     private addService: AddService,
     private router: ActivatedRoute,
-    private mealService: MealService
+    private mealService: MealService,
   ) {}
 
   ngOnInit() {
-    if (this.router.snapshot.url[0].path === "modification") {
+    if (this.router.snapshot.url[0].path === 'modification') {
       this.keywordsList = this.mealService.meal.keywords;
     }
   }
 
   get keyword() {
-    return this.keywordForm.get("keyword");
+    return this.keywordForm.get('keyword');
   }
 
   submitKeyword(): void {
     const errors = this.addService.checkForErrorForm(this.keywordForm);
-    if (errors.length === 0) {
+    if (errors === 0) {
       this.addKeyword();
     }
   }

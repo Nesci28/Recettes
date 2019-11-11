@@ -6,7 +6,7 @@
     placeholder="Ingrédient"
     formControlName="ingredient"
   />
-  <select class="custom-select py-2 col-sm" formControlName="type">
+  <select class="custom-select py-2 col-sm" formControlName="ingType">
     <option value="" disabled selected hidden>Type</option>
     <option *ngFor="let type of typeArr; index as i" value="{{ i + 1 }}">{{
       type
@@ -25,30 +25,42 @@
       unit
     }}</option>
   </select>
-  <button class="btn btn-info" (click)="submitIngredient()">+</button>
+  <button
+    class="col-sm-1 btn btn-info d-flex justify-content-center"
+    (click)="submitIngredient()"
+  >
+    <i class="far fa-plus-square"></i>
+  </button>
 </form>
+<div
+  *ngIf="getFormErrors('ingredient')"
+  class="d-block invalid-feedback col-sm"
+>
+  Veuillez entrer les Ingredients de la recette
+</div>
 
-<div class="mb-3">
+<div *ngIf="ingredientList.length > 0">
   <ul
-    [sortablejs]="ingredientList"
-    *ngIf="ingredientList.length > 0"
     class="list-group row mx-auto flex-row"
+    *ngFor="let typeArr of getFilteredList()"
   >
     <li
-      class="list-group-item d-flex justify-content-between align-items-center col-sm-6 col-md-6 col-lg-4"
-      *ngFor="let ingredient of ingredientList"
+      class="list-group-item d-flex justify-content-between align-items-center col-sm-6 col-md-4 col-lg-4"
+      *ngFor="let ingredient of typeArr"
       [ngClass]="{
-        'ingredient-legume': ingredient.type === 'légume',
-        'ingredient-viande': ingredient.type === 'viande',
-        'ingredient-dairy': ingredient.type === 'produit laitier',
-        'ingredient-fruit': ingredient.type === 'fruit',
-        'ingredient-autre': ingredient.type === 'autre'
+        'list-disabled': ingredient.disabled,
+        'ingredient-legume': ingredient.ingType === 'légume',
+        'ingredient-viande': ingredient.ingType === 'viande',
+        'ingredient-poisson': ingredient.ingType === 'poisson',
+        'ingredient-dairy': ingredient.ingType === 'dairy',
+        'ingredient-fruit': ingredient.ingType === 'fruit',
+        'ingredient-autre': ingredient.ingType === 'autre'
       }"
     >
       {{ ingredient.ingredient }}
       <div>
         <span class="badge badge-primary mr-2"
-          >{{ ingredient.quantity }} - {{ ingredient.unit }}</span
+          >{{ ingredient.quantity }} / {{ ingredient.unit }}</span
         >
         <span
           class="badge badge-pill badge-danger pointer"

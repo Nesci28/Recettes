@@ -7,3 +7,52 @@
   /* This is important */
   width: 100%;
 }
+
+.img-container {
+  /* Never limit the container height here */
+  max-width: 100%;
+}
+
+.img-container img {
+  /* This is important */
+  width: 100%;
+}
+
+.img-wrapper {
+  width: 90%;
+  height: auto;
+}
+
+.img-hover:hover {
+  &:before {
+    content: '';
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom right, #000, #000);
+    opacity: 0.33;
+    border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
+  }
+}
+
+.img-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.img-overlay:before {
+  content: ' ';
+  display: block;
+  height: 50%;
+}
+
+.fa-sync {
+  color: #17a2b8;
+}

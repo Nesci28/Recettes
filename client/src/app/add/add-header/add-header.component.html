@@ -1,30 +1,102 @@
-<form class="mb-3 row mx-auto" [formGroup]="nameForm">
-  <input
-    autocomplete="off"
-    type="text"
-    class="form-control col-sm-8"
-    placeholder="Nom de la Recette"
-    formControlName="name"
-    [ngClass]="{ 'is-invalid': name.invalid && (name.dirty || name.touched) }"
-  />
-  <select
-    class="custom-select py-2 col-sm-4"
-    formControlName="type"
-    [ngClass]="{ 'is-invalid': type.invalid && (type.dirty || type.touched) }"
-  >
-    <option value="" disabled selected hidden>Type</option>
-    <option value="1">Entrée</option>
-    <option value="2">Principal</option>
-    <option value="3">Dessert</option>
-  </select>
+<form class="row mx-auto" [formGroup]="nameForm">
+  <div class="col-sm p-0">
+    <input
+      autocomplete="off"
+      type="text"
+      class="form-control"
+      placeholder="Nom de la Recette"
+      formControlName="name"
+      [ngClass]="{
+        'is-invalid':
+          (name.invalid && (name.dirty || name.touched)) ||
+          getFormErrors('name')
+      }"
+      (keyup)="setShowToFalse('name')"
+    />
+    <div
+      *ngIf="
+        (name.invalid && (name.dirty || name.touched)) || getFormErrors('name')
+      "
+      class="invalid-feedback col-sm"
+    >
+      Veuillez entrer le nom de la Recette
+    </div>
+  </div>
+  <div class="col-sm p-0">
+    <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+      <label
+        [ngClass]="{
+          active: type.value === '1',
+          'btn-outline-danger': getFormErrors('type'),
+          'btn-outline-info': !getFormErrors('type')
+        }"
+        class="btn"
+      >
+        <input
+          type="radio"
+          value="1"
+          autocomplete="off"
+          formControlName="type"
+          (click)="setShowToFalse('type')"
+        />Entrée
+      </label>
+      <label
+        [ngClass]="{
+          active: type.value === '2',
+          'btn-outline-danger': getFormErrors('type'),
+          'btn-outline-info': !getFormErrors('type')
+        }"
+        class="btn"
+      >
+        <input
+          type="radio"
+          value="2"
+          autocomplete="off"
+          formControlName="type"
+          (click)="setShowToFalse('type')"
+        />Principal
+      </label>
+      <label
+        [ngClass]="{
+          active: type.value === '3',
+          'btn-outline-danger': getFormErrors('type'),
+          'btn-outline-info': !getFormErrors('type')
+        }"
+        class="btn"
+      >
+        <input
+          type="radio"
+          value="3"
+          autocomplete="off"
+          formControlName="type"
+          (click)="setShowToFalse('type')"
+        />Dessert
+      </label>
+    </div>
+    <div *ngIf="getFormErrors('type')" class="d-block invalid-feedback col-sm">
+      Veuillez choisir un Catégorie
+    </div>
+  </div>
+
   <textarea
     class="form-control"
-    rows="3"
+    rows="4"
     formControlName="description"
     placeholder="Description"
     [ngClass]="{
       'is-invalid':
-        description.invalid && (description.dirty || description.touched)
+        (description.invalid && (description.dirty || description.touched)) ||
+        getFormErrors('description')
     }"
+    (keyup)="setShowToFalse('description')"
   ></textarea>
+  <div
+    *ngIf="
+      (description.invalid && (description.dirty || description.touched)) ||
+      getFormErrors('description')
+    "
+    class="invalid-feedback col-sm"
+  >
+    Veuillez entrer une Description pour le recette
+  </div>
 </form>

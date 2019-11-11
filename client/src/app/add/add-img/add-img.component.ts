@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { CropperComponent } from "angular-cropperjs";
-import { AddService } from "../add.service";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CropperComponent } from 'angular-cropperjs';
+import { AddService } from '../add.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "ngbd-cropper-modal",
+  selector: 'ngbd-cropper-modal',
   template: `
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Choisir une image</h4>
@@ -50,10 +50,10 @@ import { ActivatedRoute } from "@angular/router";
         </button>
       </div>
     </div>
-  `
+  `,
 })
 export class NgbdCropperModal {
-  @ViewChild("angularCropper", { static: false })
+  @ViewChild('angularCropper', { static: false })
   angularCropper: CropperComponent;
 
   // CropperJS
@@ -63,12 +63,12 @@ export class NgbdCropperModal {
     responsive: true,
     aspectRatio: 16 / 9,
     zoomable: true,
-    zoomOnWheel: true
+    zoomOnWheel: true,
   };
 
   constructor(
     public activeModal: NgbActiveModal,
-    private addService: AddService
+    private addService: AddService,
   ) {
     this.imageUrl = this.addService.imageUrl;
   }
@@ -84,7 +84,7 @@ export class NgbdCropperModal {
       return;
     }
 
-    this.addService.imageUrl = "";
+    this.addService.imageUrl = '';
     const reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onload = _event => {
@@ -95,25 +95,26 @@ export class NgbdCropperModal {
 
   save() {
     this.activeModal.dismiss(
-      this.angularCropper.cropper.getCroppedCanvas().toDataURL()
+      this.angularCropper.cropper.getCroppedCanvas().toDataURL(),
     );
   }
 }
 
 @Component({
-  selector: "app-add-img",
-  templateUrl: "./add-img.component.html",
-  styleUrls: ["./add-img.component.scss"]
+  selector: 'app-add-img',
+  templateUrl: './add-img.component.html',
+  styleUrls: ['./add-img.component.scss'],
 })
 export class AddImgComponent implements OnInit {
   croppedImg: string;
+  displayRefresh: boolean = false;
 
   constructor(private modalService: NgbModal, private router: ActivatedRoute) {}
 
   ngOnInit() {
-    if (this.router.snapshot.url[0].path === "modification") {
+    if (this.router.snapshot.url[0].path === 'modification') {
       this.croppedImg =
-        "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
+        'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
     }
   }
 
@@ -121,10 +122,14 @@ export class AddImgComponent implements OnInit {
     await this.modalService.open(NgbdCropperModal).result.then(
       _ => {},
       reason => {
-        if (reason !== "Cross click") {
+        if (reason !== 'Cross click') {
           this.croppedImg = reason;
         }
-      }
+      },
     );
+  }
+
+  showRefresh(ans: boolean): void {
+    this.displayRefresh = ans;
   }
 }

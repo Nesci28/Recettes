@@ -1,7 +1,7 @@
 export interface Ingredients {
   ingredient: string;
   quantity: string;
-  type: string;
+  ingType: string;
   unit: string;
   disabled?: boolean;
 }

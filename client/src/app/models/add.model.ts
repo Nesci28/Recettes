@@ -1,6 +1,6 @@
 export interface IngredientList {
   ingredient: string;
-  type: string;
+  ingType: string;
   quantity: string;
   unit: string;
 }

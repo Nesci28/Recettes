@@ -1,10 +1,16 @@
 <div>
-  <app-add-header #addHeader></app-add-header>
-  <app-add-img></app-add-img>
-  <app-add-ingredients></app-add-ingredients>
-  <app-add-instructions></app-add-instructions>
+  <div class="row max-auto h-100 mb-4">
+    <app-add-header class="col-sm-8"></app-add-header>
+    <app-add-img class="col-sm-4"></app-add-img>
+  </div>
+  <div class="mb-4">
+    <app-add-ingredients></app-add-ingredients>
+  </div>
+  <div class="mb-4">
+    <app-add-instructions></app-add-instructions>
+  </div>
   <app-add-keywords></app-add-keywords>
-  <button class="btn btn-success mx-auto d-flex" (click)="onSubmit()">
+  <button class="btn btn-success mx-auto d-flex px-5" (click)="onSubmit()">
     Ajouter
   </button>
 </div>

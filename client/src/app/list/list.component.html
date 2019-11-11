@@ -11,10 +11,7 @@
     />
   </form>
   <div *ngIf="selectedMeals.length > 0">
-    <ul
-      [sortablejs]="selectedMeals"
-      class="list-group row mx-auto flex-row mb-3"
-    >
+    <ul class="list-group row mx-auto flex-row mb-3">
       <li
         class="list-group-item d-flex justify-content-between align-items-center col-sm-6 col-md-6 col-lg-4 pointer"
         *ngFor="let meal of selectedMeals"
