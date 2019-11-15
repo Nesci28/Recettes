@@ -106,16 +106,18 @@ export class NgbdCropperModal {
   styleUrls: ['./add-img.component.scss'],
 })
 export class AddImgComponent implements OnInit {
+  @ViewChild('angularCropper', { static: false })
+  angularCropper: CropperComponent;
+
   croppedImg: string;
-  displayRefresh: boolean = false;
 
   constructor(private modalService: NgbModal, private router: ActivatedRoute) {}
 
   ngOnInit() {
-    if (this.router.snapshot.url[0].path === 'modification') {
-      this.croppedImg =
-        'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
-    }
+    // if (this.router.snapshot.url[0].path === 'modification') {
+    //   this.croppedImg =
+    //     'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+    // }
   }
 
   async open() {
@@ -129,7 +131,7 @@ export class AddImgComponent implements OnInit {
     );
   }
 
-  showRefresh(ans: boolean): void {
-    this.displayRefresh = ans;
+  delete(): void {
+    this.croppedImg = '';
   }
 }

@@ -1,30 +1,29 @@
-<div
-  class="h-100 row mx-auto img-thumbnail justify-content-center"
-  [ngClass]="{
-    'align-items-end': !croppedImg,
-    'align-items-center': croppedImg
-  }"
->
+<div class="h-100 img-thumbnail">
   <div
-    style="position:relative; text-align: center;"
-    [ngClass]="{ 'img-hover': croppedImg }"
+    *ngIf="croppedImg"
+    class="img-dark-overlay h-100 justify-content-center align-items-end"
+  >
+    <button *ngIf="croppedImg" class="btn btn-link">
+      <i class="far fa-trash-alt fa-2x text-info" (click)="delete()"></i>
+    </button>
+    <button *ngIf="croppedImg" class="btn btn-link">
+      <i class="fas fa-sync fa-2x text-info" (click)="open()"></i>
+    </button>
+  </div>
+
+  <div
+    class="d-flex justify-content-center align-items-center h-100 text-center"
   >
     <img
+      *ngIf="croppedImg"
       style="border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;"
       [ngClass]="{ 'img-wrapper': croppedImg }"
       src="{{ croppedImg }}"
       alt=""
     />
-    <div
-      (mouseenter)="showRefresh(true)"
-      (mouseleave)="showRefresh(false)"
-      [ngClass]="{ 'img-overlay': croppedImg }"
-    >
-      <button *ngIf="!croppedImg" class="btn btn-info" (click)="open()">
+    <div class="h-100 d-flex justify-content-center align-items-end">
+      <button *ngIf="!croppedImg" class="btn btn-info mb-3" (click)="open()">
         Importer une image
-      </button>
-      <button *ngIf="croppedImg && displayRefresh" class="btn btn-link">
-        <i class="fas fa-sync fa-2x" (click)="open()"></i>
       </button>
     </div>
   </div>
