@@ -4,3 +4,25 @@
   margin: auto;
   display: block;
 }
+
+.img {
+  &-responsive {
+    @media screen and (max-width: 576px) {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.instruction {
+  &-show {
+    margin-left: 1rem;
+    width: 100%;
+  }
+  &-hidden {
+    height: 100%;
+    padding-right: 1rem;
+  }
+  &-divider {
+    border-right: 2px solid #333;
+  }
+}

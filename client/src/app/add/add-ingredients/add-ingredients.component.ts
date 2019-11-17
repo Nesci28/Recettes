@@ -1,11 +1,15 @@
-import { Component, OnInit, QueryList } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IngredientList } from 'src/app/models/add.model';
-import { AddService } from '../add.service';
 import { ActivatedRoute } from '@angular/router';
-import { MealService } from 'src/app/meal.service';
-import { BaseComponent } from 'src/app/base/base.component';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { BaseComponent } from 'src/app/base/base.component';
+import { MealService } from 'src/app/meal.service';
+import { IngredientList } from 'src/app/models/add.model';
+import { Meal } from 'src/app/models/repas.model';
+
+import { AddService } from '../add.service';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-ingredients',
@@ -14,6 +18,7 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 })
 export class AddIngredientsComponent extends BaseComponent implements OnInit {
   errors: { name: string; validators: string[]; show: boolean }[];
+  meals: Meal[] = [];
   typeArr: string[] = [
     'Produit laitier',
     'Légume',
@@ -43,6 +48,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
   });
 
   ingredientList: IngredientList[] = [];
+  ingredientChoices: IngredientList[] = [];
 
   constructor(
     private addService: AddService,
@@ -60,8 +66,10 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe(errors => {
         this.errors = errors;
-        console.log(this.errors);
       });
+    this.mealService.meals$.pipe(takeUntil(this.destroy$)).subscribe(meals => {
+      this.meals = meals;
+    });
   }
 
   get ingredient() {
@@ -93,7 +101,10 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
       quantity: this.quantity.value,
       unit: this.unitArr[this.unit.value - 1].toLowerCase(),
     });
-    this.ingredientForm.reset();
+    this.ingredient.setValue('');
+    this.ingType.setValue('');
+    this.quantity.setValue('');
+    this.unit.setValue('');
   }
 
   removeIngredient(ingredient: IngredientList): void {
@@ -110,13 +121,63 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
     this.addService.setShowToFalse(input);
   }
 
-  getFilteredList(): any {
+  getFilteredList(): IngredientList[] {
     const result = this.ingredientList.reduce(function(r, a) {
       r[a.ingType] = r[a.ingType] || [];
       r[a.ingType].push(a);
       return r;
     }, Object.create(null));
-    console.log(Object.values(result));
     return Object.values(result);
   }
+
+  checkForSameIngredient(): string[] {
+    const tempChoices = new Set();
+    const ingredientChoices = [];
+    this.meals.forEach(meal => {
+      const sameIng = meal.ingredients.filter(ing =>
+        ing.ingredient
+          .toLowerCase()
+          .startsWith(this.ingredient.value.toLowerCase()),
+      );
+      if (sameIng.length > 0) {
+        sameIng.forEach(el => tempChoices.add(JSON.stringify(el)));
+      }
+    });
+    tempChoices.forEach((ing: string) => {
+      this.ingredientChoices.push(JSON.parse(ing));
+      ingredientChoices.push(JSON.parse(ing).ingredient);
+    });
+    return ingredientChoices;
+  }
+
+  itemSelected($event): void {
+    let ingredient: any = this.ingredientChoices.filter(
+      ing => ing.ingredient === $event.item,
+    )[0];
+
+    let unit = ingredient.quantity;
+    unit = unit.split(' ').pop();
+    if (unit === 'tasses') {
+      unit = 'tasse';
+    }
+    this.unit.setValue(this.unitArr.indexOf(unit) + 1);
+
+    let type = ingredient.type;
+    if (type === 'dairy') {
+      type = 'Produit laitier';
+    }
+    type = type.charAt(0).toUpperCase() + type.slice(1);
+    this.ingType.setValue(this.typeArr.indexOf(type) + 1);
+  }
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term =>
+        this.checkForSameIngredient()
+          .filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)
+          .slice(0, 10),
+      ),
+    );
 }

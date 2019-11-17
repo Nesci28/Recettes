@@ -1,23 +1,43 @@
 .img-container {
-  /* Never limit the container height here */
   max-width: 100%;
 }
 
 .img-container img {
-  /* This is important */
   width: 100%;
+}
+
+.img {
+  &-responsive {
+    @media screen and (max-width: 576px) {
+      height: 200px !important;
+      max-height: 200px !important;
+    }
+  }
 }
 
 .img-wrapper {
   width: 90%;
   height: auto;
   position: relative;
+
+  @media screen and (max-width: 576px) {
+    max-height: 168px;
+    width: 60%;
+  }
 }
 
 .img-thumbnail {
-  position: absolute;
   width: 100%;
   padding: 0;
+
+  @media screen and (min-width: 576px) {
+    position: absolute;
+  }
+  @media screen and (max-width: 575px) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
 }
 
 .img-dark-overlay {
@@ -28,9 +48,13 @@
   opacity: 0.65;
   color: white;
   z-index: 1;
+  border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
+
+  @media screen and (max-width: 576px) {
+    height: 200px !important;
+  }
 }
 
 .img-thumbnail:hover > .img-dark-overlay {
   display: flex;
-  border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
 }

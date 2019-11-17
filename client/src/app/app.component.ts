@@ -1,28 +1,28 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import data from "../assets/meals.json";
-import { Meal } from "./models/repas.model";
+import { Meal } from './models/repas.model';
+import { MealService } from './meal.service.js';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = "Recettes de la Famille Harvey";
+  title = 'Recettes de la Famille Harvey';
   isNavbarCollapsed = true;
-  meals: Meal[] = data;
+  meals: Meal[] = [];
 
   query: string;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private mealService: MealService) {}
 
   ngOnInit() {}
 
   search(): void {
     const query = this.query;
-    this.query = "";
+    this.query = '';
     this.router.navigateByUrl(`/recherche/${query}`);
   }
 }

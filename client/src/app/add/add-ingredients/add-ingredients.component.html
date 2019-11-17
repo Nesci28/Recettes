@@ -1,10 +1,12 @@
 <form class="row mx-auto" [formGroup]="ingredientForm">
   <input
-    autocomplete="off"
+    id="typeahead-basic"
     type="text"
     class="form-control col-sm"
-    placeholder="Ingrédient"
     formControlName="ingredient"
+    [ngbTypeahead]="search"
+    (selectItem)="itemSelected($event)"
+    placeholder="Ingrédient"
   />
   <select class="custom-select py-2 col-sm" formControlName="ingType">
     <option value="" disabled selected hidden>Type</option>
@@ -46,7 +48,7 @@
   >
     <li
       class="list-group-item d-flex justify-content-between align-items-center col-sm-6 col-md-4 col-lg-4"
-      *ngFor="let ingredient of typeArr"
+      *ngFor="let ing of typeArr"
       [ngClass]="{
         'list-disabled': ingredient.disabled,
         'ingredient-legume': ingredient.ingType === 'légume',
@@ -57,10 +59,10 @@
         'ingredient-autre': ingredient.ingType === 'autre'
       }"
     >
-      {{ ingredient.ingredient }}
+      {{ ing.ingredient }}
       <div>
         <span class="badge badge-primary mr-2"
-          >{{ ingredient.quantity }} / {{ ingredient.unit }}</span
+          >{{ ing.quantity }} / {{ ing.unit }}</span
         >
         <span
           class="badge badge-pill badge-danger pointer"

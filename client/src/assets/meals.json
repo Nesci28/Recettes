@@ -19,10 +19,20 @@
       }
     ],
     "instructions": [
-      {
-        "instruction": "test test test",
-        "disabled": false
-      },
+      [
+        {
+          "instruction": "Ouvrir le four a 400",
+          "disabled": false,
+          "author": "Marie",
+          "selected": false
+        },
+        {
+          "instruction": "Ouvrir le four a 450",
+          "disabled": false,
+          "author": "Krystelle",
+          "selected": true
+        }
+      ],
       {
         "instruction": "test1 test1 test1",
         "disabled": false

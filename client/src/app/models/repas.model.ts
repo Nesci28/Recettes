@@ -9,6 +9,8 @@ export interface Ingredients {
 export interface Instruction {
   instruction: string;
   disabled?: boolean;
+  author?: string;
+  selected?: boolean;
 }
 
 export interface Meal {

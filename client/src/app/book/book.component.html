@@ -1,0 +1,17 @@
+<div>
+  <div *ngIf="noneSelectedError" class="alert alert-dismissible alert-danger">
+    <button
+      type="button"
+      class="close"
+      data-dismiss="alert"
+      (click)="dismissError()"
+    >
+      &times;
+    </button>
+    <strong>Erreur</strong>
+    Veuillez selectionner des recettes pour créer un livre.
+  </div>
+  <h3 class="text-center">Sélectionnez les recette désirées</h3>
+  <app-list #listComponent></app-list>
+  <button class="btn btn-success" (click)="generatePDF()">Créer</button>
+</div>

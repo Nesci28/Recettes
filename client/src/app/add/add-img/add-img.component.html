@@ -1,12 +1,12 @@
-<div class="h-100 img-thumbnail">
+<div class="h-100 img-thumbnail mx-auto">
   <div
     *ngIf="croppedImg"
     class="img-dark-overlay h-100 justify-content-center align-items-end"
   >
-    <button *ngIf="croppedImg" class="btn btn-link">
+    <button class="btn btn-link">
       <i class="far fa-trash-alt fa-2x text-info" (click)="delete()"></i>
     </button>
-    <button *ngIf="croppedImg" class="btn btn-link">
+    <button class="btn btn-link">
       <i class="fas fa-sync fa-2x text-info" (click)="open()"></i>
     </button>
   </div>
