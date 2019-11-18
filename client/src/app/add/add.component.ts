@@ -1,14 +1,15 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { BaseComponent } from '../base/base.component';
+import { HttpCallService } from '../http-call.service';
 import { Meal } from '../models/repas.model';
 import { AddHeaderComponent } from './add-header/add-header.component';
 import { AddIngredientsComponent } from './add-ingredients/add-ingredients.component';
-import { AddService } from './add.service';
-import { HttpCallService } from '../http-call.service';
 import { AddInstructionsComponent } from './add-instructions/add-instructions.component';
+import { AddService } from './add.service';
+import { MealService } from '../meal.service';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 @Component({
   selector: 'app-add',
@@ -30,19 +31,26 @@ export class AddComponent extends BaseComponent implements OnInit {
 
   constructor(
     private addService: AddService,
-    private router: ActivatedRoute,
-    private httpCallService: HttpCallService,
+    private route: ActivatedRoute,
+    private mealService: MealService,
   ) {
     super();
   }
 
   ngOnInit() {
-    if (this.router.snapshot.params.id) {
-      this.httpCallService.getMeal().subscribe(meals => {
-        this.meal = meals.filter(
-          meal => meal.id === +this.router.snapshot.params.id,
-        );
-      });
+    if (this.route.snapshot.params.id) {
+      this.mealService.meals$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((meals: Meal[]) => {
+          const name = this.route.snapshot.params.id.replace(/_/g, ' ');
+          const type = this.route.snapshot.params.type;
+          const meal = meals.filter(
+            meal => meal.name === name && meal.type === type,
+          );
+          if (meal.length > 0) {
+            this.meal = meal[0];
+          }
+        });
     }
   }
 

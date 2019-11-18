@@ -37,6 +37,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
     'g',
     'kg',
     'lb',
+    'unité',
   ];
 
   // Forms

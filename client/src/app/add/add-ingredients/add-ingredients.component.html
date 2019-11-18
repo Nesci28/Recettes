@@ -62,11 +62,11 @@
       {{ ing.ingredient }}
       <div>
         <span class="badge badge-primary mr-2"
-          >{{ ing.quantity }} / {{ ing.unit }}</span
+          >{{ ing.quantity }} {{ ing.unit }}</span
         >
         <span
           class="badge badge-pill badge-danger pointer"
-          (click)="removeIngredient(ingredient)"
+          (click)="removeIngredient(ing)"
         >
           <span aria-hidden="true">&times;</span>
         </span>

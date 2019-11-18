@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Meal } from './models/repas.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
-import data from '../assets/meals.json';
+import { HttpCallService } from './http-call.service';
+import { Meal } from './models/repas.model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,11 +11,9 @@ export class MealService {
   meal: Meal;
   meals$: BehaviorSubject<Meal[]> = new BehaviorSubject<Meal[]>([]);
 
-  constructor() {
-    this.getMeals();
-  }
-
-  getMeals(): void {
-    this.meals$.next(data);
+  constructor(private httpCallService: HttpCallService) {
+    this.httpCallService.getMeals().subscribe(meals => {
+      this.meals$.next(meals);
+    });
   }
 }

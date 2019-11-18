@@ -95,11 +95,21 @@ export class ListComponent extends BaseComponent implements OnInit {
         }
         if (!cont) break;
       }
-      this.router.navigateByUrl(
-        `/presentation/${
-          this.route.snapshot.params.id
-        }/${this.mealService.meal.name.replace(/ /g, '_')}`,
-      );
+      if (this.route.snapshot.params.id !== 'recherche') {
+        this.router.navigateByUrl(
+          `/presentation/${
+            this.route.snapshot.params.id
+          }/${this.mealService.meal.name.replace(/ /g, '_')}`,
+        );
+      } else {
+        console.log('repas :', repas);
+        this.router.navigateByUrl(
+          `/presentation/${repas.type}/${this.mealService.meal.name.replace(
+            / /g,
+            '_',
+          )}`,
+        );
+      }
     } else {
       if (this.bookSelected.filter(e => e.id === repas.id).length === 0) {
         this.book.push(repas);
@@ -140,5 +150,11 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   checkIfSelected(meal: Meal): boolean {
     return this.bookSelected.filter(e => e.id === meal.id).length === 1;
+  }
+
+  getMealCategory(index: number): Meal[] {
+    const searchCategory =
+      index === 1 ? 'entrees' : index === 2 ? 'principal' : 'desserts';
+    return this.meals.filter(meal => meal.type === searchCategory);
   }
 }

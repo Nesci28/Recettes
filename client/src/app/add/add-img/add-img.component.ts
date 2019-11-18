@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CropperComponent } from 'angular-cropperjs';
 import { AddService } from '../add.service';
 import { ActivatedRoute } from '@angular/router';
+import { Meal } from 'src/app/models/repas.model';
 
 @Component({
   selector: 'ngbd-cropper-modal',
@@ -107,6 +108,9 @@ export class NgbdCropperModal {
 })
 export class AddImgComponent implements OnInit {
   @ViewChild('angularCropper', { static: false })
+  @Input()
+  meal: Meal;
+
   angularCropper: CropperComponent;
 
   croppedImg: string;
@@ -114,10 +118,9 @@ export class AddImgComponent implements OnInit {
   constructor(private modalService: NgbModal, private router: ActivatedRoute) {}
 
   ngOnInit() {
-    // if (this.router.snapshot.url[0].path === 'modification') {
-    //   this.croppedImg =
-    //     'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
-    // }
+    if (this.router.snapshot.url[0].path === 'modification') {
+      this.croppedImg = this.meal.image;
+    }
   }
 
   async open() {

@@ -1,41 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { MealService } from '../meal.service';
-import { Meal } from '../models/repas.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpCallService } from '../http-call.service';
-import { isArray } from 'util';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+
+import { BaseComponent } from '../base/base.component';
+import { MealService } from '../meal.service';
+import { Instruction, Meal } from '../models/repas.model';
 
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',
   styleUrls: ['./meal.component.scss'],
 })
-export class MealComponent implements OnInit {
+export class MealComponent extends BaseComponent implements OnInit {
   meal: Meal;
 
   constructor(
     private mealService: MealService,
     private route: ActivatedRoute,
     private router: Router,
-    private httpCallservice: HttpCallService,
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    this.meal = this.mealService.meal;
-    if (!this.meal) {
-      this.httpCallservice.getMeal().subscribe(meals => {
-        this.meal = meals.filter(
-          meal =>
-            meal.type === this.route.snapshot.params.type &&
-            meal.name.replace(/ /g, '_') === this.route.snapshot.params.id,
-        )[0];
-        this.mealService.meal = this.meal;
-      });
+    if (this.mealService.meal) {
+      this.meal = this.mealService.meal;
+      this.prepareMeal();
+    } else {
+      this.mealService.meals$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((meals: Meal[]) => {
+          const name = this.route.snapshot.params.id.replace(/_/g, ' ');
+          const type = this.route.snapshot.params.type;
+          const meal = meals.filter(
+            meal => meal.name === name && meal.type === type,
+          );
+          if (meal.length > 0) {
+            this.meal = meal[0];
+            this.prepareMeal();
+          }
+        });
     }
   }
 
   getImage(): string {
-    return `../../assets/${this.mealService.meal.name
+    return `../../assets/${this.meal.name
       .toLowerCase()
       .replace(/ /g, '_')}.jpg`;
   }
@@ -46,7 +55,21 @@ export class MealComponent implements OnInit {
     );
   }
 
-  checkTypeOfInstruction(instruction): boolean {
-    return isArray(instruction);
+  showOrDisableInstruction(
+    instructions: Instruction[],
+    step: Instruction,
+  ): void {
+    if (step.selected) {
+      step.disabled = !step.disabled;
+    } else {
+      instructions.forEach(instruction => (instruction.selected = false));
+      step.selected = true;
+    }
+  }
+
+  prepareMeal(): void {
+    this.meal.instructions.forEach((step: any) => {
+      step[step.length - 1].selected = true;
+    });
   }
 }

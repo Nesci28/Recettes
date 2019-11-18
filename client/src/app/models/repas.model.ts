@@ -8,18 +8,19 @@ export interface Ingredients {
 
 export interface Instruction {
   instruction: string;
-  disabled?: boolean;
-  author?: string;
-  selected?: boolean;
+  disabled: boolean;
+  author: string;
+  selected: boolean;
 }
 
 export interface Meal {
   name: string;
   id: number;
   type: string;
-  description?: string;
+  description: string;
   keywords: string[];
   ingredients: Ingredients[];
   instructions: Instruction[];
   filtered: boolean;
+  image?: string;
 }

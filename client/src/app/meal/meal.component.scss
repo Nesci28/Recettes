@@ -15,14 +15,15 @@
 
 .instruction {
   &-show {
-    margin-left: 1rem;
     width: 100%;
   }
-  &-hidden {
-    height: 100%;
-    padding-right: 1rem;
-  }
   &-divider {
-    border-right: 2px solid #333;
+    &-not-last {
+      border-right: 2px solid #333;
+    }
   }
+}
+
+.bg-white {
+  background-color: #fff;
 }

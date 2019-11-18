@@ -1,6 +1,6 @@
-<div>
+<div *ngIf="meal">
   <div class="row h-100 mb-4 w-100 mx-auto">
-    <app-add-header class="col-sm-8 p-0"></app-add-header>
+    <app-add-header [meal]="meal" class="col-sm-8 p-0"></app-add-header>
     <app-add-img class="col-sm-4 p-0"></app-add-img>
   </div>
   <div class="mb-4">

@@ -8,13 +8,29 @@ import { MealComponent } from './meal/meal.component';
 import { BookComponent } from './book/book.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'liste/:id', component: ListComponent },
-  { path: 'ajouter', component: AddComponent },
-  { path: 'presentation/:type/:id', component: MealComponent },
-  { path: 'modification/:type/:id', component: AddComponent },
-  { path: ':id/:query', component: ListComponent },
-  { path: 'livre', component: BookComponent },
+  { path: '', component: HomeComponent, data: { animationState: 'Home' } },
+  {
+    path: 'liste/:id',
+    component: ListComponent,
+    data: { animationState: 'One' },
+  },
+  { path: 'ajouter', component: AddComponent, data: { animationState: 'Two' } },
+  {
+    path: 'presentation/:type/:id',
+    component: MealComponent,
+    data: { animationState: 'Three' },
+  },
+  {
+    path: 'modification/:type/:id',
+    component: AddComponent,
+    data: { animationState: 'Four' },
+  },
+  {
+    path: ':id/:query',
+    component: ListComponent,
+    data: { animationState: 'Five' },
+  },
+  { path: 'livre', component: BookComponent, data: { animationState: 'Six' } },
 ];
 
 @NgModule({
