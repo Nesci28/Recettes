@@ -1,0 +1,21 @@
+<ngb-carousel
+  #carousel
+  interval="2000"
+  [pauseOnHover]="pauseOnHover"
+  (slide)="onSlide($event)"
+>
+  <ng-template ngbSlide *ngFor="let img of images; index as i">
+    <div class="carousel-caption">
+      <h1>Livre de recettes de la Famille Harvey</h1>
+    </div>
+    <a
+      href="https://www.google.fr/?q=Number+{{ i + 1 }}"
+      target="_blank"
+      rel="nofollow noopener noreferrer"
+    >
+      <div class="picsum-img-wrapper">
+        <img [src]="img" alt="Livre de recettes de la Famille Harvey" />
+      </div>
+    </a>
+  </ng-template>
+</ngb-carousel>

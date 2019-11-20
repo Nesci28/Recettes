@@ -2,6 +2,45 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import './bootstrap.min.css';
 
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: none;
+}
+
+.carousel-control-next-icon:after {
+  content: '→';
+  font-size: 55px;
+  color: #17a2b8;
+}
+
+.carousel-control-prev-icon:after {
+  content: '←';
+  font-size: 55px;
+  color: #17a2b8;
+}
+.carousel-item {
+  /* Force to always be block */
+  display: block !important;
+  position: absolute;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 0.6s;
+  visibility: hidden;
+}
+
+.carousel-item.active {
+  position: relative;
+  transform: translateX(0%);
+  visibility: visible;
+  opacity: 1;
+}
+
+h1 {
+  color: #17a2b8;
+  // font-weight: bold;
+  font-size: 5rem;
+}
+
 .pointer {
   cursor: pointer;
 }

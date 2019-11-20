@@ -1,0 +1,8 @@
+.navbar {
+  z-index: 1;
+  &-home {
+    position: absolute !important;
+    width: 100% !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+}
