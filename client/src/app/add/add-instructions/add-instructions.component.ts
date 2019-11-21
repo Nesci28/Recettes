@@ -39,7 +39,6 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe(errors => {
         this.errors = errors;
-        console.log('errors2', this.errors);
       });
   }
 

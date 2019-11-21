@@ -21,6 +21,6 @@ export interface Meal {
   keywords: string[];
   ingredients: Ingredients[];
   instructions: Instruction[];
-  filtered: boolean;
+  filtered?: boolean;
   image?: string;
 }

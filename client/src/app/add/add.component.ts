@@ -10,6 +10,12 @@ import { AddInstructionsComponent } from './add-instructions/add-instructions.co
 import { AddService } from './add.service';
 import { MealService } from '../meal.service';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { AddKeywordsComponent } from './add-keywords/add-keywords.component';
+
+interface Alert {
+  type: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-add',
@@ -26,13 +32,17 @@ export class AddComponent extends BaseComponent implements OnInit {
   @ViewChildren(AddInstructionsComponent) addInstructionsComponent: QueryList<
     AddInstructionsComponent
   >;
-
+  @ViewChildren(AddKeywordsComponent) addKeywordsComponent: QueryList<
+    AddKeywordsComponent
+  >;
+  alert: Alert = {} as Alert;
   meal: Meal;
 
   constructor(
     private addService: AddService,
     private route: ActivatedRoute,
     private mealService: MealService,
+    private httpService: HttpCallService,
   ) {
     super();
   }
@@ -70,11 +80,36 @@ export class AddComponent extends BaseComponent implements OnInit {
       errors === 0 &&
       this.addIngredientsComponent.last.ingredientList.length > 0
     ) {
-      const values = this.addService.getValues([this.addHeaderComponent]);
+      const values = this.makeTheObject();
       console.log('values :', values);
-      console.log('sent!');
+      this.httpService
+        .addMeal(values)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          _ => {
+            this.alert.message = 'Recette ajoutée avec succès!';
+            this.alert.type = 'success';
+          },
+          _ => {
+            this.alert.message =
+              'Il semble avoir un problème de connexion, réessayer plus tard!';
+            this.alert.type = 'danger';
+          },
+        );
     } else {
       console.log('errors :', errors);
     }
+  }
+
+  makeTheObject() {
+    const values: any = {};
+    const header: any = this.addService.getValues([this.addHeaderComponent]);
+    values.name = header.nameForm.name;
+    values.description = header.nameForm.description;
+    values.type = header.nameForm.type;
+    values.ingredients = this.addIngredientsComponent.last.ingredientList;
+    values.instructions = [this.addInstructionsComponent.last.instructionList];
+    values.keywords = this.addKeywordsComponent.last.keywordsList;
+    return values;
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
@@ -48,12 +48,17 @@ export class AddService {
     }
   }
 
-  getValues(components) {
+  getValues(components: any[]) {
     const values = {};
     components.forEach(component => {
       Object.keys(component.first).forEach(form => {
-        if (form !== 'addService') {
+        if (
+          form.toLowerCase().includes('form') &&
+          !form.toLowerCase().includes('error')
+        ) {
+          console.log('form :', form);
           Object.keys(component.first[form].controls).forEach(input => {
+            console.log('input :', input);
             if (!values[form]) {
               values[form] = {};
             }

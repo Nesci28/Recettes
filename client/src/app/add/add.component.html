@@ -1,4 +1,5 @@
 <div>
+  <ngb-alert *ngIf="alert" [type]="alert.type">{{ alert.message }}</ngb-alert>
   <div class="row h-100 mb-4 w-100 mx-auto">
     <app-add-header [meal]="meal" class="col-sm-8 p-0"></app-add-header>
     <app-add-img class="col-sm-4 p-0"></app-add-img>

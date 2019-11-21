@@ -7,6 +7,13 @@
   background-image: none;
 }
 
+.carousel-control-next,
+.carousel-control-prev {
+  height: calc(100% - 60px);
+  top: 60px;
+  width: 10%;
+}
+
 .carousel-control-next-icon:after {
   content: '→';
   font-size: 55px;
