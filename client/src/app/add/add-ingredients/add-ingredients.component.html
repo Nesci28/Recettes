@@ -1,45 +1,54 @@
-<form class="row mx-auto" [formGroup]="ingredientForm">
-  <input
-    id="typeahead-basic"
-    type="text"
-    class="form-control col-sm"
-    formControlName="ingredient"
-    [ngbTypeahead]="search"
-    (selectItem)="itemSelected($event)"
-    placeholder="Ingrédient"
-  />
-  <select class="custom-select py-2 col-sm" formControlName="ingType">
-    <option value="" disabled selected hidden>Type</option>
-    <option *ngFor="let type of typeArr; index as i" value="{{ i + 1 }}">{{
-      type
-    }}</option>
-  </select>
-  <input
-    autocomplete="off"
-    type="text"
-    class="form-control col-sm"
-    placeholder="Quantité"
-    formControlName="quantity"
-  />
-  <select class="custom-select py-2 col-sm" formControlName="unit">
-    <option value="" disabled selected hidden>Unité</option>
-    <option *ngFor="let unit of unitArr; index as i" value="{{ i + 1 }}">{{
-      unit
-    }}</option>
-  </select>
-  <button
-    class="col-sm-1 btn btn-info d-flex justify-content-center"
-    (click)="submitIngredient()"
-  >
-    <i class="far fa-plus-square"></i>
-  </button>
-</form>
-<div
-  *ngIf="getFormErrors('ingredient')"
-  class="d-block invalid-feedback col-sm"
+<form
+  class="row mx-auto bg-info p-3 card d-flex"
+  style="flex-direction: inherit;"
+  [formGroup]="ingredientForm"
 >
-  Veuillez entrer les Ingredients de la recette
-</div>
+  <div class="pr-2 w-50">
+    <input
+      id="typeahead-basic"
+      type="text"
+      class="form-control col-sm mb-1"
+      formControlName="ingredient"
+      [ngbTypeahead]="search"
+      (selectItem)="itemSelected($event)"
+      placeholder="Ingrédient"
+    />
+    <select class="custom-select py-2 col-sm" formControlName="ingType">
+      <option value="" disabled selected hidden>Type</option>
+      <option *ngFor="let type of typeArr; index as i" value="{{ i + 1 }}">{{
+        type
+      }}</option>
+    </select>
+  </div>
+  <div class="w-50">
+    <input
+      autocomplete="off"
+      type="text"
+      class="form-control col-sm mb-1"
+      placeholder="Quantité"
+      formControlName="quantity"
+    />
+    <select class="custom-select py-2 col-sm" formControlName="unit">
+      <option value="" disabled selected hidden>Unité</option>
+      <option *ngFor="let unit of unitArr; index as i" value="{{ i + 1 }}">{{
+        unit
+      }}</option>
+    </select>
+  </div>
+  <div *ngIf="getFormErrors('ingredient')" class="dp-0 font-size-1 w-100 my-2">
+    <span class="badge badge-danger w-100"
+      >Veuillez entrer les Ingredients de la recette</span
+    >
+  </div>
+  <div class="w-100 text-right">
+    <p
+      (click)="submitIngredient()"
+      class="pointer d-inline border-dark border-bottom"
+    >
+      Ajouter l'ingrédient <i class="far fa-plus-square"></i>
+    </p>
+  </div>
+</form>
 
 <div *ngIf="ingredientList.length > 0">
   <ul

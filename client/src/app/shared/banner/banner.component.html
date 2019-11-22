@@ -1,15 +1,24 @@
-<ngb-carousel
-  #carousel
-  interval="2000"
-  [pauseOnHover]="pauseOnHover"
-  (slide)="onSlide($event)"
->
+<ngb-carousel #carousel interval="3000" class="desktop">
   <ng-template ngbSlide *ngFor="let img of images; index as i">
-    <div class="carousel-caption">
-      <h1>Livre de recettes de la Famille Harvey</h1>
+    <div class="carousel-caption" style="background-color: rgba(0,0,0,0.5);">
+      <h1 style="color: #fff;">Livre de recettes de la Famille Harvey</h1>
     </div>
     <div class="picsum-img-wrapper">
       <img [src]="img" alt="Livre de recettes de la Famille Harvey" />
     </div>
   </ng-template>
 </ngb-carousel>
+
+<div class="mobile img-container">
+  <img
+    style="height: 100vh;"
+    src="../../../assets/background_mobile.jpg"
+    alt=""
+  />
+  <h1
+    class="p-4 centered"
+    style="background-color: rgba(0,0,0,0.5); color: #fff;"
+  >
+    Livre de recettes de la Famille Harvey
+  </h1>
+</div>

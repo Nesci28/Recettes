@@ -1,3 +1,8 @@
 .badge-pill:hover {
   background-color: darken(#17a2b8, 10%);
 }
+
+p:hover {
+  color: #ffc107;
+  border-color: #ffc107 !important;
+}

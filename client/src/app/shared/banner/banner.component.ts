@@ -1,9 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  NgbCarousel,
-  NgbSlideEvent,
-  NgbSlideEventSource,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-banner',
@@ -23,36 +19,10 @@ export class BannerComponent implements OnInit {
   ];
 
   paused = false;
-  pauseOnHover = true;
 
   @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
 
   constructor() {}
 
   ngOnInit() {}
-
-  togglePaused() {
-    if (this.paused) {
-      this.carousel.cycle();
-    } else {
-      this.carousel.pause();
-    }
-    this.paused = !this.paused;
-  }
-
-  onSlide(slideEvent: NgbSlideEvent) {
-    if (
-      slideEvent.paused &&
-      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT ||
-        slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)
-    ) {
-      this.togglePaused();
-    }
-    if (
-      !slideEvent.paused &&
-      slideEvent.source === NgbSlideEventSource.INDICATOR
-    ) {
-      this.togglePaused();
-    }
-  }
 }

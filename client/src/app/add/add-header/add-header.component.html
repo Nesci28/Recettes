@@ -1,5 +1,5 @@
 <form class="row mx-auto w-100" [formGroup]="nameForm">
-  <div class="col-sm p-0">
+  <div class="col-sm p-0 mb-2">
     <input
       autocomplete="off"
       type="text"
@@ -17,12 +17,13 @@
       *ngIf="
         (name.invalid && (name.dirty || name.touched)) || getFormErrors('name')
       "
-      class="invalid-feedback col-sm"
     >
-      Veuillez entrer le nom de la Recette
+      <span class="badge badge-danger w-100 px-0 d-block"
+        >Veuillez entrer le nom de la Recette</span
+      >
     </div>
   </div>
-  <div class="col-sm p-0">
+  <div class="col-sm p-0 mb-2 ml-sm-2 ml-0">
     <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
       <label
         [ngClass]="{
@@ -73,8 +74,10 @@
         />Dessert
       </label>
     </div>
-    <div *ngIf="getFormErrors('type')" class="d-block invalid-feedback col-sm">
-      Veuillez choisir un Catégorie
+    <div *ngIf="getFormErrors('type')">
+      <span class="badge badge-danger w-100 px-0 d-block"
+        >Veuillez choisir un Catégorie</span
+      >
     </div>
   </div>
 
@@ -95,8 +98,10 @@
       (description.invalid && (description.dirty || description.touched)) ||
       getFormErrors('description')
     "
-    class="invalid-feedback col-sm"
+    class="w-100"
   >
-    Veuillez entrer une Description pour le recette
+    <span class="badge badge-danger w-100 px-0 d-block"
+      >Veuillez entrer une Description pour le recette</span
+    >
   </div>
 </form>

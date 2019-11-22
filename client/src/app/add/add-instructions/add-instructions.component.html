@@ -1,25 +1,27 @@
-<form [formGroup]="instructionForm" class="row mx-auto">
+<form [formGroup]="instructionForm" class="bg-warning card p-3">
   <input
     #instruction
     type="text"
     placeholder="Instruction"
-    class="form-control col-sm-11"
+    class="form-control w-100"
     autocomplete="off"
     formControlName="instruction"
+    (keyup.enter)="submitInstruction()"
   />
-  <button
-    class="col-sm-1 btn btn-info d-flex justify-content-center"
-    (click)="submitInstruction()"
-  >
-    <i class="far fa-plus-square"></i>
-  </button>
+  <div *ngIf="getFormErrors('instruction')" class="w-100">
+    <span class="badge badge-danger w-100 px-0 d-block"
+      >Veuillez entrer les Instructions de la recette</span
+    >
+  </div>
+  <div class="pt-2 w-100 text-right">
+    <p
+      (click)="submitInstruction()"
+      class="pointer d-inline border-dark border-bottom"
+    >
+      Ajouter l'instruction <i class="far fa-plus-square"></i>
+    </p>
+  </div>
 </form>
-<div
-  *ngIf="getFormErrors('instruction')"
-  class="d-block invalid-feedback col-sm"
->
-  Veuillez entrer les Instructions de la recette
-</div>
 
 <div *ngIf="instructionList.length > 0">
   <ul [sortablejs]="instructionList" class="list-group row mx-auto">

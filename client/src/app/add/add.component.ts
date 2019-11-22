@@ -87,6 +87,7 @@ export class AddComponent extends BaseComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           _ => {
+            // TODO: Reset the forms
             this.alert.message = 'Recette ajoutée avec succès!';
             this.alert.type = 'success';
           },
