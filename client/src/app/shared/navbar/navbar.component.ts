@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  isNavbarCollapsed: boolean = true;
+
   constructor(private router: Router) {}
 
   ngOnInit() {}
