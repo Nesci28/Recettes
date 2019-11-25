@@ -1,9 +1,18 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CropperComponent } from 'angular-cropperjs';
 import { AddService } from '../add.service';
 import { ActivatedRoute } from '@angular/router';
 import { Meal } from 'src/app/models/repas.model';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { BaseComponent } from 'src/app/base/base.component';
+import { MealService } from 'src/app/meal.service';
 
 @Component({
   selector: 'ngbd-cropper-modal',
@@ -96,7 +105,9 @@ export class NgbdCropperModal {
 
   save() {
     this.activeModal.dismiss(
-      this.angularCropper.cropper.getCroppedCanvas().toDataURL(),
+      this.angularCropper.cropper
+        .getCroppedCanvas()
+        .toDataURL('image/jpeg', 1 / 100),
     );
   }
 }
@@ -106,7 +117,7 @@ export class NgbdCropperModal {
   templateUrl: './add-img.component.html',
   styleUrls: ['./add-img.component.scss'],
 })
-export class AddImgComponent implements OnInit {
+export class AddImgComponent extends BaseComponent implements OnInit {
   @ViewChild('angularCropper', { static: false })
   @Input()
   meal: Meal;
@@ -115,11 +126,34 @@ export class AddImgComponent implements OnInit {
 
   croppedImg: string;
 
-  constructor(private modalService: NgbModal, private router: ActivatedRoute) {}
+  constructor(
+    private modalService: NgbModal,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private mealService: MealService,
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    if (this.router.snapshot.url[0].path === 'modification') {
-      this.croppedImg = this.meal.image;
+    if (this.route.snapshot.params.id) {
+      this.mealService.meals$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((meals: Meal[]) => {
+          const { id, type } = this.route.snapshot.params;
+          const meal = meals.filter(
+            meal => +meal.id === +id && +meal.type === +type,
+          );
+          if (meal.length > 0) {
+            this.meal = meal[0];
+            if (this.meal.image) {
+              this.croppedImg = this.meal.image;
+            } else {
+              this.croppedImg = '';
+            }
+            this.cdr.detectChanges();
+          }
+        });
     }
   }
 

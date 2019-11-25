@@ -11,6 +11,7 @@ import { AddService } from './add.service';
 import { MealService } from '../meal.service';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { AddKeywordsComponent } from './add-keywords/add-keywords.component';
+import { AddImgComponent } from './add-img/add-img.component';
 
 interface Alert {
   type: string;
@@ -26,6 +27,7 @@ export class AddComponent extends BaseComponent implements OnInit {
   @ViewChildren(AddHeaderComponent) addHeaderComponent: QueryList<
     AddHeaderComponent
   >;
+  @ViewChildren(AddImgComponent) addImgComponent: QueryList<AddImgComponent>;
   @ViewChildren(AddIngredientsComponent) addIngredientsComponent: QueryList<
     AddIngredientsComponent
   >;
@@ -52,10 +54,9 @@ export class AddComponent extends BaseComponent implements OnInit {
       this.mealService.meals$
         .pipe(takeUntil(this.destroy$))
         .subscribe((meals: Meal[]) => {
-          const name = this.route.snapshot.params.id.replace(/_/g, ' ');
-          const type = this.route.snapshot.params.type;
+          const { id, type } = this.route.snapshot.params;
           const meal = meals.filter(
-            meal => meal.name === name && meal.type === type,
+            meal => +meal.id === +id && +meal.type === +type,
           );
           if (meal.length > 0) {
             this.meal = meal[0];
@@ -81,24 +82,27 @@ export class AddComponent extends BaseComponent implements OnInit {
       this.addIngredientsComponent.last.ingredientList.length > 0
     ) {
       const values = this.makeTheObject();
-      console.log('values :', values);
       this.httpService
         .addMeal(values)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           _ => {
-            // TODO: Reset the forms
+            this.resetTheForms();
             this.alert.message = 'Recette ajoutée avec succès!';
             this.alert.type = 'success';
+            setTimeout(() => {
+              this.alert.type = '';
+            }, 4000);
           },
           _ => {
             this.alert.message =
               'Il semble avoir un problème de connexion, réessayer plus tard!';
             this.alert.type = 'danger';
+            setTimeout(() => {
+              this.alert.type = '';
+            }, 4000);
           },
         );
-    } else {
-      console.log('errors :', errors);
     }
   }
 
@@ -108,9 +112,30 @@ export class AddComponent extends BaseComponent implements OnInit {
     values.name = header.nameForm.name;
     values.description = header.nameForm.description;
     values.type = header.nameForm.type;
+    values.portion = header.nameForm.portion;
+    values.image = this.addImgComponent.last.croppedImg;
     values.ingredients = this.addIngredientsComponent.last.ingredientList;
     values.instructions = [this.addInstructionsComponent.last.instructionList];
     values.keywords = this.addKeywordsComponent.last.keywordsList;
+    values.secondLife = this.addKeywordsComponent.last.secondLifeList;
     return values;
+  }
+
+  resetTheForms(): void {
+    this.addHeaderComponent.last.nameForm.reset();
+    this.addHeaderComponent.last.nameRef.nativeElement.focus();
+    this.addImgComponent.last.croppedImg = '';
+    this.addIngredientsComponent.last.ingredientForm.reset();
+    this.addIngredientsComponent.last.ingredientList = [];
+    this.addInstructionsComponent.last.instructionForm.reset();
+    this.addInstructionsComponent.last.instructionList = [];
+    this.addKeywordsComponent.last.keywordForm.reset();
+    this.addKeywordsComponent.last.keywordsList = [];
+    this.addKeywordsComponent.last.secondLifeForm.reset();
+    this.addKeywordsComponent.last.secondLifeList = [];
+  }
+
+  getBtnName(): string {
+    return this.route.snapshot.params.id ? `Modifier` : 'Ajouter';
   }
 }

@@ -97,9 +97,7 @@ export class ListComponent extends BaseComponent implements OnInit {
       }
       if (this.route.snapshot.params.id !== 'recherche') {
         this.router.navigateByUrl(
-          `/presentation/${
-            this.route.snapshot.params.id
-          }/${this.mealService.meal.name.replace(/ /g, '_')}`,
+          `/presentation/${this.route.snapshot.params.id}/${this.mealService.meal.id}`,
         );
       } else {
         console.log('repas :', repas);
@@ -116,6 +114,7 @@ export class ListComponent extends BaseComponent implements OnInit {
         this.bookSelected.push({ id: repas.id });
       } else {
         this.bookSelected = this.bookSelected.filter(e => e.id !== repas.id);
+        this.book = this.book.filter(e => e.id !== repas.id);
       }
     }
   }
@@ -153,8 +152,6 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   getMealCategory(index: number): Meal[] {
-    const searchCategory =
-      index === 1 ? 'entrees' : index === 2 ? 'principal' : 'desserts';
-    return this.meals.filter(meal => meal.type === searchCategory);
+    return this.meals.filter(meal => +meal.type === +index);
   }
 }

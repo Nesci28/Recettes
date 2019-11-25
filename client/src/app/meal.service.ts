@@ -13,6 +13,7 @@ export class MealService {
 
   constructor(private httpCallService: HttpCallService) {
     this.httpCallService.getMeals().subscribe(meals => {
+      console.log('meals :', meals);
       this.meals$.next(meals);
     });
   }

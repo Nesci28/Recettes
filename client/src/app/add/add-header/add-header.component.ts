@@ -1,4 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MealService } from 'src/app/meal.service';
@@ -13,24 +20,44 @@ import { Meal } from 'src/app/models/repas.model';
   styleUrls: ['./add-header.component.scss'],
 })
 export class AddHeaderComponent extends BaseComponent implements OnInit {
-  @Input() meal: Meal;
+  @ViewChild('name', { static: false }) nameRef: ElementRef;
+  meal: Meal;
 
   formErrors: { name: string; validators: string[]; show: boolean }[];
   nameForm = new FormGroup({
     name: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
+    portion: new FormControl('', Validators.required),
   });
 
-  constructor(private router: ActivatedRoute, private addService: AddService) {
+  constructor(
+    private addService: AddService,
+    private mealService: MealService,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+  ) {
     super();
   }
 
   ngOnInit() {
-    if (this.router.snapshot.url[0].path === 'modification') {
-      this.name.setValue(this.meal.name);
-      this.type.setValue(this.getType(this.meal.type));
-      this.description.setValue(this.meal.description);
+    if (this.route.snapshot.params.id) {
+      this.mealService.meals$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((meals: Meal[]) => {
+          const { id, type } = this.route.snapshot.params;
+          const meal = meals.filter(
+            meal => +meal.id === +id && +meal.type === +type,
+          );
+          if (meal.length > 0) {
+            this.meal = meal[0];
+            this.name.setValue(this.meal.name);
+            this.type.setValue(this.meal.type);
+            this.description.setValue(this.meal.description);
+            this.portion.setValue(this.meal.portion);
+            this.cdr.detectChanges();
+          }
+        });
     }
     this.addService.formErrors$
       .pipe(takeUntil(this.destroy$))
@@ -48,9 +75,8 @@ export class AddHeaderComponent extends BaseComponent implements OnInit {
   get description() {
     return this.nameForm.get('description');
   }
-
-  getType(str: string): string {
-    return str === 'Entrée' ? '1' : str === 'Principal' ? '2' : '3';
+  get portion() {
+    return this.nameForm.get('portion');
   }
 
   getFormErrors(input: string): boolean {

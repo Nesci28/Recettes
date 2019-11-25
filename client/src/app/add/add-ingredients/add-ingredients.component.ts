@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
@@ -17,6 +17,8 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
   styleUrls: ['./add-ingredients.component.scss'],
 })
 export class AddIngredientsComponent extends BaseComponent implements OnInit {
+  @Input() meal: Meal;
+  showErrow: boolean = false;
   errors: { name: string; validators: string[]; show: boolean }[];
   meals: Meal[] = [];
   typeArr: string[] = [
@@ -53,15 +55,28 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
 
   constructor(
     private addService: AddService,
-    private router: ActivatedRoute,
+    private route: ActivatedRoute,
     private mealService: MealService,
+    private cdr: ChangeDetectorRef,
   ) {
     super();
   }
 
   ngOnInit() {
-    if (this.router.snapshot.url[0].path === 'modification') {
-      this.ingredientList = this.mealService.meal.ingredients;
+    if (this.route.snapshot.params.id) {
+      this.mealService.meals$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((meals: Meal[]) => {
+          const { id, type } = this.route.snapshot.params;
+          const meal = meals.filter(
+            meal => +meal.id === +id && +meal.type === +type,
+          );
+          if (meal.length > 0) {
+            this.meal = meal[0];
+            this.ingredientList = this.meal.ingredients;
+            this.cdr.detectChanges();
+          }
+        });
     }
     this.addService.formErrors$
       .pipe(takeUntil(this.destroy$))
@@ -88,10 +103,12 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
 
   submitIngredient(): void {
     if (this.ingredientForm.valid) {
+      this.showErrow = false;
       this.setShowToFalse('ingredient');
       this.addIngredient();
     } else {
       this.addService.checkForErrorForm(this.ingredientForm);
+      this.showErrow = true;
     }
   }
 

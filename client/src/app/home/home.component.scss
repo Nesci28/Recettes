@@ -1,0 +1,28 @@
+img {
+  width: 100%;
+  height: auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.img-container {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  color: white;
+  max-width: 1920px;
+  margin: auto;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -25%);
+}

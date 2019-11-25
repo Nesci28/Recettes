@@ -1,6 +1,7 @@
 <form class="row mx-auto w-100" [formGroup]="nameForm">
   <div class="col-sm p-0 mb-2">
     <input
+      #name
       autocomplete="off"
       type="text"
       class="form-control"
@@ -81,27 +82,49 @@
     </div>
   </div>
 
-  <textarea
-    class="form-control"
-    rows="4"
-    formControlName="description"
-    placeholder="Description"
-    [ngClass]="{
-      'is-invalid':
+  <div class="col-sm-9 p-0 mb-2">
+    <textarea
+      class="form-control"
+      rows="4"
+      formControlName="description"
+      placeholder="Description"
+      [ngClass]="{
+        'is-invalid':
+          (description.invalid && (description.dirty || description.touched)) ||
+          getFormErrors('description')
+      }"
+      (keyup)="setShowToFalse('description')"
+    ></textarea>
+    <div
+      *ngIf="
         (description.invalid && (description.dirty || description.touched)) ||
         getFormErrors('description')
-    }"
-    (keyup)="setShowToFalse('description')"
-  ></textarea>
-  <div
-    *ngIf="
-      (description.invalid && (description.dirty || description.touched)) ||
-      getFormErrors('description')
-    "
-    class="w-100"
-  >
-    <span class="badge badge-danger w-100 px-0 d-block"
-      >Veuillez entrer une Description pour le recette</span
+      "
+      class="w-100"
     >
+      <span class="badge badge-danger w-100 px-0 d-block"
+        >Veuillez entrer une Description pour la recette</span
+      >
+    </div>
+  </div>
+  <div class="col-sm-3 pl-sm-2 px-0 mb-2">
+    <select
+      class="custom-select py-2 col-sm"
+      formControlName="portion"
+      [ngClass]="{
+        'is-invalid': getFormErrors('portion')
+      }"
+      (change)="setShowToFalse('portion')"
+    >
+      <option value="" disabled selected hidden>Portion</option>
+      <option
+        *ngFor="let port of [2, 3, 4, 5, 6, 7, 8, 9, 10]"
+        value="{{ port }}"
+        >{{ port }} pers.</option
+      >
+    </select>
+    <div *ngIf="getFormErrors('portion')" class="w-100">
+      <span class="badge badge-danger w-100 px-0 d-block">Portion requise</span>
+    </div>
   </div>
 </form>

@@ -1,10 +1,51 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 import { BaseComponent } from '../base/base.component';
 import { MealService } from '../meal.service';
-import { Instruction, Meal } from '../models/repas.model';
+import { Meal } from '../models/repas.model';
+
+@Component({
+  selector: 'ngbd-cropper-modal',
+  template: `
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="activeModal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Voulez-vous vraiment effacer cette recette?</p>
+    </div>
+    <div class="modal-footer">
+      <div class="w-100 d-flex justify-content-between">
+        <button
+          class="btn btn-outline-dark"
+          (click)="activeModal.dismiss('non')"
+        >
+          Non
+        </button>
+        <button type="button" class="btn btn-dark" (click)="save()">
+          Oui
+        </button>
+      </div>
+    </div>
+  `,
+})
+export class NgbdDeleteModal {
+  constructor(public activeModal: NgbActiveModal) {}
+
+  save(): void {
+    console.log('Effacer la recette');
+  }
+}
 
 @Component({
   selector: 'app-meal',
@@ -13,11 +54,13 @@ import { Instruction, Meal } from '../models/repas.model';
 })
 export class MealComponent extends BaseComponent implements OnInit {
   meal: Meal;
+  prtWithPicture: boolean;
 
   constructor(
     private mealService: MealService,
     private route: ActivatedRoute,
     private router: Router,
+    private modalService: NgbModal,
   ) {
     super();
   }
@@ -25,28 +68,25 @@ export class MealComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     if (this.mealService.meal) {
       this.meal = this.mealService.meal;
-      this.prepareMeal();
     } else {
       this.mealService.meals$
         .pipe(takeUntil(this.destroy$))
         .subscribe((meals: Meal[]) => {
-          const name = this.route.snapshot.params.id.replace(/_/g, ' ');
-          const type = this.route.snapshot.params.type;
-          const meal = meals.filter(
-            meal => meal.name === name && meal.type === type,
-          );
+          const { id, type } = this.route.snapshot.params;
+          const meal = meals.filter(m => +m.id === +id && +m.type === +type);
           if (meal.length > 0) {
             this.meal = meal[0];
-            this.prepareMeal();
           }
         });
     }
   }
 
   getImage(): string {
-    return `../../assets/${this.meal.name
-      .toLowerCase()
-      .replace(/ /g, '_')}.jpg`;
+    if (this.meal.image) {
+      return 'this.meal.image';
+    } else {
+      return `../../../assets/giphy.gif`;
+    }
   }
 
   changeToModification(): void {
@@ -55,21 +95,14 @@ export class MealComponent extends BaseComponent implements OnInit {
     );
   }
 
-  showOrDisableInstruction(
-    instructions: Instruction[],
-    step: Instruction,
-  ): void {
-    if (step.selected) {
-      step.disabled = !step.disabled;
-    } else {
-      instructions.forEach(instruction => (instruction.selected = false));
-      step.selected = true;
-    }
+  async modalDelete() {
+    await this.modalService.open(NgbdDeleteModal).result.then(
+      _ => {},
+      _ => {},
+    );
   }
 
-  prepareMeal(): void {
-    this.meal.instructions.forEach((step: any) => {
-      step[step.length - 1].selected = true;
-    });
+  printWithPicture(res: boolean): void {
+    this.prtWithPicture = res;
   }
 }

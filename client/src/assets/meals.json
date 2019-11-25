@@ -2,116 +2,96 @@
   {
     "name": "Pudding au Riz",
     "id": 1,
-    "type": "desserts",
+    "type": "1",
     "description": "Une description bidon juste pour tester",
+    "image": "",
+    "portion": "2",
     "keywords": ["Riz"],
     "ingredients": [
       {
         "ingredient": "Riz",
         "quantity": "2 tasses",
-        "type": "autre",
+        "ingType": "autre",
         "disabled": false
       },
       {
         "ingredient": "Lait",
         "quantity": "3 tasses",
-        "type": "dairy",
+        "ingType": "dairy",
         "disabled": false
       }
     ],
     "instructions": [
-      [
-        {
-          "instruction": "Ouvrir le four a 400",
-          "disabled": false,
-          "author": "Marie",
-          "selected": false
-        },
-        {
-          "instruction": "Ouvrir le four a 450",
-          "disabled": false,
-          "author": "Krystelle",
-          "selected": false
-        }
-      ],
-      [
-        {
-          "instruction": "test1 test1 test1",
-          "disabled": false,
-          "author": "Krystelle",
-          "selected": false
-        }
-      ]
+      {
+        "instruction": "Ouvrir le four a 400",
+        "disabled": false
+      },
+      {
+        "instruction": "test1 test1 test1",
+        "disabled": false
+      }
     ],
     "filtered": false
   },
   {
     "name": "Pudding Chomeur",
     "id": 2,
-    "type": "desserts",
+    "type": "2",
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
         "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
-        "type": "autre",
+        "ingType": "autre",
         "disabled": false
       },
       {
         "ingredient": "Beurre",
         "quantity": "1/2 tasses",
-        "type": "dairy",
+        "ingType": "dairy",
         "disabled": false
       }
     ],
     "instructions": [
-      [
-        {
-          "instruction": "test test test",
-          "disabled": false
-        }
-      ],
-      [
-        {
-          "instruction": "test1 test1 test1",
-          "disabled": false
-        }
-      ]
+      {
+        "instruction": "test test test",
+        "disabled": false
+      },
+      {
+        "instruction": "test1 test1 test1",
+        "disabled": false
+      }
     ],
     "filtered": false
   },
   {
     "name": "Test Chomeur",
     "id": 3,
-    "type": "desserts",
+    "type": "3",
     "keywords": ["Sirop d'érable"],
     "ingredients": [
       {
         "ingredient": "Sirop d'érable",
         "quantity": "2 tasses",
-        "type": "autre",
+        "ingType": "autre",
         "disabled": false
       },
       {
         "ingredient": "Beurre",
         "quantity": "1/2 tasses",
-        "type": "dairy",
+        "ingType": "dairy",
         "disabled": false
       }
     ],
     "instructions": [
-      [
-        {
-          "instruction": "test test test",
-          "disabled": false
-        }
-      ],
-      [
-        {
-          "instruction": "test1 test1 test1",
-          "disabled": false
-        }
-      ]
+      {
+        "instruction": "test test test",
+        "disabled": false
+      },
+      {
+        "instruction": "test1 test1 test1",
+        "disabled": false
+      }
     ],
     "filtered": false
   }

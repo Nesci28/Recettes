@@ -18,7 +18,9 @@ export interface Meal {
   id: number;
   type: string;
   description: string;
+  portion: number;
   keywords: string[];
+  secondLife: string[];
   ingredients: Ingredients[];
   instructions: Instruction[];
   filtered?: boolean;

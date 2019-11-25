@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isNavbarCollapsed: boolean = true;
+  query: string;
 
   constructor(private router: Router) {}
 
@@ -15,5 +16,9 @@ export class NavbarComponent implements OnInit {
 
   iAmAtHome(): boolean {
     return this.router.url === '/';
+  }
+
+  search(): void {
+    this.router.navigateByUrl(`/recherche/${this.query}`);
   }
 }

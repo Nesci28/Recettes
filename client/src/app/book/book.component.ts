@@ -16,7 +16,6 @@ export class BookComponent implements OnInit {
   ngOnInit() {}
 
   generatePDF(): void {
-    // GrouBy Order (entree, principal, dessert)
     console.log('Book :', this.listComponent.book);
     if (this.listComponent.book.length === 0) {
       this.noneSelectedError = true;

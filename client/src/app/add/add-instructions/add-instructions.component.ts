@@ -1,10 +1,18 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Input,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AddService } from '../add.service';
 import { ActivatedRoute } from '@angular/router';
 import { MealService } from 'src/app/meal.service';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base/base.component';
+import { Meal } from 'src/app/models/repas.model';
 
 @Component({
   selector: 'app-add-instructions',
@@ -12,8 +20,10 @@ import { BaseComponent } from 'src/app/base/base.component';
   styleUrls: ['./add-instructions.component.scss'],
 })
 export class AddInstructionsComponent extends BaseComponent implements OnInit {
+  @Input() meal: Meal;
   @ViewChild('instruction', { static: false }) instructionRef: ElementRef;
 
+  showError: boolean = false;
   errors: { name: string; validators: string[]; show: boolean }[];
 
   // Forms
@@ -25,15 +35,28 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
 
   constructor(
     private addService: AddService,
-    private router: ActivatedRoute,
+    private route: ActivatedRoute,
     private mealService: MealService,
+    private cdr: ChangeDetectorRef,
   ) {
     super();
   }
 
   ngOnInit() {
-    if (this.router.snapshot.url[0].path === 'modification') {
-      this.instructionList = this.mealService.meal.instructions;
+    if (this.route.snapshot.params.id) {
+      this.mealService.meals$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((meals: Meal[]) => {
+          const { id, type } = this.route.snapshot.params;
+          const meal = meals.filter(
+            meal => +meal.id === +id && +meal.type === +type,
+          );
+          if (meal.length > 0) {
+            this.meal = meal[0];
+            this.instructionList = this.meal.instructions;
+            this.cdr.detectChanges();
+          }
+        });
     }
     this.addService.formErrors$
       .pipe(takeUntil(this.destroy$))
@@ -48,8 +71,11 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
 
   submitInstruction(): void {
     if (this.instructionForm.valid) {
+      this.showError = false;
       this.setShowToFalse('instruction');
       this.addInstruction();
+    } else {
+      this.showError = true;
     }
   }
 

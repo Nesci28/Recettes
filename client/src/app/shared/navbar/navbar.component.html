@@ -1,7 +1,4 @@
-<nav
-  class="navbar navbar-expand-md navbar-dark bg-primary"
-  [ngClass]="iAmAtHome() ? 'navbar-home' : ''"
->
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
   <a class="navbar-brand text-success" [routerLink]="['/']">
     <i class="fas fa-book-open"></i> Recettes
   </a>
@@ -27,13 +24,9 @@
           >Listes</a
         >
         <div class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
-          <a class="dropdown-item" [routerLink]="['/liste/entrees']">Entrées</a>
-          <a class="dropdown-item" [routerLink]="['/liste/repas']"
-            >Principals</a
-          >
-          <a class="dropdown-item" [routerLink]="['/liste/desserts']"
-            >Desserts</a
-          >
+          <a class="dropdown-item" [routerLink]="['/liste/1']">Entrées</a>
+          <a class="dropdown-item" [routerLink]="['/liste/2']">Principals</a>
+          <a class="dropdown-item" [routerLink]="['/liste/3']">Desserts</a>
         </div>
       </li>
       <li class="nav-item">

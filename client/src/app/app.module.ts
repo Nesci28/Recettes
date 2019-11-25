@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
 import { BaseComponent } from './base/base.component';
 import { BookComponent } from './book/book.component';
 import { HomeComponent } from './home/home.component';
-import { MealComponent } from './meal/meal.component';
+import { MealComponent, NgbdDeleteModal } from './meal/meal.component';
 import { BannerComponent } from './shared/banner/banner.component';
 import { ListComponent } from './shared/list/list.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -44,6 +44,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     BookComponent,
     NavbarComponent,
     BannerComponent,
+    NgbdDeleteModal,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     SortablejsModule.forRoot({ animation: 150 }),
     NgxPrintModule,
   ],
-  entryComponents: [NgbdCropperModal],
+  entryComponents: [NgbdCropperModal, NgbdDeleteModal],
   providers: [],
   bootstrap: [AppComponent],
 })

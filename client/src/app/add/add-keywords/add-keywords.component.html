@@ -1,41 +1,79 @@
-<form
-  [formGroup]="keywordForm"
-  [ngClass]="{
-    'mb-3': keywordsList.length === 0,
-    'mb-1': 'keywordsList.length > 0'
-  }"
-  class="p-3 bg-info card"
->
-  <input
-    #keyword
-    type="text"
-    placeholder="Mots clés"
-    class="form-control w-100"
-    autocomplete="off"
-    formControlName="keyword"
-    (keyup.enter)="submitKeyword()"
-  />
-  <div class="pt-2 w-100 text-right">
-    <p
-      (click)="submitKeyword()"
-      class="pointer d-inline border-dark border-bottom"
-    >
-      Ajouter l'instruction <i class="far fa-plus-square"></i>
-    </p>
+<div class="mb-3">
+  <div
+    class="row mx-auto bg-warning p-3 card d-flex"
+    style="flex-direction: inherit;"
+  >
+    <form [formGroup]="keywordForm" class="w-50 pr-2">
+      <input
+        #keyword
+        type="text"
+        placeholder="Mots clés"
+        class="form-control w-100"
+        autocomplete="off"
+        formControlName="keyword"
+        (keyup.enter)="submit('keyword')"
+      />
+      <div
+        *ngIf="getFormErrors('keyword') || showError.keyword"
+        class="dp-0 font-size-1 w-100"
+      >
+        <span class="badge badge-danger w-100"
+          >Veuillez entrer un Mot Clé à la recette</span
+        >
+      </div>
+      <div class="pt-2 w-100 text-right">
+        <p
+          (click)="submit('keyword')"
+          class="pointer d-inline border-dark border-bottom"
+        >
+          Ajouter l'instruction <i class="far fa-plus-square"></i>
+        </p>
+      </div>
+    </form>
+    <form [formGroup]="secondLifeForm" class="w-50">
+      <input
+        #secondLife
+        type="text"
+        placeholder="Seconde vie"
+        class="form-control w-100"
+        autocomplete="off"
+        formControlName="secondLife"
+        (keyup.enter)="submit('secondLife')"
+      />
+      <div
+        *ngIf="getFormErrors('secondLife') || showError.secondLife"
+        class="dp-0 font-size-1 w-100"
+      >
+        <span class="badge badge-danger w-100"
+          >Veuillez entrer une Seconde vie à la recette</span
+        >
+      </div>
+      <div class="pt-2 w-100 text-right">
+        <p
+          (click)="submit('secondLife')"
+          class="pointer d-inline border-dark border-bottom"
+        >
+          Ajouter l'instruction <i class="far fa-plus-square"></i>
+        </p>
+      </div>
+    </form>
   </div>
-  <!-- <button
-    class="col-sm-1 btn btn-info d-flex justify-content-center"
-    (click)="submitKeyword()"
-  >
-    <i class="far fa-plus-square"></i>
-  </button> -->
-</form>
-
-<div class="d-flex mb-3">
-  <span
-    class="badge badge-pill badge-info mr-2 pointer px-4 py-2"
-    *ngFor="let keyword of keywordsList"
-    (click)="removeKeyword(keyword)"
-    >{{ keyword }}</span
-  >
+  <div class="row">
+    <div class="col-sm-6">
+      <span
+        class="badge badge-pill badge-warning mr-2 pointer px-4 py-2"
+        *ngFor="let keyword of keywordsList"
+        (click)="remove('keyword', keyword)"
+        >{{ keyword }}</span
+      >
+    </div>
+    <div class="col-sm-6">
+      <span
+        class="badge badge-pill badge-warning mr-2 pointer px-4 py-2"
+        *ngFor="let sc of secondLifeList"
+        (click)="remove('secondLife', sc)"
+        >{{ sc }}</span
+      >
+    </div>
+  </div>
 </div>

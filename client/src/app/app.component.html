@@ -1,7 +1,6 @@
 <div class="v-100">
-  <app-navbar></app-navbar>
-  <app-banner *ngIf="iAmAtHome()"></app-banner>
-  <div class="container mt-3">
+  <app-navbar [ngClass]="iAmAtHome() ? 'navbar-home' : ''"></app-navbar>
+  <div class="" [ngClass]="iAmAtHome() ? '' : 'container mt-3'">
     <div [@triggerName]="prepareRoute(outlet)">
       <router-outlet #outlet="outlet"></router-outlet>
     </div>

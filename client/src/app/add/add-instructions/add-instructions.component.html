@@ -1,4 +1,4 @@
-<form [formGroup]="instructionForm" class="bg-warning card p-3">
+<form [formGroup]="instructionForm" class="bg-info card p-3">
   <input
     #instruction
     type="text"
@@ -8,7 +8,7 @@
     formControlName="instruction"
     (keyup.enter)="submitInstruction()"
   />
-  <div *ngIf="getFormErrors('instruction')" class="w-100">
+  <div *ngIf="getFormErrors('instruction') || showError" class="w-100">
     <span class="badge badge-danger w-100 px-0 d-block"
       >Veuillez entrer les Instructions de la recette</span
     >
@@ -37,7 +37,7 @@
       <div>
         <span
           class="badge badge-pill badge-danger pointer"
-          (click)="removeInstruction(instruction)"
+          (click)="removeInstruction(instruction[0])"
         >
           <span aria-hidden="true">&times;</span>
         </span>
