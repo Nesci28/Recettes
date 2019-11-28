@@ -9,12 +9,10 @@ import { Meal } from './models/repas.model';
 })
 export class MealService {
   meal: Meal;
-  meals$: BehaviorSubject<Meal[]> = new BehaviorSubject<Meal[]>([]);
 
-  constructor(private httpCallService: HttpCallService) {
-    this.httpCallService.getMeals().subscribe(meals => {
-      console.log('meals :', meals);
-      this.meals$.next(meals);
-    });
-  }
+  // Observables
+  meals$: BehaviorSubject<Meal[]> = new BehaviorSubject<Meal[]>([]);
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  constructor() {}
 }

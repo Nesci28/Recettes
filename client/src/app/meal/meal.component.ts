@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { BaseComponent } from '../base/base.component';
 import { MealService } from '../meal.service';
 import { Meal } from '../models/repas.model';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ngbd-cropper-modal',
@@ -56,6 +57,10 @@ export class MealComponent extends BaseComponent implements OnInit {
   meal: Meal;
   prtWithPicture: boolean;
 
+  form = new FormGroup({
+    portion: new FormControl('', Validators.required),
+  });
+
   constructor(
     private mealService: MealService,
     private route: ActivatedRoute,
@@ -81,6 +86,10 @@ export class MealComponent extends BaseComponent implements OnInit {
     }
   }
 
+  get portion() {
+    return this.form.get('portion');
+  }
+
   getImage(): string {
     if (this.meal.image) {
       return 'this.meal.image';
@@ -104,5 +113,25 @@ export class MealComponent extends BaseComponent implements OnInit {
 
   printWithPicture(res: boolean): void {
     this.prtWithPicture = res;
+  }
+
+  changePortion(): void {
+    if (this.meal.portion) {
+      this.meal.ingredients.forEach(ing => {
+        const original = this.meal.ingredients
+          .filter(e => e.ingredient === ing.ingredient)[0]
+          .quantity.split(' ');
+        const value = eval(original.slice(0, -1).join(''));
+        const unit = original.slice(-1).join('');
+
+        let newValue: any = (this.portion.value * +value) / this.meal.portion;
+
+        if (newValue.toString().includes('.')) {
+          newValue = newValue.toFixed(2);
+        }
+        ing.quantity = `${newValue} ${unit}`;
+      });
+      this.meal.portion = this.portion.value;
+    }
   }
 }

@@ -37,7 +37,7 @@
     "name": "Pudding Chomeur",
     "id": 2,
     "type": "2",
-    "keywords": ["Sirop d'érable"],
+    "keywords": ["Sirop d'érable", "missile"],
     "ingredients": [
       {
         "ingredient": "Sirop d'érable",
@@ -69,6 +69,7 @@
     "id": 3,
     "type": "3",
     "keywords": ["Sirop d'érable"],
+    "portion": "2",
     "ingredients": [
       {
         "ingredient": "Sirop d'érable",

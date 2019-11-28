@@ -65,6 +65,7 @@ export class ListComponent extends BaseComponent implements OnInit {
                 .toLowerCase()
                 .includes(this.route.snapshot.params.query.toLowerCase()),
           );
+          console.log('this.selectedMeals :', this.selectedMeals);
         } else {
           this.image = null;
           this.meal = null;

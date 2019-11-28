@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subject } from "rxjs";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
-  selector: "app-base",
+  selector: 'app-base',
   template: `
     <p></p>
   `,
-  styles: []
+  styles: [],
 })
 export class BaseComponent implements OnInit, OnDestroy {
   destroy$: Subject<void> = new Subject();
