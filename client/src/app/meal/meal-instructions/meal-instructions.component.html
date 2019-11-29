@@ -1,0 +1,36 @@
+<div class="col-md-12 p-0">
+  <ul class="list-group">
+    <li
+      *ngFor="let instruction of meal.instructions; index as i; let odd = odd"
+      class="list-group-item d-flex justify-content-between align-items-center pointer p-0"
+      [ngClass]="[odd ? 'list-odd' : '']"
+    >
+      <span
+        class="input-group-text"
+        [ngClass]="{
+          'list-odd': odd,
+          'bg-dark': instruction.disabled,
+          'text-light': instruction.disabled
+        }"
+        >{{ i + 1 }}</span
+      >
+
+      <div
+        class="d-flex w-100"
+        (click)="instruction.disabled = !instruction.disabled"
+      >
+        <div
+          [ngClass]="{ 'list-disabled': instruction.disabled }"
+          class="d-flex px-3 justify-content-between w-100"
+        >
+          {{ instruction.instruction }}
+          <span
+            *ngIf="instruction.disabled"
+            class="badge badge-primary badge-pill text-decoration-none"
+            >Finit</span
+          >
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,13 @@
+<div *ngIf="selectedMeals.length > 0">
+  <ul class="list-group row mx-auto flex-row mb-3">
+    <li
+      class="list-group-item col-sm-6 col-md-6 col-lg-4 pointer"
+      *ngFor="let meal of selectedMeals"
+      (click)="getMeal(meal)"
+    >
+      <span>
+        {{ getName(meal.name) }}
+      </span>
+    </li>
+  </ul>
+</div>

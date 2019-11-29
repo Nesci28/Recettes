@@ -1,5 +1,5 @@
 <form class="row mx-auto w-100" [formGroup]="nameForm">
-  <div class="col-sm p-0 mb-2">
+  <div class="col-sm-9 p-0 mb-2">
     <input
       #name
       autocomplete="off"
@@ -24,7 +24,28 @@
       >
     </div>
   </div>
-  <div class="col-sm p-0 mb-2 ml-sm-2 ml-0">
+  <div class="col-sm-3 pl-sm-2 px-0 mb-2">
+    <select
+      class="custom-select py-2 col-sm"
+      formControlName="portion"
+      [ngClass]="{
+        'is-invalid': getFormErrors('portion')
+      }"
+      (change)="setShowToFalse('portion')"
+    >
+      <option value="" disabled selected hidden>Portion</option>
+      <option
+        *ngFor="let port of [2, 3, 4, 5, 6, 7, 8, 9, 10]"
+        value="{{ port }}"
+        >{{ port }} pers.</option
+      >
+    </select>
+    <div *ngIf="getFormErrors('portion')" class="w-100">
+      <span class="badge badge-danger w-100 px-0 d-block">Portion requise</span>
+    </div>
+  </div>
+
+  <div class="col-sm p-0 mb-2">
     <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
       <label
         [ngClass]="{
@@ -82,7 +103,7 @@
     </div>
   </div>
 
-  <div class="col-sm-9 p-0 mb-2">
+  <div class="col-sm-12 p-0 mb-2">
     <textarea
       class="form-control"
       rows="4"
@@ -105,26 +126,6 @@
       <span class="badge badge-danger w-100 px-0 d-block"
         >Veuillez entrer une Description pour la recette</span
       >
-    </div>
-  </div>
-  <div class="col-sm-3 pl-sm-2 px-0 mb-2">
-    <select
-      class="custom-select py-2 col-sm"
-      formControlName="portion"
-      [ngClass]="{
-        'is-invalid': getFormErrors('portion')
-      }"
-      (change)="setShowToFalse('portion')"
-    >
-      <option value="" disabled selected hidden>Portion</option>
-      <option
-        *ngFor="let port of [2, 3, 4, 5, 6, 7, 8, 9, 10]"
-        value="{{ port }}"
-        >{{ port }} pers.</option
-      >
-    </select>
-    <div *ngIf="getFormErrors('portion')" class="w-100">
-      <span class="badge badge-danger w-100 px-0 d-block">Portion requise</span>
     </div>
   </div>
 </form>

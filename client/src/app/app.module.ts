@@ -23,11 +23,17 @@ import { BaseComponent } from './base/base.component';
 import { BookComponent } from './book/book.component';
 import { HomeComponent } from './home/home.component';
 import { MealComponent, NgbdDeleteModal } from './meal/meal.component';
-import { BannerComponent } from './shared/banner/banner.component';
 import { ListComponent } from './shared/list/list.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { PrintWithImageComponent } from './meal/print-with-image/print-with-image.component';
 import { PrintWithoutImageComponent } from './meal/print-without-image/print-without-image.component';
+import { MealHeaderComponent } from './meal/meal-header/meal-header.component';
+import { MealImageComponent } from './meal/meal-image/meal-image.component';
+import { MealIngredientsComponent } from './meal/meal-ingredients/meal-ingredients.component';
+import { MealFooterComponent } from './meal/meal-footer/meal-footer.component';
+import { MealInstructionsComponent } from './meal/meal-instructions/meal-instructions.component';
+import { ListNotBookComponent } from './shared/list/list-not-book/list-not-book.component';
+import { ListBookComponent } from './shared/list/list-book/list-book.component';
 
 @NgModule({
   declarations: [
@@ -45,10 +51,16 @@ import { PrintWithoutImageComponent } from './meal/print-without-image/print-wit
     AddKeywordsComponent,
     BookComponent,
     NavbarComponent,
-    BannerComponent,
     NgbdDeleteModal,
     PrintWithImageComponent,
     PrintWithoutImageComponent,
+    MealHeaderComponent,
+    MealImageComponent,
+    MealIngredientsComponent,
+    MealFooterComponent,
+    MealInstructionsComponent,
+    ListNotBookComponent,
+    ListBookComponent,
   ],
   imports: [
     BrowserModule,

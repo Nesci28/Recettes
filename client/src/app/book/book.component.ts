@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { ListComponent } from '../shared/list/list.component.js';
+import { MealService } from '../meal.service';
 
 @Component({
   selector: 'app-book',
@@ -8,16 +8,16 @@ import { ListComponent } from '../shared/list/list.component.js';
   styleUrls: ['./book.component.scss'],
 })
 export class BookComponent implements OnInit {
-  @ViewChild('listComponent', { static: true }) listComponent: ListComponent;
   noneSelectedError: boolean = false;
 
-  constructor() {}
+  constructor(private mealService: MealService) {}
 
   ngOnInit() {}
 
   generatePDF(): void {
-    console.log('Book :', this.listComponent.book);
-    if (this.listComponent.book.length === 0) {
+    console.log('Book :', this.mealService.book);
+
+    if (this.mealService.book.length === 0) {
       this.noneSelectedError = true;
     } else {
       this.noneSelectedError = false;

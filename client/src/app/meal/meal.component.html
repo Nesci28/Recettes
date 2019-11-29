@@ -1,175 +1,42 @@
 <div *ngIf="meal">
-  <div class="d-flex align-items-center justify-content-responsive">
-    <div class="desktop">
-      <button class="btn btn-info mr-2" (click)="changeToModification()">
-        Modifier
-      </button>
-      <button class="btn btn-danger mr-5" (click)="modalDelete()">
-        Effacer
-      </button>
-    </div>
-    <h2 class="text-responsive vertical-align-middle">{{ meal.name }}</h2>
-    <form class="desktop" [formGroup]="form">
-      <select
-        style="width: 125px;"
-        class="custom-select"
-        (change)="changePortion()"
-        formControlName="portion"
-      >
-        <option value="" disabled selected hidden
-          >{{ meal.portion }} pers.</option
-        >
-        <option
-          *ngFor="let port of [2, 3, 4, 5, 6, 7, 8, 9, 10]"
-          value="{{ port }}"
-          >{{ port }} pers.</option
-        >
-      </select>
-    </form>
-  </div>
-  <p class="py-3">
-    <em>{{ meal.description }}</em>
-  </p>
-  <form class="mobile w-100 mb-4" [formGroup]="form">
-    <select
-      style="width: 125px;"
-      class="custom-select w-100"
-      (change)="changePortion()"
-      formControlName="portion"
-    >
-      <option value="" disabled selected hidden
-        >{{ meal.portion }} pers.</option
-      >
-      <option
-        *ngFor="let port of [2, 3, 4, 5, 6, 7, 8, 9, 10]"
-        value="{{ port }}"
-        >{{ port }} pers.</option
-      >
-    </select>
-  </form>
+  <app-meal-header
+    [meal]="meal"
+    (deleteModalEvent)="modalDelete()"
+    (modificationModalEvent)="changeToModification()"
+  ></app-meal-header>
 
-  <div *ngIf="meal" class="mt-3">
+  <div class="">
     <div class="row mx-auto">
-      <div class="col-sm-6 img-responsive p-0">
-        <div class="img-thumbnail">
-          <img
-            [src]="getImage()"
-            style="border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;"
-            alt=""
-            class="w-100"
-          />
+      <div *ngIf="meal.image" class="col-md-6 mb-md-0 mb-3 p-0">
+        <app-meal-image [meal]="meal"></app-meal-image>
+      </div>
+      <div [ngClass]="meal.image ? 'col-md-6' : 'col-md-12'" class="p-0">
+        <div [ngClass]="{ 'mt-5': !meal.image }">
+          <h3 class="mt-md-0 mt-5">
+            Ingredients:
+          </h3>
         </div>
-      </div>
-      <div class="col-sm-6 p-0">
-        <ul class="list-group row mx-auto flex-row">
-          <li
-            *ngFor="let ingredient of meal.ingredients"
-            class="list-group-item d-flex justify-content-between align-items-center pointer w-50"
-            [ngClass]="{
-              'list-disabled': ingredient.disabled,
-              'ingredient-legume': ingredient.ingType === 'légume',
-              'ingredient-viande': ingredient.ingType === 'viande',
-              'ingredient-poisson': ingredient.ingType === 'poisson',
-              'ingredient-dairy': ingredient.ingType === 'dairy',
-              'ingredient-fruit': ingredient.ingType === 'fruit',
-              'ingredient-autre': ingredient.ingType === 'autre'
-            }"
-            (click)="ingredient.disabled = !ingredient.disabled"
-          >
-            {{ ingredient.ingredient }}
-            <span class="badge badge-primary badge-pill">{{
-              toFraction(ingredient.quantity)
-            }}</span>
-          </li>
-        </ul>
+        <app-meal-ingredients [meal]="meal"></app-meal-ingredients>
       </div>
     </div>
+    <h3 class="mt-5">Instructions:</h3>
+    <app-meal-instructions [meal]="meal"></app-meal-instructions>
+    <app-meal-footer
+      [meal]="meal"
+      (deleteModalEvent)="modalDelete()"
+      (modificationModalEvent)="changeToModification()"
+    ></app-meal-footer>
+  </div>
 
-    <div class="mt-3 col-md-12 p-0">
-      <ul class="list-group">
-        <li
-          *ngFor="
-            let instruction of meal.instructions;
-            index as i;
-            let odd = odd
-          "
-          class="list-group-item d-flex justify-content-between align-items-center pointer p-0"
-          [ngClass]="[odd ? 'list-odd' : '']"
-        >
-          <span
-            class="input-group-text"
-            [ngClass]="{
-              'list-odd': odd,
-              'bg-dark': instruction.disabled,
-              'text-light': instruction.disabled
-            }"
-            >{{ i + 1 }}</span
-          >
-
-          <div
-            class="d-flex w-100"
-            (click)="instruction.disabled = !instruction.disabled"
-          >
-            <div
-              [ngClass]="{ 'list-disabled': instruction.disabled }"
-              class="d-flex px-3 justify-content-between w-100"
-            >
-              {{ instruction.instruction }}
-              <span
-                *ngIf="instruction.disabled"
-                class="badge badge-primary badge-pill text-decoration-none"
-                >Finit</span
-              >
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="divider mobile my-4"></div>
-  <div class="button-responsive">
-    <button
-      [useExistingCss]="true"
-      [printStyle]="{ body: { 'background-color': 'white !important' } }"
-      printSectionId="print-section"
-      ngxPrint
-      class="btn btn-info mt-3 mr-3 button-size-responsive"
-    >
-      Imprimer sans photo
-    </button>
-    <button
-      [useExistingCss]="true"
-      [printStyle]="{ body: { 'background-color': 'white !important' } }"
-      printSectionId="print-section-with-pic"
-      ngxPrint
-      class="btn btn-info mt-3 button-size-responsive"
-    >
-      Imprimer avec photo
-    </button>
-  </div>
-  <div class="mobile button-responsive mt-3">
-    <button
-      class="btn btn-info mr-2 button-size-responsive"
-      (click)="changeToModification()"
-    >
-      Modifier
-    </button>
-    <button
-      class="btn btn-danger button-size-responsive"
-      (click)="modalDelete()"
-    >
-      Effacer
-    </button>
-  </div>
+  <!-- Print Templates -->
+  <app-print-with-image
+    [hidden]="true"
+    id="print-section-with-pic"
+    [meal]="meal"
+  ></app-print-with-image>
+  <app-print-without-image
+    [hidden]="true"
+    id="print-section"
+    [meal]="meal"
+  ></app-print-without-image>
 </div>
-
-<app-print-with-image
-  [hidden]="true"
-  id="print-section-with-pic"
-  [meal]="meal"
-></app-print-with-image>
-<app-print-without-image
-  [hidden]="true"
-  id="print-section"
-  [meal]="meal"
-></app-print-without-image>

@@ -1,0 +1,36 @@
+<div class="border-top mt-5 mb-3"></div>
+<div class="button-responsive">
+  <button
+    [useExistingCss]="true"
+    [printStyle]="{ body: { 'background-color': 'white !important' } }"
+    printSectionId="print-section"
+    ngxPrint
+    class="btn btn-info mt-3 mr-3 button-size-responsive"
+  >
+    {{ meal.image ? 'Imprimer sans photo' : 'Imprimer' }}
+  </button>
+  <button
+    *ngIf="meal.image"
+    [useExistingCss]="true"
+    [printStyle]="{ body: { 'background-color': 'white !important' } }"
+    printSectionId="print-section-with-pic"
+    ngxPrint
+    class="btn btn-info mt-3 button-size-responsive"
+  >
+    Imprimer avec photo
+  </button>
+</div>
+<div class="d-md-none mt-3">
+  <button
+    class="btn btn-info mr-2 button-size-responsive"
+    (click)="changeToModification()"
+  >
+    Modifier
+  </button>
+  <button
+    class="btn btn-danger button-size-responsive mt-md-0 mt-3"
+    (click)="modalDelete()"
+  >
+    Effacer
+  </button>
+</div>

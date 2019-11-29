@@ -1,0 +1,53 @@
+<h2 class="w-100 text-center display-4">{{ meal.name }}</h2>
+<div class="d-none d-md-block">
+  <div class="d-flex align-items-center justify-content-left">
+    <div>
+      <button class="btn btn-info mr-2" (click)="changeToModification()">
+        Modifier
+      </button>
+      <button class="btn btn-danger mr-5" (click)="modalDelete()">
+        Effacer
+      </button>
+    </div>
+    <form [formGroup]="form">
+      <select
+        style="width: 125px;"
+        class="custom-select"
+        (change)="changePortion()"
+        formControlName="portion"
+      >
+        <option value="" disabled selected hidden
+          >{{ meal.portion }} pers.</option
+        >
+        <option
+          *ngFor="let port of [2, 3, 4, 5, 6, 7, 8, 9, 10]"
+          value="{{ port }}"
+          >{{ port }} pers.</option
+        >
+      </select>
+    </form>
+  </div>
+</div>
+
+<div class="d-md-none">
+  <form [formGroup]="form">
+    <select
+      class="custom-select w-100"
+      (change)="changePortion()"
+      formControlName="portion"
+    >
+      <option value="" disabled selected hidden
+        >{{ meal.portion }} pers.</option
+      >
+      <option
+        *ngFor="let port of [2, 3, 4, 5, 6, 7, 8, 9, 10]"
+        value="{{ port }}"
+        >{{ port }} pers.</option
+      >
+    </select>
+  </form>
+</div>
+
+<p *ngIf="meal.description" class="my-2">
+  <em>{{ meal.description }}</em>
+</p>

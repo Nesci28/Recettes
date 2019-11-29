@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
@@ -26,11 +26,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   query: string;
   modelChanged: Subject<string> = new Subject<string>();
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private mealService: MealService,
-  ) {
+  constructor(private route: ActivatedRoute, private mealService: MealService) {
     super();
     this.modelChanged
       .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
@@ -49,75 +45,35 @@ export class ListComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.mealService.meals$.pipe(takeUntil(this.destroy$)).subscribe(meals => {
       this.meals = meals;
+      this.toBook = this.route.snapshot.routeConfig.path === 'livre';
+      if (!this.toBook) {
+        this.route.params.pipe(takeUntil(this.destroy$)).subscribe(x => {
+          if (this.route.snapshot.params.id === 'recherche') {
+            this.selectedMeals = this.meals.filter(
+              meal =>
+                meal.name
+                  .toLowerCase()
+                  .includes(this.route.snapshot.params.query.toLowerCase()) ||
+                meal.keywords
+                  .join('')
+                  .toLowerCase()
+                  .includes(this.route.snapshot.params.query.toLowerCase()),
+            );
+            console.log('this.selectedMeals :', this.selectedMeals);
+          } else {
+            this.image = null;
+            this.meal = null;
+            this.selectedMeals = [];
+
+            this.id = this.route.snapshot.params.id;
+            this.resetFilter();
+          }
+        });
+      } else {
+        this.selectedMeals = this.meals;
+        this.id = 'all';
+      }
     });
-    this.toBook = this.route.snapshot.routeConfig.path === 'livre';
-
-    if (!this.toBook) {
-      this.route.params.pipe(takeUntil(this.destroy$)).subscribe(x => {
-        if (this.route.snapshot.params.id === 'recherche') {
-          this.selectedMeals = this.meals.filter(
-            meal =>
-              meal.name
-                .toLowerCase()
-                .includes(this.route.snapshot.params.query.toLowerCase()) ||
-              meal.keywords
-                .join('')
-                .toLowerCase()
-                .includes(this.route.snapshot.params.query.toLowerCase()),
-          );
-          console.log('this.selectedMeals :', this.selectedMeals);
-        } else {
-          this.image = null;
-          this.meal = null;
-          this.selectedMeals = [];
-
-          this.id = this.route.snapshot.params.id;
-          this.resetFilter();
-        }
-      });
-    } else {
-      this.selectedMeals = this.meals;
-      this.id = 'all';
-    }
-  }
-
-  getName(name: string): string {
-    return name.length > 30 ? `${name.substring(0, 30)}...` : name;
-  }
-
-  getMeal(repas: Meal): void {
-    if (!this.toBook) {
-      let cont = true;
-      for (const meal of this.selectedMeals) {
-        if (meal.id === repas.id) {
-          this.mealService.meal = meal;
-          cont = false;
-          break;
-        }
-        if (!cont) break;
-      }
-      if (this.route.snapshot.params.id !== 'recherche') {
-        this.router.navigateByUrl(
-          `/presentation/${this.route.snapshot.params.id}/${this.mealService.meal.id}`,
-        );
-      } else {
-        console.log('repas :', repas);
-        this.router.navigateByUrl(
-          `/presentation/${repas.type}/${this.mealService.meal.name.replace(
-            / /g,
-            '_',
-          )}`,
-        );
-      }
-    } else {
-      if (this.bookSelected.filter(e => e.id === repas.id).length === 0) {
-        this.book.push(repas);
-        this.bookSelected.push({ id: repas.id });
-      } else {
-        this.bookSelected = this.bookSelected.filter(e => e.id !== repas.id);
-        this.book = this.book.filter(e => e.id !== repas.id);
-      }
-    }
   }
 
   changed(text: string): void {
@@ -146,13 +102,5 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   createArrayOfMeals(meals): void {
     this.selectedMeals = meals;
-  }
-
-  checkIfSelected(meal: Meal): boolean {
-    return this.bookSelected.filter(e => e.id === meal.id).length === 1;
-  }
-
-  getMealCategory(index: number): Meal[] {
-    return this.meals.filter(meal => +meal.type === +index);
   }
 }

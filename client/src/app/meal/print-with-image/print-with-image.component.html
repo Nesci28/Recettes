@@ -3,7 +3,7 @@
   <div class="row justify-content-sm-center">
     <div class="col-sm-4 img-thumbnail mw-100">
       <img
-        [src]="getImage()"
+        [src]="meal.image"
         style="border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;"
       />
     </div>
@@ -21,6 +21,7 @@
           'ingredient-poisson': ingredient.type === 'poisson',
           'ingredient-dairy': ingredient.type === 'dairy',
           'ingredient-fruit': ingredient.type === 'fruit',
+          'ingredient-spice': ingredient.ingType === 'spice',
           'ingredient-autre': ingredient.type === 'autre'
         }"
       >

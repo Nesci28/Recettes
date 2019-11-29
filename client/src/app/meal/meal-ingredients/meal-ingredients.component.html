@@ -1,0 +1,23 @@
+<ul class="list-group row mx-auto flex-row">
+  <li
+    *ngFor="let ingredient of groupBy(meal.ingredients)"
+    class="list-group-item d-flex justify-content-between align-items-center pointer ingredient-size-reponsive"
+    [ngClass]="{
+      'list-disabled': ingredient.disabled,
+      'ingredient-black': ingredient.ingType === '',
+      'ingredient-legume': ingredient.ingType === 'légume',
+      'ingredient-viande': ingredient.ingType === 'viande',
+      'ingredient-poisson': ingredient.ingType === 'poisson',
+      'ingredient-dairy': ingredient.ingType === 'dairy',
+      'ingredient-fruit': ingredient.ingType === 'fruit',
+      'ingredient-spice': ingredient.ingType === 'spice',
+      'ingredient-autre': ingredient.ingType === 'autre'
+    }"
+    (click)="ingredient.disabled = !ingredient.disabled"
+  >
+    {{ ingredient.ingredient | titlecase }}
+    <span *ngIf="ingredient.ingType" class="badge badge-primary badge-pill">{{
+      toFraction(ingredient.quantity)
+    }}</span>
+  </li>
+</ul>

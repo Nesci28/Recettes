@@ -27,14 +27,6 @@ export class PrintWithImageComponent extends BaseComponent implements OnInit {
     return this.form.get('portion');
   }
 
-  getImage(): string {
-    if (this.meal.image) {
-      return 'this.meal.image';
-    } else {
-      return `../../../assets/giphy.gif`;
-    }
-  }
-
   changeToModification(): void {
     this.router.navigateByUrl(
       `/modification/${this.route.snapshot.params.type}/${this.route.snapshot.params.id}`,

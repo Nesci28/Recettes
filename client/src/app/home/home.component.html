@@ -1,22 +1,4 @@
-<div class="img-container">
-  <img
-    [ngClass]="screenWidth <= 560 ? 'show' : 'hidden'"
-    style="height: 100vh;"
-    alt=""
-    src="../../../assets/piotr-miazga-WBX-ZLr8P7I-unsplash.jpg"
-  />
-  <img
-    [ngClass]="screenWidth > 560 && screenWidth <= 860 ? 'show' : 'hidden'"
-    style="height: 100vh;"
-    src="../../../assets/brooke-lark--F_5g8EEHYE-unsplash.jpg"
-    alt=""
-  />
-  <img
-    [ngClass]="screenWidth > 860 ? 'show' : 'hidden'"
-    style="height: 100vh;"
-    src="../../../assets/brooke-lark-4J059aGa5s4-unsplash.jpg"
-    alt=""
-  />
+<div class="background">
   <h1
     class="p-4 centered"
     style="background-color: rgba(0,0,0,0.5); color: #fff;"
@@ -24,3 +6,22 @@
     Livre de recettes de la Famille Harvey
   </h1>
 </div>
+
+<!-- <div class="img-container">
+  <img
+    [ngClass]="screenWidth <= 560 ? 'show' : 'hidden'"
+    style="height: 100vh;"
+    src="../../../assets/background_mobile.jpg"
+    src="../../../assets/piotr-miazga-WBX-ZLr8P7I-unsplash.jpg"
+  />
+  <img
+    [ngClass]="screenWidth > 560 && screenWidth <= 860 ? 'show' : 'hidden'"
+    style="height: 100vh;"
+    src="../../../assets/brooke-lark--F_5g8EEHYE-unsplash.jpg"
+  />
+  <img
+    [ngClass]="screenWidth > 860 ? 'show' : 'hidden'"
+    style="height: 100vh;"
+    src="../../../assets/brooke-lark-4J059aGa5s4-unsplash.jpg"
+  />
+</!-->
