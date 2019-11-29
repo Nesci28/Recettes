@@ -27,3 +27,43 @@
 .bg-white {
   background-color: #fff;
 }
+
+.divider {
+  height: 1px;
+  border: 1px solid #333;
+}
+
+@media screen and (min-width: 769px) {
+  .mobile {
+    display: none !important;
+  }
+  .justify-content-responsive {
+    justify-content: space-between;
+  }
+  .text-responsive {
+    display: inline;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none !important;
+  }
+  .justify-content-responsive {
+    justify-content: center;
+  }
+  .button-responsive {
+    display: flex;
+    justify-content: center;
+  }
+  .text-responsive {
+    display: block;
+  }
+  .form-responsive {
+    display: block;
+    width: 100%;
+  }
+  .button-size-responsive {
+    width: 100%;
+  }
+}

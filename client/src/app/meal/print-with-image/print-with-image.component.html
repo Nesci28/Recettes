@@ -1,0 +1,68 @@
+<div *ngIf="meal" class="bg-white">
+  <h1 class="text-center text-dark">{{ meal.name }}</h1>
+  <div class="row justify-content-sm-center">
+    <div class="col-sm-4 img-thumbnail mw-100">
+      <img
+        [src]="getImage()"
+        style="border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;"
+      />
+    </div>
+  </div>
+  <div class="mt-3 col-md-12">
+    <h3 class="mt-5">Ingredients:</h3>
+    <ul class="list-group row mx-auto flex-row">
+      <li
+        *ngFor="let ingredient of meal.ingredients"
+        class="list-group-item d-flex justify-content-between align-items-center col-sm-6 col-md-6 col-lg-4"
+        [ngClass]="{
+          'list-disabled': ingredient.disabled,
+          'ingredient-legume': ingredient.type === 'légume',
+          'ingredient-viande': ingredient.type === 'viande',
+          'ingredient-poisson': ingredient.type === 'poisson',
+          'ingredient-dairy': ingredient.type === 'dairy',
+          'ingredient-fruit': ingredient.type === 'fruit',
+          'ingredient-autre': ingredient.type === 'autre'
+        }"
+      >
+        {{ ingredient.ingredient }}
+        <span class="badge badge-primary badge-pill">{{
+          ingredient.quantity
+        }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <form>
+    <textarea class="mt-3 col-md-12" disabled rows="3">{{
+      meal.description
+    }}</textarea>
+  </form>
+
+  <div class="mt-3 col-md-12">
+    <h3 class="mt-5">Instructions:</h3>
+    <ul class="list-group">
+      <li
+        *ngFor="let instruction of meal.instructions; index as i; let odd = odd"
+        class="list-group-item d-flex justify-content-between align-items-center pointer px-0"
+        [ngClass]="[odd ? 'list-odd' : '']"
+      >
+        <span class="input-group-text" [ngClass]="[odd ? 'list-odd' : '']">{{
+          i + 1
+        }}</span>
+        <div class="d-flex w-100">
+          <div
+            [ngClass]="{ 'list-disabled': instruction.disabled }"
+            class="d-flex px-3 justify-content-between"
+          >
+            {{ instruction.instruction }}
+            <span
+              *ngIf="instruction.disabled"
+              class="badge badge-primary badge-pill text-decoration-none"
+              >Finit</span
+            >
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

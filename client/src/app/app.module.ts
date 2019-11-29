@@ -26,6 +26,8 @@ import { MealComponent, NgbdDeleteModal } from './meal/meal.component';
 import { BannerComponent } from './shared/banner/banner.component';
 import { ListComponent } from './shared/list/list.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { PrintWithImageComponent } from './meal/print-with-image/print-with-image.component';
+import { PrintWithoutImageComponent } from './meal/print-without-image/print-without-image.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     NavbarComponent,
     BannerComponent,
     NgbdDeleteModal,
+    PrintWithImageComponent,
+    PrintWithoutImageComponent,
   ],
   imports: [
     BrowserModule,
