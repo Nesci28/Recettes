@@ -1,23 +1,26 @@
-<div>
+<div *ngIf="(onModification() && meal) || !onModification()">
   <ngb-alert *ngIf="alert.type" [type]="alert.type">{{
     alert.message
   }}</ngb-alert>
 
   <h4>Informations:</h4>
   <div class="row h-100 mb-4 w-100 mx-auto">
-    <app-add-header class="col-sm-8 p-0 pr-sm-2 pr-0"></app-add-header>
-    <app-add-img class="col-sm-4 p-0 mb-sm-0 mb-2"></app-add-img>
+    <app-add-header
+      [meal]="meal"
+      class="col-sm-8 p-0 pr-sm-2 pr-0"
+    ></app-add-header>
+    <app-add-img [meal]="meal" class="col-sm-4 p-0 mb-sm-0 mb-2"></app-add-img>
   </div>
   <div class="mb-4">
     <h4>Ingrédients:</h4>
-    <app-add-ingredients></app-add-ingredients>
+    <app-add-ingredients [meal]="meal"></app-add-ingredients>
   </div>
   <div class="mb-4">
     <h4>Instructions</h4>
-    <app-add-instructions></app-add-instructions>
+    <app-add-instructions [meal]="meal"></app-add-instructions>
   </div>
   <h4>Optionnel:</h4>
-  <app-add-keywords></app-add-keywords>
+  <app-add-keywords [meal]="meal"></app-add-keywords>
   <button
     class="btn btn-success mx-auto d-flex px-5 mb-5 button-size-responsive"
     (click)="onSubmit()"

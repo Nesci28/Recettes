@@ -138,4 +138,8 @@ export class AddComponent extends BaseComponent implements OnInit {
   getBtnName(): string {
     return this.route.snapshot.params.id ? `Modifier` : 'Ajouter';
   }
+
+  onModification(): boolean {
+    return this.route.snapshot.params.id;
+  }
 }

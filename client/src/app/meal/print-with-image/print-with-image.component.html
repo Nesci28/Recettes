@@ -27,7 +27,7 @@
       >
         {{ ingredient.ingredient }}
         <span class="badge badge-primary badge-pill">{{
-          ingredient.quantity
+          toFraction(ingredient.quantity)
         }}</span>
       </li>
     </ul>

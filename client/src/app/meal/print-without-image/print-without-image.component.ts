@@ -75,21 +75,27 @@ export class PrintWithoutImageComponent extends BaseComponent
 
     let number = portion.slice(0, -1).join('');
     const unit = portion.slice(-1).join('');
-    let fraction;
+    let fraction: any;
     number = number.toString();
     if (number.includes('/')) {
       number = eval(number).toString();
     }
     if (number.includes('.')) {
-      fraction = Number(number.split('.')[1].padEnd(2, 0));
+      fraction = number.split('.')[1];
+      if (fraction.length > 2) {
+        fraction = Number(fraction.slice(0, 2));
+      } else if (fraction.length === 1) {
+        fraction = Number(fraction.padEnd(2, 0));
+      } else {
+        fraction = +fraction;
+      }
       number = number.split('.')[0];
-
       if (fraction >= 0 && fraction <= 13) fraction = '';
-      if (fraction > 13 && fraction <= 29) fraction = ' 1/4';
-      if (fraction > 29 && fraction <= 41) fraction = ' 1/3';
-      if (fraction > 41 && fraction <= 58) fraction = ' 1/2';
-      if (fraction > 59 && fraction <= 70) fraction = ' 2/3';
-      if (fraction > 70 && fraction <= 88) fraction = ' 3/4';
+      if (fraction > 13 && fraction <= 29) fraction = ' ¼';
+      if (fraction > 29 && fraction <= 41) fraction = ' ⅓';
+      if (fraction > 41 && fraction <= 58) fraction = ' ½';
+      if (fraction > 59 && fraction <= 70) fraction = ' ⅔';
+      if (fraction > 70 && fraction <= 88) fraction = ' ¾';
       if (fraction > 88) {
         number = +number + 1;
         fraction = '';

@@ -49,24 +49,7 @@ export class AddKeywordsComponent extends BaseComponent implements OnInit {
     super();
   }
 
-  ngOnInit() {
-    if (this.route.snapshot.params.id) {
-      this.mealService.meals$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((meals: Meal[]) => {
-          const { id, type } = this.route.snapshot.params;
-          const meal = meals.filter(
-            meal => +meal.id === +id && +meal.type === +type,
-          );
-          if (meal.length > 0) {
-            this.meal = meal[0];
-            this.keywordsList = this.meal.keywords;
-            this.secondLifeList = this.meal.secondLife;
-            this.cdr.detectChanges();
-          }
-        });
-    }
-  }
+  ngOnInit() {}
 
   get keyword() {
     return this.keywordForm.get('keyword');

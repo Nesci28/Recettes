@@ -17,6 +17,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   id: string;
   meals: Meal[] = data;
   selectedMeals: Meal[] = [];
+  searchedMeals: Meal[] = [];
   meal: Meal;
   image: string;
   book: Meal[] = [];
@@ -32,12 +33,16 @@ export class ListComponent extends BaseComponent implements OnInit {
       .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe(model => {
         this.query = model;
-        this.resetFilter();
+        if (this.route.snapshot.params.id !== 'recherche' || model === '') {
+          this.resetFilter();
+        }
+        console.log('this.selectedMeals start:', this.selectedMeals);
         this.selectedMeals.forEach(x => {
           x.filtered = model
             ? !x.name.toLowerCase().includes(model.toLowerCase())
             : false;
         });
+        console.log('this.selectedMeals filtered:', this.selectedMeals);
         this.filteredMeals();
       });
   }
@@ -59,7 +64,10 @@ export class ListComponent extends BaseComponent implements OnInit {
                   .toLowerCase()
                   .includes(this.route.snapshot.params.query.toLowerCase()),
             );
-            console.log('this.selectedMeals :', this.selectedMeals);
+            if (this.searchedMeals.length === 0) {
+              this.searchedMeals = this.selectedMeals;
+            }
+            this.id = 'recherche';
           } else {
             this.image = null;
             this.meal = null;
@@ -92,9 +100,12 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   // Helpers
   resetFilter(): void {
-    if (this.id !== 'all') {
+    console.log('this.id :', this.id);
+    if (this.id !== 'all' && this.id !== 'recherche') {
       const selectedMealsBCK = this.meals.filter(meal => meal.type === this.id);
       this.createArrayOfMeals(selectedMealsBCK);
+    } else if (this.id === 'recherche') {
+      this.createArrayOfMeals(this.searchedMeals);
     } else {
       this.createArrayOfMeals(this.meals);
     }

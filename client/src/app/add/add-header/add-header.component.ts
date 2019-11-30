@@ -1,18 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { MealService } from 'src/app/meal.service';
-import { BaseComponent } from 'src/app/base/base.component';
-import { AddService } from '../add.service';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { BaseComponent } from 'src/app/base/base.component';
 import { Meal } from 'src/app/models/repas.model';
+
+import { AddService } from '../add.service';
 
 @Component({
   selector: 'app-add-header',
@@ -21,7 +13,7 @@ import { Meal } from 'src/app/models/repas.model';
 })
 export class AddHeaderComponent extends BaseComponent implements OnInit {
   @ViewChild('name', { static: false }) nameRef: ElementRef;
-  meal: Meal;
+  @Input() meal: Meal;
 
   formErrors: { name: string; validators: string[]; show: boolean }[];
   nameForm = new FormGroup({
@@ -31,33 +23,16 @@ export class AddHeaderComponent extends BaseComponent implements OnInit {
     portion: new FormControl('', Validators.required),
   });
 
-  constructor(
-    private addService: AddService,
-    private mealService: MealService,
-    private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
-  ) {
+  constructor(private addService: AddService) {
     super();
   }
 
   ngOnInit() {
-    if (this.route.snapshot.params.id) {
-      this.mealService.meals$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((meals: Meal[]) => {
-          const { id, type } = this.route.snapshot.params;
-          const meal = meals.filter(
-            meal => +meal.id === +id && +meal.type === +type,
-          );
-          if (meal.length > 0) {
-            this.meal = meal[0];
-            this.name.setValue(this.meal.name);
-            this.type.setValue(this.meal.type);
-            this.description.setValue(this.meal.description);
-            this.portion.setValue(this.meal.portion);
-            this.cdr.detectChanges();
-          }
-        });
+    if (this.meal) {
+      this.name.setValue(this.meal.name);
+      this.type.setValue(this.meal.type);
+      this.description.setValue(this.meal.description);
+      this.portion.setValue(this.meal.portion);
     }
     this.addService.formErrors$
       .pipe(takeUntil(this.destroy$))

@@ -55,28 +55,14 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
 
   constructor(
     private addService: AddService,
-    private route: ActivatedRoute,
     private mealService: MealService,
-    private cdr: ChangeDetectorRef,
   ) {
     super();
   }
 
   ngOnInit() {
-    if (this.route.snapshot.params.id) {
-      this.mealService.meals$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((meals: Meal[]) => {
-          const { id, type } = this.route.snapshot.params;
-          const meal = meals.filter(
-            meal => +meal.id === +id && +meal.type === +type,
-          );
-          if (meal.length > 0) {
-            this.meal = meal[0];
-            this.ingredientList = this.meal.ingredients;
-            this.cdr.detectChanges();
-          }
-        });
+    if (this.meal) {
+      this.ingredientList = this.meal.ingredients;
     }
     this.addService.formErrors$
       .pipe(takeUntil(this.destroy$))

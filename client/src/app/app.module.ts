@@ -14,7 +14,10 @@ import {
   NgbdCropperModal,
 } from './add/add-img/add-img.component';
 import { AddIngredientsComponent } from './add/add-ingredients/add-ingredients.component';
-import { AddInstructionsComponent } from './add/add-instructions/add-instructions.component';
+import {
+  AddInstructionsComponent,
+  NgbdEditInstructionModal,
+} from './add/add-instructions/add-instructions.component';
 import { AddKeywordsComponent } from './add/add-keywords/add-keywords.component';
 import { AddComponent } from './add/add.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -61,6 +64,7 @@ import { ListBookComponent } from './shared/list/list-book/list-book.component';
     MealInstructionsComponent,
     ListNotBookComponent,
     ListBookComponent,
+    NgbdEditInstructionModal,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,11 @@ import { ListBookComponent } from './shared/list/list-book/list-book.component';
     SortablejsModule.forRoot({ animation: 150 }),
     NgxPrintModule,
   ],
-  entryComponents: [NgbdCropperModal, NgbdDeleteModal],
+  entryComponents: [
+    NgbdCropperModal,
+    NgbdDeleteModal,
+    NgbdEditInstructionModal,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

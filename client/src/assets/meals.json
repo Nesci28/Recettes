@@ -59,12 +59,12 @@
   },
 
   {
-    "name": "Pudding au Riz",
+    "name": "gateau",
     "id": 4,
     "type": "1",
     "description": "Une description bidon juste pour tester",
     "portion": "2",
-    "keywords": ["Riz"],
+    "keywords": ["creme"],
     "ingredients": [
       {
         "ingredient": "Riz",

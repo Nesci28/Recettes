@@ -1,18 +1,10 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  Input,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CropperComponent } from 'angular-cropperjs';
-import { AddService } from '../add.service';
-import { ActivatedRoute } from '@angular/router';
-import { Meal } from 'src/app/models/repas.model';
-import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { BaseComponent } from 'src/app/base/base.component';
-import { MealService } from 'src/app/meal.service';
+import { Meal } from 'src/app/models/repas.model';
+
+import { AddService } from '../add.service';
 
 @Component({
   selector: 'ngbd-cropper-modal',
@@ -105,9 +97,7 @@ export class NgbdCropperModal {
 
   save() {
     this.activeModal.dismiss(
-      this.angularCropper.cropper
-        .getCroppedCanvas()
-        .toDataURL('image/jpeg', 1 / 100),
+      this.angularCropper.cropper.getCroppedCanvas().toDataURL('image/jpeg'),
     );
   }
 }
@@ -126,34 +116,13 @@ export class AddImgComponent extends BaseComponent implements OnInit {
 
   croppedImg: string;
 
-  constructor(
-    private modalService: NgbModal,
-    private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
-    private mealService: MealService,
-  ) {
+  constructor(private modalService: NgbModal) {
     super();
   }
 
   ngOnInit() {
-    if (this.route.snapshot.params.id) {
-      this.mealService.meals$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((meals: Meal[]) => {
-          const { id, type } = this.route.snapshot.params;
-          const meal = meals.filter(
-            meal => +meal.id === +id && +meal.type === +type,
-          );
-          if (meal.length > 0) {
-            this.meal = meal[0];
-            if (this.meal.image) {
-              this.croppedImg = this.meal.image;
-            } else {
-              this.croppedImg = '';
-            }
-            this.cdr.detectChanges();
-          }
-        });
+    if (this.meal && this.meal.image) {
+      this.croppedImg = this.meal.image;
     }
   }
 

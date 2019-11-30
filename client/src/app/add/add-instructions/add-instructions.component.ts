@@ -1,18 +1,74 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  Input,
-  ChangeDetectorRef,
-} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AddService } from '../add.service';
-import { ActivatedRoute } from '@angular/router';
-import { MealService } from 'src/app/meal.service';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base/base.component';
 import { Meal } from 'src/app/models/repas.model';
+import { AddService } from '../add.service';
+
+@Component({
+  selector: 'ngbd-cropper-modal',
+  template: `
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Modifier l'instruction</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="activeModal.dismiss('cancel')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="form">
+        <textarea
+          class="form-control"
+          rows="4"
+          formControlName="description"
+          placeholder="Description"
+          [ngClass]="{
+            'is-invalid':
+              (description.invalid &&
+                (description.dirty || description.touched)) ||
+              error
+          }"
+        ></textarea>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <div class="w-100 d-flex justify-content-between">
+        <button class="btn btn-info" (click)="activeModal.dismiss('cancel')">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-success" (click)="save()">
+          Sauvegarder
+        </button>
+      </div>
+    </div>
+  `,
+})
+export class NgbdEditInstructionModal {
+  error: boolean = false;
+
+  form = new FormGroup({
+    description: new FormControl('', Validators.required),
+  });
+
+  constructor(public activeModal: NgbActiveModal) {}
+
+  get description() {
+    return this.form.get('description');
+  }
+
+  save(): void {
+    if (!this.description.errors) {
+      this.activeModal.dismiss(this.description.value);
+    } else {
+      this.error = true;
+    }
+  }
+}
 
 @Component({
   selector: 'app-add-instructions',
@@ -33,30 +89,13 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
 
   instructionList: { instruction: string }[] = [];
 
-  constructor(
-    private addService: AddService,
-    private route: ActivatedRoute,
-    private mealService: MealService,
-    private cdr: ChangeDetectorRef,
-  ) {
+  constructor(private addService: AddService, private modalService: NgbModal) {
     super();
   }
 
   ngOnInit() {
-    if (this.route.snapshot.params.id) {
-      this.mealService.meals$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((meals: Meal[]) => {
-          const { id, type } = this.route.snapshot.params;
-          const meal = meals.filter(
-            meal => +meal.id === +id && +meal.type === +type,
-          );
-          if (meal.length > 0) {
-            this.meal = meal[0];
-            this.instructionList = this.meal.instructions;
-            this.cdr.detectChanges();
-          }
-        });
+    if (this.meal) {
+      this.instructionList = this.meal.instructions;
     }
     this.addService.formErrors$
       .pipe(takeUntil(this.destroy$))
@@ -90,6 +129,22 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
   removeInstruction(instruction): void {
     this.instructionList = this.instructionList.filter(
       el => el.instruction !== instruction.instruction,
+    );
+  }
+
+  async open(instruction: string) {
+    console.log('instruction :', instruction);
+    await this.modalService.open(NgbdEditInstructionModal).result.then(
+      _ => {},
+      res => {
+        if (res !== 'cancel' && res !== 0) {
+          this.meal.instructions.forEach(ins => {
+            if (ins.instruction === instruction) {
+              ins.instruction = res;
+            }
+          });
+        }
+      },
     );
   }
 

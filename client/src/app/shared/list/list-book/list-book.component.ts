@@ -37,7 +37,9 @@ export class ListBookComponent implements OnInit {
   }
 
   getMealCategory(index: number): Meal[] {
-    return this.meals.filter(meal => +meal.type === +index);
+    return this.meals.filter(
+      meal => +meal.type === +index && meal.filtered === false,
+    );
   }
 
   getName(name: string): string {
