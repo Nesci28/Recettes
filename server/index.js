@@ -1,9 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const monk = require('monk');
-const path = require('path');
+const uuidv4 = require('uuid/v4');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
@@ -32,7 +32,7 @@ app.get('/api/v1/findAll', async (_, res, __) => {
 });
 
 app.get('/api/v1/find/id/:id', async (req, res, _) => {
-  const id = +req.params.id;
+  const id = req.params.id;
   const recette = await recettesDB.find({ id: id });
   res.json(recette);
 });
@@ -59,7 +59,18 @@ app.get('/api/v1/filter/:query', async (req, res, _) => {
 
 app.post('/api/v1/add', async (req, res, _) => {
   const recette = req.body;
-  const feedback = await recettesDB.insert(recette);
+  recette.id = uuidv4();
+  recette.filtered = false;
+  recette.ingredients.forEach(ing => {
+    ing.quantity = `${ing.quantity} ${ing.unit}`;
+    ing.disabled = false;
+  });
+  let feedback;
+  try {
+    feedback = await recettesDB.insert(recette);
+  } catch {
+    feedback = { message: 'An error has occured' };
+  }
   res.json(feedback);
 });
 
@@ -68,8 +79,28 @@ app.put('/api/v1/update', async (req, res, _) => {
   const recette = req.body;
   try {
     await recettesDB.findOneAndDelete({ id });
-  } catch {}
-  const feedback = await recettesDB.insert(recette);
+  } catch {
+    feedback = { message: 'An error has occured' };
+    res.json(feedback);
+  }
+  try {
+    feedback = await recettesDB.insert(recette);
+  } catch {
+    feedback = { message: 'An error has occured' };
+  }
+  res.json(feedback);
+});
+
+app.delete('/api/v1/delete/:type/:id', async (req, res, _) => {
+  const type = req.params.type;
+  const id = req.params.id;
+  console.log('type, id :', type, id);
+  let feedback;
+  try {
+    feedback = await recettesDB.findOneAndDelete({ type, id });
+  } catch {
+    feedback = { message: 'An error has occured' };
+  }
   res.json(feedback);
 });
 

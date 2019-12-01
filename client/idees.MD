@@ -15,6 +15,7 @@
 - [x] Search bar
 - [ ] Add (optionnel) badges on mobile
 - [ ] Ajouter une image, fit in container (TBD)
+- [ ] Photo, maximum size
 
 ### Todo
 
