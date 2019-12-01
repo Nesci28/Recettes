@@ -7,6 +7,7 @@ import data from '../../../assets/meals.json';
 import { BaseComponent } from '../../base/base.component';
 import { MealService } from '../../meal.service';
 import { Meal } from '../../models/repas.model';
+import { HttpCallService } from 'src/app/http-call.service.js';
 
 @Component({
   selector: 'app-list',
@@ -14,6 +15,7 @@ import { Meal } from '../../models/repas.model';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent extends BaseComponent implements OnInit {
+  currentId: string;
   id: string;
   meals: Meal[] = data;
   selectedMeals: Meal[] = [];
@@ -27,7 +29,11 @@ export class ListComponent extends BaseComponent implements OnInit {
   query: string;
   modelChanged: Subject<string> = new Subject<string>();
 
-  constructor(private route: ActivatedRoute, private mealService: MealService) {
+  constructor(
+    private route: ActivatedRoute,
+    private mealService: MealService,
+    private httpCallService: HttpCallService,
+  ) {
     super();
     this.modelChanged
       .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
@@ -36,18 +42,55 @@ export class ListComponent extends BaseComponent implements OnInit {
         if (this.route.snapshot.params.id !== 'recherche' || model === '') {
           this.resetFilter();
         }
-        console.log('this.selectedMeals start:', this.selectedMeals);
         this.selectedMeals.forEach(x => {
           x.filtered = model
             ? !x.name.toLowerCase().includes(model.toLowerCase())
             : false;
         });
-        console.log('this.selectedMeals filtered:', this.selectedMeals);
         this.filteredMeals();
       });
   }
 
   ngOnInit() {
+    this.currentId = this.route.snapshot.params.id;
+    if (this.currentId) {
+      this.getMealsByType();
+      this.route.params.subscribe(routeParams => {
+        if (routeParams.id !== this.currentId) {
+          this.currentId = routeParams.id;
+          this.getMeals();
+        }
+      });
+    } else {
+      this.getMeals();
+    }
+  }
+
+  getMeals(): void {
+    this.mealService.loading$.next(true);
+    this.httpCallService
+      .getMeals()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(meals => {
+        this.mainLogic();
+        this.mealService.meals$.next(meals);
+        this.mealService.loading$.next(false);
+      });
+  }
+
+  getMealsByType(): void {
+    this.mealService.loading$.next(true);
+    this.httpCallService
+      .getMealsByType(this.route.snapshot.params.id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(meals => {
+        this.mainLogic();
+        this.mealService.meals$.next(meals);
+        this.mealService.loading$.next(false);
+      });
+  }
+
+  mainLogic(): void {
     this.mealService.meals$.pipe(takeUntil(this.destroy$)).subscribe(meals => {
       this.meals = meals;
       this.toBook = this.route.snapshot.routeConfig.path === 'livre';
@@ -100,7 +143,6 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   // Helpers
   resetFilter(): void {
-    console.log('this.id :', this.id);
     if (this.id !== 'all' && this.id !== 'recherche') {
       const selectedMealsBCK = this.meals.filter(meal => meal.type === this.id);
       this.createArrayOfMeals(selectedMealsBCK);

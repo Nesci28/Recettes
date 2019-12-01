@@ -10,24 +10,30 @@
         : 'Recherche'
     }}
   </h1>
-  <form autocomplete="off">
-    <input
-      type="text"
-      placeholder="recherche"
-      class="w-100 py-2 px-2 mb-3"
-      [ngModel]="query"
-      (ngModelChange)="changed($event)"
-      name="query"
-    />
-  </form>
-  <app-list-not-book
-    *ngIf="!toBook"
-    [selectedMeals]="selectedMeals"
-  ></app-list-not-book>
+  <div *ngIf="meals.length === 0">
+    <h3>Aucune recette...</h3>
+    <h3>très bon temps pour en ajouter une!</h3>
+  </div>
+  <div *ngIf="meals.length > 0">
+    <form autocomplete="off">
+      <input
+        type="text"
+        placeholder="recherche"
+        class="w-100 py-2 px-2 mb-3"
+        [ngModel]="query"
+        (ngModelChange)="changed($event)"
+        name="query"
+      />
+    </form>
+    <app-list-not-book
+      *ngIf="!toBook"
+      [selectedMeals]="selectedMeals"
+    ></app-list-not-book>
 
-  <app-list-book
-    *ngIf="toBook"
-    [meals]="meals"
-    [selectedMeals]="selectedMeals"
-  ></app-list-book>
+    <app-list-book
+      *ngIf="toBook"
+      [meals]="meals"
+      [selectedMeals]="selectedMeals"
+    ></app-list-book>
+  </div>
 </div>

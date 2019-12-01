@@ -10,11 +10,29 @@ import { environment } from './../environments/environment';
 export class HttpCallService {
   constructor(private http: HttpClient) {}
 
-  getMeals(): Observable<Meal[]> {
-    return this.http.get<Meal[]>('../../assets/meals.json');
+  getMealsByType(type: string): Observable<Meal[]> {
+    return this.http.get<Meal[]>(
+      `${environment.backend_url}/api/v1/find/type/${type}`,
+    );
   }
 
-  addMeal(meal: Meal): any {
-    return this.http.post<any>(`${environment.backend_url}/api/v1/add`, meal);
+  getMeal(id: string) {
+    return this.http.get<Meal[]>(
+      `${environment.backend_url}/api/v1/find/id/${id}`,
+    );
+  }
+
+  getMeals(): Observable<Meal[]> {
+    return this.http.get<Meal[]>(`${environment.backend_url}/api/v1/findAll`);
+  }
+
+  deleteMeal(meal: Meal): Observable<Meal> {
+    return this.http.delete<Meal>(
+      `${environment.backend_url}/api/v1/delete/${meal.type}/${meal.id}`,
+    );
+  }
+
+  addMeal(meal: Meal): Observable<Meal> {
+    return this.http.post<Meal>(`${environment.backend_url}/api/v1/add`, meal);
   }
 }

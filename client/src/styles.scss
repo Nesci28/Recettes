@@ -87,29 +87,29 @@ a {
 }
 
 .ingredient {
-  &-legume {
-    background-color: rgba(209, 255, 211, 0.5);
+  &-legume:before {
+    background-color: rgba(209, 255, 211, 0.5) !important;
   }
   &-viande {
-    background-color: rgba(254, 188, 191, 0.5);
+    background-color: rgba(254, 188, 191, 0.5) !important;
   }
   &-poisson {
-    background-color: rgba(255, 164, 220, 0.5);
+    background-color: rgba(255, 164, 220, 0.9) !important;
   }
   &-dairy {
-    background-color: rgba(255, 255, 216, 0.5);
+    background-color: rgba(255, 255, 216, 0.9) !important;
   }
   &-fruit {
-    background-color: rgba(211, 238, 255, 0.5);
+    background-color: rgba(211, 238, 255, 0.9) !important;
   }
   &-spice {
-    background-color: rgba(238, 189, 83, 0.5);
+    background-color: rgba(238, 189, 83, 0.9) !important;
   }
   &-autre {
-    background-color: rgba(234, 235, 255, 0.5);
+    background-color: rgba(234, 235, 255, 0.9) !important;
   }
   &-black {
-    background-color: rgb(70, 70, 70);
+    background-color: rgb(70, 70, 70) !important;
     @media screen and (max-width: 768px) {
       display: none !important;
     }
@@ -117,7 +117,6 @@ a {
 }
 
 .list-group {
-  background-color: #fff;
   &-item {
     padding: 0.15rem 1.25rem;
   }

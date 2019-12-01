@@ -29,7 +29,6 @@ export class ListBookComponent implements OnInit {
         e => e.id !== repas.id,
       );
     }
-    console.log('this.mealService.book :', this.mealService.book);
   }
 
   checkIfSelected(meal: Meal): boolean {
@@ -38,7 +37,7 @@ export class ListBookComponent implements OnInit {
 
   getMealCategory(index: number): Meal[] {
     return this.meals.filter(
-      meal => +meal.type === +index && meal.filtered === false,
+      meal => meal.type === index.toString() && meal.filtered === false,
     );
   }
 

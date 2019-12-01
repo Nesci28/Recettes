@@ -56,9 +56,7 @@ export class AddService {
           form.toLowerCase().includes('form') &&
           !form.toLowerCase().includes('error')
         ) {
-          console.log('form :', form);
           Object.keys(component.first[form].controls).forEach(input => {
-            console.log('input :', input);
             if (!values[form]) {
               values[form] = {};
             }

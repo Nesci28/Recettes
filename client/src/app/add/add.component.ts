@@ -82,12 +82,14 @@ export class AddComponent extends BaseComponent implements OnInit {
       this.addIngredientsComponent.last.ingredientList.length > 0
     ) {
       const values = this.makeTheObject();
+      this.mealService.loading$.next(true);
       this.httpService
         .addMeal(values)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           _ => {
             this.resetTheForms();
+            this.mealService.loading$.next(false);
             this.alert.message = 'Recette ajoutée avec succès!';
             this.alert.type = 'success';
             setTimeout(() => {
@@ -95,6 +97,7 @@ export class AddComponent extends BaseComponent implements OnInit {
             }, 4000);
           },
           _ => {
+            this.mealService.loading$.next(false);
             this.alert.message =
               'Il semble avoir un problème de connexion, réessayer plus tard!';
             this.alert.type = 'danger';
@@ -115,7 +118,7 @@ export class AddComponent extends BaseComponent implements OnInit {
     values.portion = header.nameForm.portion;
     values.image = this.addImgComponent.last.croppedImg;
     values.ingredients = this.addIngredientsComponent.last.ingredientList;
-    values.instructions = [this.addInstructionsComponent.last.instructionList];
+    values.instructions = this.addInstructionsComponent.last.instructionList;
     values.keywords = this.addKeywordsComponent.last.keywordsList;
     values.secondLife = this.addKeywordsComponent.last.secondLifeList;
     return values;

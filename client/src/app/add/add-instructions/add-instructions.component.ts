@@ -1,9 +1,18 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base/base.component';
 import { Meal } from 'src/app/models/repas.model';
+
 import { AddService } from '../add.service';
 
 @Component({
@@ -26,13 +35,13 @@ import { AddService } from '../add.service';
           class="form-control"
           rows="4"
           formControlName="description"
-          placeholder="Description"
           [ngClass]="{
             'is-invalid':
               (description.invalid &&
                 (description.dirty || description.touched)) ||
               error
           }"
+          value="{{ instruction }}"
         ></textarea>
       </form>
     </div>
@@ -49,6 +58,9 @@ import { AddService } from '../add.service';
   `,
 })
 export class NgbdEditInstructionModal {
+  @Input() instruction: string;
+  @Output() passEntry: EventEmitter<string> = new EventEmitter();
+
   error: boolean = false;
 
   form = new FormGroup({
@@ -63,6 +75,7 @@ export class NgbdEditInstructionModal {
 
   save(): void {
     if (!this.description.errors) {
+      this.passEntry.emit(this.description.value);
       this.activeModal.dismiss(this.description.value);
     } else {
       this.error = true;
@@ -132,20 +145,16 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
     );
   }
 
-  async open(instruction: string) {
-    console.log('instruction :', instruction);
-    await this.modalService.open(NgbdEditInstructionModal).result.then(
-      _ => {},
-      res => {
-        if (res !== 'cancel' && res !== 0) {
-          this.meal.instructions.forEach(ins => {
-            if (ins.instruction === instruction) {
-              ins.instruction = res;
-            }
-          });
+  open(instruction: string) {
+    const modalRef = this.modalService.open(NgbdEditInstructionModal);
+    modalRef.componentInstance.instruction = instruction;
+    modalRef.componentInstance.passEntry.subscribe((res: string) => {
+      this.meal.instructions.forEach(ins => {
+        if (ins.instruction === instruction) {
+          ins.instruction = res;
         }
-      },
-    );
+      });
+    });
   }
 
   getFormErrors(input: string): boolean {

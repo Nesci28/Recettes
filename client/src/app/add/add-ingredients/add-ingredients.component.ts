@@ -27,6 +27,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
     'Viande',
     'Poisson',
     'Fruit',
+    'Épice',
     'Autre',
   ];
   unitArr: string[] = [

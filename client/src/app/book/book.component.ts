@@ -15,12 +15,11 @@ export class BookComponent implements OnInit {
   ngOnInit() {}
 
   generatePDF(): void {
-    console.log('Book :', this.mealService.book);
-
     if (this.mealService.book.length === 0) {
       this.noneSelectedError = true;
     } else {
       this.noneSelectedError = false;
+      console.log('Book :', this.mealService.book);
     }
   }
 

@@ -35,15 +35,11 @@ export class ListNotBookComponent implements OnInit {
     }
     if (this.route.snapshot.params.id !== 'recherche') {
       this.router.navigateByUrl(
-        `/presentation/${this.route.snapshot.params.id}/${this.mealService.meal.id}`,
+        `/presentation/${this.route.snapshot.params.id}/${repas.id}`,
       );
     } else {
-      console.log('repas :', repas);
       this.router.navigateByUrl(
-        `/presentation/${repas.type}/${this.mealService.meal.name.replace(
-          / /g,
-          '_',
-        )}`,
+        `/presentation/${repas.type}/${repas.name.replace(/ /g, '_')}`,
       );
     }
   }
