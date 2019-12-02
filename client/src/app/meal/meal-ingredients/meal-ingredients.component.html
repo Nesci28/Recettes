@@ -1,6 +1,6 @@
 <ul class="list-group row mx-auto flex-row">
   <li
-    *ngFor="let ingredient of groupBy(meal.ingredients)"
+    *ngFor="let ingredient of groupBy()"
     class="list-group-item d-flex justify-content-between align-items-center pointer ingredient-size-reponsive"
     [ngClass]="{
       'list-disabled': ingredient.disabled,

@@ -18,7 +18,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 })
 export class AddIngredientsComponent extends BaseComponent implements OnInit {
   @Input() meal: Meal;
-  showErrow: boolean = false;
+  showError: boolean = false;
   errors: { name: string; validators: string[]; show: boolean }[];
   meals: Meal[] = [];
   typeArr: string[] = [
@@ -64,6 +64,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     if (this.meal) {
       this.ingredientList = this.meal.ingredients;
+      this.ingredientList = this.getFilteredList();
     }
     this.addService.formErrors$
       .pipe(takeUntil(this.destroy$))
@@ -90,12 +91,12 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
 
   submitIngredient(): void {
     if (this.ingredientForm.valid) {
-      this.showErrow = false;
+      this.showError = false;
       this.setShowToFalse('ingredient');
       this.addIngredient();
     } else {
       this.addService.checkForErrorForm(this.ingredientForm);
-      this.showErrow = true;
+      this.showError = true;
     }
   }
 
@@ -127,7 +128,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
   }
 
   getFilteredList(): IngredientList[] {
-    const result = this.ingredientList.reduce(function(r, a) {
+    const result = this.ingredientList.reduce((r, a) => {
       r[a.ingType] = r[a.ingType] || [];
       r[a.ingType].push(a);
       return r;

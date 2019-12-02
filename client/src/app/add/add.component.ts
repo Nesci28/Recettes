@@ -51,17 +51,23 @@ export class AddComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.params.id) {
-      this.mealService.meals$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((meals: Meal[]) => {
-          const { id, type } = this.route.snapshot.params;
-          const meal = meals.filter(
-            meal => +meal.id === +id && +meal.type === +type,
-          );
-          if (meal.length > 0) {
+      if (
+        this.mealService.meals$.value.filter(
+          meal => meal.id === this.route.snapshot.params.id,
+        ).length > 0
+      ) {
+        this.meal = this.mealService.meals$.value.filter(
+          meal => meal.id === this.route.snapshot.params.id,
+        )[0];
+        [0];
+      } else {
+        this.httpService
+          .getMeal(this.route.snapshot.params.id)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(meal => {
             this.meal = meal[0];
-          }
-        });
+          });
+      }
     }
   }
 

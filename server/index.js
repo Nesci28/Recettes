@@ -68,7 +68,7 @@ app.post('/api/v1/add', async (req, res, _) => {
   let feedback;
   try {
     feedback = await recettesDB.insert(recette);
-  } catch {
+  } catch (err) {
     feedback = { message: 'An error has occured' };
   }
   res.json(feedback);
@@ -79,13 +79,13 @@ app.put('/api/v1/update', async (req, res, _) => {
   const recette = req.body;
   try {
     await recettesDB.findOneAndDelete({ id });
-  } catch {
+  } catch (err) {
     feedback = { message: 'An error has occured' };
     res.json(feedback);
   }
   try {
     feedback = await recettesDB.insert(recette);
-  } catch {
+  } catch (err) {
     feedback = { message: 'An error has occured' };
   }
   res.json(feedback);
@@ -98,7 +98,7 @@ app.delete('/api/v1/delete/:type/:id', async (req, res, _) => {
   let feedback;
   try {
     feedback = await recettesDB.findOneAndDelete({ type, id });
-  } catch {
+  } catch (err) {
     feedback = { message: 'An error has occured' };
   }
   res.json(feedback);
