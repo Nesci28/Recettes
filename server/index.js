@@ -74,9 +74,15 @@ app.post('/api/v1/add', async (req, res, _) => {
   res.json(feedback);
 });
 
-app.put('/api/v1/update', async (req, res, _) => {
+app.post('/api/v1/update', async (req, res, _) => {
   const id = req.body.id;
   const recette = req.body;
+  recette.id = id;
+  recette.filtered = false;
+  recette.ingredients.forEach(ing => {
+    ing.quantity = `${ing.quantity} ${ing.unit}`;
+    ing.disabled = false;
+  });
   try {
     await recettesDB.findOneAndDelete({ id });
   } catch (err) {
