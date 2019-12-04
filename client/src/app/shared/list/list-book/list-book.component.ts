@@ -17,7 +17,11 @@ export class ListBookComponent implements OnInit {
 
   constructor(private mealService: MealService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.meals.forEach(meal => {
+      meal.selected = false;
+    });
+  }
 
   getMeal(repas: Meal): void {
     if (this.bookSelected.filter(e => e.id === repas.id).length === 0) {
@@ -29,10 +33,6 @@ export class ListBookComponent implements OnInit {
         e => e.id !== repas.id,
       );
     }
-  }
-
-  checkIfSelected(meal: Meal): boolean {
-    return this.bookSelected.filter(e => e.id === meal.id).length === 1;
   }
 
   getMealCategory(index: number): Meal[] {

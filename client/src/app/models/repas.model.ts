@@ -25,4 +25,5 @@ export interface Meal {
   instructions: Instruction[];
   filtered?: boolean;
   image?: string;
+  selected?: boolean;
 }
