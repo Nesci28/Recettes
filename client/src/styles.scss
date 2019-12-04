@@ -47,7 +47,7 @@ a {
 }
 
 .ingredient {
-  &-legume:before {
+  &-legume {
     background-color: rgba(209, 255, 211, 0.5) !important;
   }
   &-viande {

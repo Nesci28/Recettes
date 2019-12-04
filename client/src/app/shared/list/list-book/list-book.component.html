@@ -8,12 +8,10 @@
         class="list-group-item col-sm-6 col-md-6 col-lg-4 pointer"
         *ngFor="let meal of getMealCategory(i)"
         (click)="getMeal(meal)"
+        (click)="meal.selected = !meal.selected"
         [ngClass]="{ selected: meal.selected }"
       >
-        <div
-          [ngClass]="{ 'ml-5': notIphone() }"
-          (click)="meal.selected = !meal.selected"
-        >
+        <div [ngClass]="{ 'ml-5': notIphone() }">
           <input
             *ngIf="notIphone()"
             class="form-check-input"

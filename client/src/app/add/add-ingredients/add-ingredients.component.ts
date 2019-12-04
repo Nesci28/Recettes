@@ -18,6 +18,8 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 })
 export class AddIngredientsComponent extends BaseComponent implements OnInit {
   @Input() meal: Meal;
+  @Input() classification: string;
+
   showError: boolean = false;
   errors: { name: string; validators: string[]; show: boolean }[];
   meals: Meal[] = [];

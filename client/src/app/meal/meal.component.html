@@ -12,11 +12,20 @@
       </div>
       <div [ngClass]="meal.image ? 'col-md-6' : 'col-md-12'" class="p-0">
         <div [ngClass]="{ 'mt-5': !meal.image }">
-          <h3 class="mt-md-0 mt-5">
+          <h3 class="d-inline-block mt-md-0 mt-5 mr-5">
             Ingredients:
           </h3>
+          <form class="d-inline-block" [formGroup]="form">
+            <select class="custom-select" formControlName="classification">
+              <option value="type">Par type</option>
+              <option value="freeForm">Format Libre</option>
+            </select>
+          </form>
         </div>
-        <app-meal-ingredients [meal]="meal"></app-meal-ingredients>
+        <app-meal-ingredients
+          [classification]="classification.value"
+          [meal]="meal"
+        ></app-meal-ingredients>
       </div>
     </div>
     <h3 class="mt-5">Instructions:</h3>

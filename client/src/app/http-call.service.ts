@@ -35,4 +35,11 @@ export class HttpCallService {
   addMeal(meal: Meal): Observable<Meal> {
     return this.http.post<Meal>(`${environment.backend_url}/api/v1/add`, meal);
   }
+
+  updateMeal(meal: Meal): Observable<Meal> {
+    return this.http.post<Meal>(
+      `${environment.backend_url}/api/v1/update`,
+      meal,
+    );
+  }
 }

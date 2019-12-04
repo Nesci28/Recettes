@@ -7,6 +7,7 @@ import { BaseComponent } from '../base/base.component';
 import { MealService } from '../meal.service';
 import { Meal } from '../models/repas.model';
 import { HttpCallService } from '../http-call.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'gbd-cropper-modal',
@@ -76,6 +77,10 @@ export class MealComponent extends BaseComponent implements OnInit {
   meal: Meal;
   prtWithPicture: boolean;
 
+  form = new FormGroup({
+    classification: new FormControl('type'),
+  });
+
   constructor(
     private mealService: MealService,
     private route: ActivatedRoute,
@@ -109,6 +114,10 @@ export class MealComponent extends BaseComponent implements OnInit {
           this.meal = meal[0];
         });
     }
+  }
+
+  get classification() {
+    return this.form.get('classification');
   }
 
   changeToModification(): void {

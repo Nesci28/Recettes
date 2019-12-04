@@ -9,6 +9,7 @@ import { stringify } from 'querystring';
 })
 export class MealIngredientsComponent implements OnInit {
   @Input() meal: Meal;
+  @Input() classification: string;
 
   groupedByIngredients: Ingredients[];
 

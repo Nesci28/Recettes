@@ -12,8 +12,21 @@
     <app-add-img [meal]="meal" class="col-sm-4 p-0 mb-sm-0 mb-2"></app-add-img>
   </div>
   <div class="mb-4">
-    <h4>Ingrédients:</h4>
-    <app-add-ingredients [meal]="meal"></app-add-ingredients>
+    <div>
+      <h4 class="d-inline-block mt-md-0 mt-5 mr-5">
+        Ingredients:
+      </h4>
+      <form class="d-inline-block" [formGroup]="form">
+        <select class="custom-select" formControlName="classification">
+          <option value="type">Par type</option>
+          <option value="freeForm">Format Libre</option>
+        </select>
+      </form>
+    </div>
+    <app-add-ingredients
+      [classification]="classification.value"
+      [meal]="meal"
+    ></app-add-ingredients>
   </div>
   <div class="mb-4">
     <h4>Instructions</h4>
@@ -23,7 +36,7 @@
   <app-add-keywords [meal]="meal"></app-add-keywords>
   <button
     class="btn btn-success mx-auto d-flex px-5 mb-5 button-size-responsive"
-    (click)="onSubmit()"
+    (click)="onSubmit(getBtnName())"
   >
     {{ getBtnName() }}
   </button>

@@ -1,5 +1,5 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { BaseComponent } from '../base/base.component';
 import { HttpCallService } from '../http-call.service';
@@ -12,6 +12,7 @@ import { MealService } from '../meal.service';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { AddKeywordsComponent } from './add-keywords/add-keywords.component';
 import { AddImgComponent } from './add-img/add-img.component';
+import { FormControl, FormGroup } from '@angular/forms';
 
 interface Alert {
   type: string;
@@ -40,11 +41,16 @@ export class AddComponent extends BaseComponent implements OnInit {
   alert: Alert = {} as Alert;
   meal: Meal;
 
+  form = new FormGroup({
+    classification: new FormControl('type'),
+  });
+
   constructor(
     private addService: AddService,
     private route: ActivatedRoute,
     private mealService: MealService,
     private httpService: HttpCallService,
+    private router: Router,
   ) {
     super();
   }
@@ -71,7 +77,11 @@ export class AddComponent extends BaseComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  get classification() {
+    return this.form.get('classification');
+  }
+
+  onSubmit(step: string) {
     const errors = this.addService.checkForErrorForm(
       this.addHeaderComponent.last.nameForm,
     );
@@ -89,29 +99,59 @@ export class AddComponent extends BaseComponent implements OnInit {
     ) {
       const values = this.makeTheObject();
       this.mealService.loading$.next(true);
-      this.httpService
-        .addMeal(values)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(
-          _ => {
-            this.resetTheForms();
-            this.mealService.loading$.next(false);
-            this.alert.message = 'Recette ajoutée avec succès!';
-            this.alert.type = 'success';
-            setTimeout(() => {
-              this.alert.type = '';
-            }, 4000);
-          },
-          _ => {
-            this.mealService.loading$.next(false);
-            this.alert.message =
-              'Il semble avoir un problème de connexion, réessayer plus tard!';
-            this.alert.type = 'danger';
-            setTimeout(() => {
-              this.alert.type = '';
-            }, 4000);
-          },
-        );
+
+      if (step === 'Ajouter') {
+        this.httpService
+          .addMeal(values)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(
+            _ => {
+              this.resetTheForms();
+              this.mealService.loading$.next(false);
+              this.alert.message = 'Recette ajoutée avec succès!';
+              this.alert.type = 'success';
+              setTimeout(() => {
+                this.alert.type = '';
+              }, 4000);
+            },
+            _ => {
+              this.mealService.loading$.next(false);
+              this.alert.message =
+                'Il semble avoir un problème de connexion, réessayer plus tard!';
+              this.alert.type = 'danger';
+              setTimeout(() => {
+                this.alert.type = '';
+              }, 4000);
+            },
+          );
+      } else {
+        values.id = this.route.snapshot.params.id;
+        this.httpService
+          .updateMeal(values)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(
+            _ => {
+              this.resetTheForms();
+              this.mealService.loading$.next(false);
+              const { type } = this.route.snapshot.params;
+              this.router.navigate(['/liste', type]);
+              this.alert.message = 'Recette modifiée avec succès!';
+              this.alert.type = 'success';
+              setTimeout(() => {
+                this.alert.type = '';
+              }, 4000);
+            },
+            _ => {
+              this.mealService.loading$.next(false);
+              this.alert.message =
+                'Il semble avoir un problème de connexion, réessayer plus tard!';
+              this.alert.type = 'danger';
+              setTimeout(() => {
+                this.alert.type = '';
+              }, 4000);
+            },
+          );
+      }
     }
   }
 
