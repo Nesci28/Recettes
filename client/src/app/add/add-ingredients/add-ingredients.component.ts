@@ -64,7 +64,6 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     if (this.meal) {
       this.ingredientList = this.meal.ingredients;
-      this.ingredientList = this.getFilteredList();
     }
     this.addService.formErrors$
       .pipe(takeUntil(this.destroy$))
@@ -94,11 +93,23 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
       this.showError = false;
       this.setShowToFalse('ingredient');
       this.addIngredient();
-      this.ingredientList = this.getFilteredList();
     } else {
       this.addService.checkForErrorForm(this.ingredientForm);
       this.showError = true;
     }
+  }
+
+  getIngredientListByType() {
+    const res = [];
+    this.typeArr.forEach(type => {
+      const temp = this.ingredientList.filter(
+        ing => ing.ingType === type.toLowerCase(),
+      );
+      if (temp.length > 0) {
+        res.push(temp);
+      }
+    });
+    return res;
   }
 
   addIngredient(): void {
@@ -131,15 +142,6 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
 
   setShowToFalse(input: string): void {
     this.addService.setShowToFalse(input);
-  }
-
-  getFilteredList(): IngredientList[] {
-    const result = this.ingredientList.reduce((r, a) => {
-      r[a.ingType] = r[a.ingType] || [];
-      r[a.ingType].push(a);
-      return r;
-    }, Object.create(null));
-    return Object.values(result);
   }
 
   checkForSameIngredient(): string[] {
