@@ -10,11 +10,11 @@
         : 'Recherche'
     }}
   </h1>
-  <div *ngIf="meals.length === 0">
+  <div *ngIf="filterMealsForMessage(id).length === 0">
     <h3>Aucune recette...</h3>
     <h3>très bon temps pour en ajouter une!</h3>
   </div>
-  <div *ngIf="meals.length > 0">
+  <div *ngIf="filterMealsForMessage(id).length > 0">
     <form autocomplete="off">
       <input
         type="text"

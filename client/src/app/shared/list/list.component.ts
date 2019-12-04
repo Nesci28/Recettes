@@ -141,6 +141,10 @@ export class ListComponent extends BaseComponent implements OnInit {
     this.createArrayOfMeals(mealsArr);
   }
 
+  filterMealsForMessage(id: string): Meal[] {
+    return this.meals.filter(meal => meal.type === id);
+  }
+
   // Helpers
   resetFilter(): void {
     if (this.id !== 'all' && this.id !== 'recherche') {

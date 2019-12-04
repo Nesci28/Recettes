@@ -21,4 +21,8 @@ export class NavbarComponent implements OnInit {
   search(): void {
     this.router.navigateByUrl(`/recherche/${this.query}`);
   }
+
+  notIphone(): boolean {
+    return navigator.platform !== 'iPhone';
+  }
 }

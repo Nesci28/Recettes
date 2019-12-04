@@ -94,6 +94,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
       this.showError = false;
       this.setShowToFalse('ingredient');
       this.addIngredient();
+      this.ingredientList = this.getFilteredList();
     } else {
       this.addService.checkForErrorForm(this.ingredientForm);
       this.showError = true;
@@ -114,9 +115,14 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
   }
 
   removeIngredient(ingredient: IngredientList): void {
-    this.ingredientList = this.ingredientList.filter(
-      e => e.ingredient !== ingredient.ingredient,
-    );
+    const newList = [];
+    this.ingredientList.forEach((list: any) => {
+      const arr = list.filter(ing => ing.ingredient !== ingredient.ingredient);
+      if (arr.length > 0) {
+        newList.push(arr);
+      }
+    });
+    this.ingredientList = newList;
   }
 
   getFormErrors(input: string): boolean {
@@ -168,7 +174,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
     }
     this.unit.setValue(this.unitArr.indexOf(unit) + 1);
 
-    let type = ingredient.type;
+    let type = ingredient.ingType;
     if (type === 'dairy') {
       type = 'Produit laitier';
     }

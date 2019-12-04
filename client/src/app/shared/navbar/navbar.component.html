@@ -20,7 +20,11 @@
   >
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="id01" ngbDropdownToggle
+        <a
+          *ngIf="notIphone()"
+          class="nav-link dropdown-toggle"
+          id="id01"
+          ngbDropdownToggle
           >Listes</a
         >
         <div class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
@@ -29,6 +33,20 @@
           <a class="dropdown-item" [routerLink]="['/liste/3']">Desserts</a>
         </div>
       </li>
+      <div
+        *ngIf="!notIphone()"
+        class="p-3 mt-2 navbar-lighter bootswatch-border"
+      >
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['//liste/1']">Entrées</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['//liste/2']">Principals</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['//liste/3']">Desserts</a>
+        </li>
+      </div>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/ajouter']">Ajouter</a>
       </li>
