@@ -52,8 +52,7 @@ export class MealIngredientsComponent implements OnInit {
 
   toFraction(portion: any): string {
     portion = portion.split(' ');
-
-    let number = portion.slice(0, -1).join('');
+    let number = portion[0];
     const unit = portion.slice(-1).join('');
     let fraction: any;
     number = number.toString();
@@ -81,6 +80,7 @@ export class MealIngredientsComponent implements OnInit {
         fraction = '';
       }
     }
+
     if (fraction === undefined) fraction = '';
     if (+number === 0) number = '';
     return `${number}${fraction} ${unit}`;
