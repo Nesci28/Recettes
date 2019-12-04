@@ -10,15 +10,17 @@
         (click)="getMeal(meal)"
         [ngClass]="{ selected: meal.selected }"
       >
-        <div class="ml-5" (click)="meal.selected = !meal.selected">
+        <div
+          [ngClass]="{ 'ml-5': notIphone() }"
+          (click)="meal.selected = !meal.selected"
+        >
           <input
+            *ngIf="notIphone()"
             class="form-check-input"
             type="checkbox"
             [(ngModel)]="meal.selected"
           />
-          <span>
-            {{ getName(meal.name) }}
-          </span>
+          <span> {{ getName(meal.name) }}</span>
         </div>
       </li>
     </ul>

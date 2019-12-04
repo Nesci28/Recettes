@@ -44,4 +44,8 @@ export class ListBookComponent implements OnInit {
   getName(name: string): string {
     return name.length > 30 ? `${name.substring(0, 30)}...` : name;
   }
+
+  notIphone(): boolean {
+    return navigator.platform !== 'iPhone';
+  }
 }
