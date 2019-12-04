@@ -10,7 +10,7 @@
         : 'Recherche'
     }}
   </h1>
-  <div *ngIf="filterMealsForMessage(id).length === 0">
+  <div *ngIf="id !== 'all' && filterMealsForMessage(id).length === 0">
     <h3>Aucune recette...</h3>
     <h3>très bon temps pour en ajouter une!</h3>
   </div>
@@ -25,15 +25,15 @@
         name="query"
       />
     </form>
-    <app-list-not-book
-      *ngIf="!toBook"
-      [selectedMeals]="selectedMeals"
-    ></app-list-not-book>
-
-    <app-list-book
-      *ngIf="toBook"
-      [meals]="meals"
-      [selectedMeals]="selectedMeals"
-    ></app-list-book>
   </div>
+  <app-list-not-book
+    *ngIf="!toBook && filterMealsForMessage(id).length > 0"
+    [selectedMeals]="selectedMeals"
+  ></app-list-not-book>
+
+  <app-list-book
+    *ngIf="toBook"
+    [meals]="meals"
+    [selectedMeals]="selectedMeals"
+  ></app-list-book>
 </div>
