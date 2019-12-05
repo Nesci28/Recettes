@@ -7,12 +7,11 @@ import { BaseComponent } from '../base/base.component';
 import { MealService } from '../meal.service';
 import { Meal } from '../models/repas.model';
 import { HttpCallService } from '../http-call.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'gbd-cropper-modal',
   template: `
-    o
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
       <button
@@ -26,6 +25,24 @@ import { FormGroup, FormControl } from '@angular/forms';
     </div>
     <div class="modal-body">
       <p>Voulez-vous vraiment effacer cette recette?</p>
+      <form [formGroup]="form">
+        <input
+          type="text"
+          class="w-100"
+          placeholder="Mot de passe"
+          formControlName="password"
+        />
+        <div
+          *ngIf="
+            (password.invalid && (password.dirty || password.touched)) ||
+            this.error
+          "
+        >
+          <span class="badge badge-danger w-100 px-0 d-block"
+            >Entrer le mot de passe</span
+          >
+        </div>
+      </form>
     </div>
     <div class="modal-footer">
       <div class="w-100 d-flex justify-content-between">
@@ -45,6 +62,12 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class NgbdDeleteModal extends BaseComponent {
   @Input() meal: Meal;
 
+  error: boolean = false;
+
+  form = new FormGroup({
+    password: new FormControl('', Validators.required),
+  });
+
   constructor(
     public activeModal: NgbActiveModal,
     private httpService: HttpCallService,
@@ -54,17 +77,36 @@ export class NgbdDeleteModal extends BaseComponent {
     super();
   }
 
+  get password() {
+    return this.form.get('password');
+  }
+
   deleteMeal(): void {
-    const type = this.meal.type;
-    this.mealService.loading$.next(true);
-    this.httpService
-      .deleteMeal(this.meal)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(_ => {
-        this.activeModal.dismiss('');
-        this.router.navigate(['/liste', type]);
-        this.mealService.loading$.next(false);
-      });
+    if (this.password.value) {
+      this.error = false;
+      this.mealService.loading$.next(true);
+      this.httpService
+        .getConfirmation(this.password.value)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res: string) => {
+          if (res === 'confirmed') {
+            const type = this.meal.type;
+            this.httpService
+              .deleteMeal(this.meal)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe(_ => {
+                this.activeModal.dismiss('');
+                this.router.navigate(['/liste', type]);
+                this.mealService.loading$.next(false);
+              });
+          } else {
+            this.error = true;
+            this.mealService.loading$.next(false);
+          }
+        });
+    } else {
+      this.error = true;
+    }
   }
 }
 

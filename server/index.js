@@ -57,6 +57,16 @@ app.get('/api/v1/filter/:query', async (req, res, _) => {
   res.json(recettes);
 });
 
+app.post('/api/v1/confirm', async (req, res, _) => {
+  const { password } = req.body;
+  if (password === process.env.PASSWORD) {
+    console.log('i am here');
+    res.json('confirmed');
+  } else {
+    res.json('error');
+  }
+});
+
 app.post('/api/v1/add', async (req, res, _) => {
   const recette = req.body;
   recette.id = uuidv4();

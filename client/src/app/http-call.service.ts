@@ -42,4 +42,10 @@ export class HttpCallService {
       meal,
     );
   }
+
+  getConfirmation(password: string): Observable<string> {
+    return this.http.post<string>(`${environment.backend_url}/api/v1/confirm`, {
+      password,
+    });
+  }
 }

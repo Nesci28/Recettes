@@ -7,7 +7,10 @@
 
   <div class="">
     <div class="row mx-auto">
-      <div *ngIf="meal.image" class="col-md-6 mb-md-0 mb-3 p-0">
+      <div
+        *ngIf="meal.image"
+        class="col-md-6 mb-md-0 mb-3 p-0 d-block d-md-flex justify-content-center align-items-center"
+      >
         <app-meal-image [meal]="meal"></app-meal-image>
       </div>
       <div [ngClass]="meal.image ? 'col-md-6' : 'col-md-12'" class="p-0">

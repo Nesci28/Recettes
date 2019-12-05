@@ -37,28 +37,11 @@ export class PrintWithImageComponent extends BaseComponent implements OnInit {
     this.prtWithPicture = res;
   }
 
-  changePortion(): void {
-    if (this.meal.portion) {
-      this.meal.ingredients.forEach(ing => {
-        const original = this.meal.ingredients
-          .filter(e => e.ingredient === ing.ingredient)[0]
-          .quantity.split(' ');
-        const value = eval(original.slice(0, -1).join(''));
-        const unit = original.slice(-1).join('');
-
-        let newValue: any = (this.portion.value * +value) / this.meal.portion;
-        newValue = newValue.toFixed(3);
-        ing.quantity = `${newValue} ${unit}`;
-      });
-      this.meal.portion = this.portion.value;
-    }
-  }
-
   toFraction(portion: any): string {
     portion = portion.split(' ');
 
-    let number = portion.slice(0, -1).join('');
-    const unit = portion.slice(-1).join('');
+    let number = portion[0];
+    const unit = portion[1];
     let fraction: any;
     number = number.toString();
     if (number.includes('/')) {

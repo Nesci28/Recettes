@@ -33,13 +33,10 @@ export class MealHeaderComponent implements OnInit {
   changePortion(): void {
     if (this.meal.portion) {
       this.meal.ingredients.forEach(ing => {
-        const original = this.meal.ingredients
-          .filter(e => e.ingredient === ing.ingredient)[0]
-          .quantity.split(' ');
-        const value = eval(original.slice(0, -1).join(''));
-        const unit = original.slice(-1).join('');
-
-        let newValue: any = (this.portion.value * +value) / this.meal.portion;
+        const unit = ing.quantity.split(' ')[1];
+        const evaluated = eval(ing.quantity.split(' ')[0]);
+        let newValue: any =
+          (this.portion.value * +evaluated) / this.meal.portion;
         newValue = newValue.toFixed(3);
         ing.quantity = `${newValue} ${unit}`;
       });
