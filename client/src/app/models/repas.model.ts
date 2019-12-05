@@ -11,6 +11,7 @@ export interface Instruction {
   disabled: boolean;
   author: string;
   selected: boolean;
+  title: string;
 }
 
 export interface Meal {

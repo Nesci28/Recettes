@@ -11,9 +11,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base/base.component';
-import { Meal } from 'src/app/models/repas.model';
+import { Meal, Instruction } from 'src/app/models/repas.model';
 
 import { AddService } from '../add.service';
+import { asLiteral } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'ngbd-cropper-modal',
@@ -92,7 +93,10 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
   @Input() meal: Meal;
   @ViewChild('instruction', { static: false }) instructionRef: ElementRef;
 
-  showError: boolean = false;
+  showError = {
+    title: false,
+    instruction: false,
+  };
   errors: { name: string; validators: string[]; show: boolean }[];
 
   // Forms
@@ -100,7 +104,13 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
     instruction: new FormControl('', Validators.required),
   });
 
-  instructionList: { instruction: string }[] = [];
+  form = new FormGroup({
+    title: new FormControl('', Validators.required),
+  });
+
+  instructionList: { title: string; instruction: string }[] = [];
+  titleSet: Set<string> = new Set();
+  showTitle: boolean = false;
 
   constructor(private addService: AddService, private modalService: NgbModal) {
     super();
@@ -120,21 +130,36 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
   get instruction() {
     return this.instructionForm.get('instruction');
   }
+  get title() {
+    return this.form.get('title');
+  }
 
   submitInstruction(): void {
-    if (this.instructionForm.valid) {
-      this.showError = false;
+    if (this.instructionForm.valid && this.form.valid) {
+      this.showError.instruction = false;
+      this.showError.title = false;
       this.setShowToFalse('instruction');
       this.addInstruction();
     } else {
-      this.showError = true;
+      if (!this.instructionForm.valid) {
+        this.showError.instruction = true;
+      }
+      if (!this.form.valid) {
+        this.showError.title = true;
+      }
     }
   }
 
   addInstruction(): void {
+    this.showTitle = false;
     this.instructionList.push({
+      title: this.title.value,
       instruction: this.instruction.value,
     });
+    if (!this.titleSet.has(this.title.value)) {
+      this.showTitle = true;
+      this.titleSet.add(this.title.value);
+    }
     this.instructionForm.reset();
     this.instructionRef.nativeElement.focus();
   }
@@ -163,5 +188,16 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
 
   setShowToFalse(input: string): void {
     this.addService.setShowToFalse(input);
+  }
+
+  instructionListGrouped(): Instruction[] {
+    const res = [];
+    const titlesSet = new Set();
+    const titles = this.instructionList.map(ins => ins.title);
+    titles.forEach(title => titlesSet.add(title));
+    titlesSet.forEach(title => {
+      res.push(this.instructionList.filter(ins => ins.title === title));
+    });
+    return res;
   }
 }

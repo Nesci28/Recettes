@@ -1,53 +1,83 @@
-<form [formGroup]="instructionForm" class="bg-info card p-3">
-  <input
-    #instruction
-    type="text"
-    placeholder="Instruction"
-    class="form-control w-100"
-    autocomplete="off"
-    formControlName="instruction"
-    (keyup.enter)="submitInstruction()"
-  />
-  <div *ngIf="getFormErrors('instruction') || showError" class="w-100">
-    <span class="badge badge-danger w-100 px-0 d-block"
-      >Veuillez entrer les Instructions de la recette</span
-    >
+<div>
+  <div
+    class="row mx-auto bg-info p-3 card d-flex"
+    style="flex-direction: inherit;"
+  >
+    <form [formGroup]="form" class="w-50 pr-2">
+      <input
+        #instructionTitle
+        type="text"
+        placeholder="Titre"
+        class="form-control w-100"
+        autocomplete="off"
+        formControlName="title"
+      />
+      <div *ngIf="getFormErrors('title') || showError.title" class="w-100">
+        <span class="badge badge-danger w-100 px-0 d-block"
+          >Veuillez entrer une section pour les instructions</span
+        >
+      </div>
+    </form>
+
+    <form [formGroup]="instructionForm" class="w-50">
+      <input
+        #instruction
+        type="text"
+        placeholder="Instruction"
+        class="form-control w-100"
+        autocomplete="off"
+        formControlName="instruction"
+        (keyup.enter)="submitInstruction()"
+      />
+      <div
+        *ngIf="getFormErrors('instruction') || showError.instruction"
+        class="w-100"
+      >
+        <span class="badge badge-danger w-100 px-0 d-block"
+          >Veuillez entrer les Instructions de la recette</span
+        >
+      </div>
+      <div class="pt-2 w-100 text-right">
+        <p
+          (click)="submitInstruction()"
+          class="pointer d-inline border-dark border-bottom"
+        >
+          Ajouter l'instruction <i class="far fa-plus-square"></i>
+        </p>
+      </div>
+    </form>
   </div>
-  <div class="pt-2 w-100 text-right">
-    <p
-      (click)="submitInstruction()"
-      class="pointer d-inline border-dark border-bottom"
-    >
-      Ajouter l'instruction <i class="far fa-plus-square"></i>
-    </p>
-  </div>
-</form>
+</div>
 
 <div *ngIf="instructionList.length > 0">
-  <ul [sortablejs]="instructionList" class="list-group row mx-auto">
-    <li
-      *ngFor="let instruction of instructionList"
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <div class="d-flex align-items-center">
-        <i class="fas fa-sort mr-3"></i>
-        {{ instruction.instruction }}
-      </div>
-
-      <div>
-        <span
-          class="badge badge-pill badge-info pointer mr-2"
-          (click)="open(instruction.instruction)"
-        >
-          <span aria-hidden="true"><i class="fas fa-edit"></i></span>
-        </span>
-        <span
-          class="badge badge-pill badge-danger pointer"
-          (click)="removeInstruction(instruction)"
-        >
-          <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
-        </span>
-      </div>
-    </li>
-  </ul>
+  <div *ngFor="let instructionList of instructionListGrouped(); index as i">
+    <h3 class="text-center mb-0" [ngClass]="{ 'mt-1': i > 0 }">
+      {{ instructionListGrouped()[i][0].title }}
+    </h3>
+    <ul class="list-group row mx-auto" [sortablejs]="instructionList">
+      <li
+        *ngFor="let instruction of instructionList"
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        <div class="d-flex align-items-center">
+          <i class="fas fa-sort mr-3"></i>
+          {{ instruction.instruction }}
+        </div>
+        <div>
+          <span
+            class="badge badge-pill badge-info pointer mr-2"
+            (click)="open(instruction.instruction)"
+          >
+            <span aria-hidden="true"><i class="fas fa-edit"></i></span>
+          </span>
+          <span
+            class="badge badge-pill badge-danger pointer"
+            (click)="removeInstruction(instruction)"
+          >
+            <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
