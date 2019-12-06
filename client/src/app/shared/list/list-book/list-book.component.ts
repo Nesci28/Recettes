@@ -13,7 +13,7 @@ export class ListBookComponent implements OnInit {
   @Input() meals: Meal[];
 
   book: Meal[] = [];
-  bookSelected: { id: number }[] = [];
+  bookSelected: { id: string }[] = [];
 
   constructor(private mealService: MealService) {}
 

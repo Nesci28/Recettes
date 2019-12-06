@@ -152,6 +152,7 @@ export class MealComponent extends BaseComponent implements OnInit {
         .getMeal(this.route.snapshot.params.id)
         .pipe(takeUntil(this.destroy$))
         .subscribe(meal => {
+          this.mealService.meal = meal[0];
           this.mealService.loading$.next(false);
           this.meal = meal[0];
         });

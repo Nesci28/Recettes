@@ -19,7 +19,10 @@
             Ingredients:
           </h3>
           <form class="d-inline-block" [formGroup]="form">
-            <select class="custom-select" formControlName="classification">
+            <select
+              class="custom-select custom-select-sm"
+              formControlName="classification"
+            >
               <option value="type">Par type</option>
               <option value="freeForm">Format Libre</option>
             </select>
@@ -33,6 +36,9 @@
     </div>
     <h3 class="mt-5">Instructions:</h3>
     <app-meal-instructions [meal]="meal"></app-meal-instructions>
+
+    <app-meal-comments [meal]="meal"></app-meal-comments>
+
     <app-meal-footer
       [meal]="meal"
       (deleteModalEvent)="modalDelete()"

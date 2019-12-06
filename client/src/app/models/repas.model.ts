@@ -16,7 +16,7 @@ export interface Instruction {
 
 export interface Meal {
   name: string;
-  id: number;
+  id: string;
   type: string;
   description: string;
   portion: number;
@@ -27,4 +27,5 @@ export interface Meal {
   filtered?: boolean;
   image?: string;
   selected?: boolean;
+  comments?: string[];
 }

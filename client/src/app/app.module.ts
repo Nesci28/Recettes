@@ -37,6 +37,7 @@ import { MealFooterComponent } from './meal/meal-footer/meal-footer.component';
 import { MealInstructionsComponent } from './meal/meal-instructions/meal-instructions.component';
 import { ListNotBookComponent } from './shared/list/list-not-book/list-not-book.component';
 import { ListBookComponent } from './shared/list/list-book/list-book.component';
+import { MealCommentsComponent } from './meal/meal-comments/meal-comments.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ListBookComponent } from './shared/list/list-book/list-book.component';
     ListNotBookComponent,
     ListBookComponent,
     NgbdEditInstructionModal,
+    MealCommentsComponent,
   ],
   imports: [
     BrowserModule,

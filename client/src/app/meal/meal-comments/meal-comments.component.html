@@ -1,0 +1,46 @@
+<div class="mt-3">
+  <div class="card bg-light mb-3">
+    <div class="card-header pointer" (click)="collapsed = !collapsed">
+      <i
+        class="fas fa-chevron-circle-up"
+        [ngClass]="{ 'fa-rotate-180': !collapsed }"
+      ></i>
+      Commentaires
+    </div>
+    <div *ngIf="meal.comments?.length > 0">
+      <div *ngIf="!collapsed" class="card-body pb-0">
+        <div *ngFor="let comment of this.meal.comments">
+          <p class="card-text m-0">
+            {{ comment }}
+          </p>
+          <div class="w-100 border-bottom my-2"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" [ngClass]="collapsed ? 'pt-3' : 'pt-0'">
+      <form [formGroup]="form" class="d-flex align-items-center">
+        <div class="w-100">
+          <input
+            (keyup)="setErrorToFalse()"
+            type="text"
+            class="w-100"
+            placeholder="Commentaire"
+            formControlName="comment"
+          />
+          <div *ngIf="error">
+            <span class="badge badge-danger w-100 px-0 d-block"
+              >Vous devez entrer un commentaire pour l'ajouter</span
+            >
+          </div>
+        </div>
+        <button
+          (click)="submit()"
+          class="btn btn-warning"
+          style="max-height:40px;"
+        >
+          +
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

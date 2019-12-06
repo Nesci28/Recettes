@@ -43,6 +43,20 @@ export class HttpCallService {
     );
   }
 
+  addComment(
+    id: string,
+    comment: string,
+  ): Observable<{ id: string; comment: string }> {
+    const obj = {
+      id,
+      comment,
+    };
+    return this.http.post<{ id: string; comment: string }>(
+      `${environment.backend_url}/api/v1/comment`,
+      obj,
+    );
+  }
+
   getConfirmation(password: string): Observable<string> {
     return this.http.post<string>(`${environment.backend_url}/api/v1/confirm`, {
       password,

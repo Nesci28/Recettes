@@ -60,7 +60,6 @@ app.get('/api/v1/filter/:query', async (req, res, _) => {
 app.post('/api/v1/confirm', async (req, res, _) => {
   const { password } = req.body;
   if (password === process.env.PASSWORD) {
-    console.log('i am here');
     res.json('confirmed');
   } else {
     res.json('error');
@@ -75,9 +74,24 @@ app.post('/api/v1/add', async (req, res, _) => {
     ing.quantity = `${ing.quantity} ${ing.unit}`;
     ing.disabled = false;
   });
+  recette.comments = [];
   let feedback;
   try {
     feedback = await recettesDB.insert(recette);
+  } catch (err) {
+    feedback = { message: 'An error has occured' };
+  }
+  res.json(feedback);
+});
+
+app.post('/api/v1/comment', async (req, res, _) => {
+  const { id, comment } = req.body;
+  let feedback;
+  try {
+    feedback = await recettesDB.findOneAndUpdate(
+      { id },
+      { $push: { comments: comment } },
+    );
   } catch (err) {
     feedback = { message: 'An error has occured' };
   }
