@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BaseComponent } from 'src/app/base/base.component';
 import { MealService } from 'src/app/meal.service';
-import { Meal } from 'src/app/models/repas.model';
+import { Meal, Instruction } from 'src/app/models/repas.model';
 
 @Component({
   selector: 'app-print-without-image',
@@ -104,5 +104,16 @@ export class PrintWithoutImageComponent extends BaseComponent
     if (fraction === undefined) fraction = '';
     if (+number === 0) number = '';
     return `${number}${fraction} ${unit}`;
+  }
+
+  instructionListGrouped(): Instruction[] {
+    const res = [];
+    const titlesSet = new Set();
+    const titles = this.meal.instructions.map(ins => ins.title);
+    titles.forEach(title => titlesSet.add(title));
+    titlesSet.forEach(title => {
+      res.push(this.meal.instructions.filter(ins => ins.title === title));
+    });
+    return res;
   }
 }

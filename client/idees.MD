@@ -6,6 +6,7 @@
 - [ ] Batisseur de repas 3 services
 - [ ] Liste d'épicerie
 - [ ] Commentaires
+- [ ] Topics in instructions
 
 ### Bugs
 

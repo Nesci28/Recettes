@@ -174,11 +174,19 @@ export class AddInstructionsComponent extends BaseComponent implements OnInit {
     const modalRef = this.modalService.open(NgbdEditInstructionModal);
     modalRef.componentInstance.instruction = instruction;
     modalRef.componentInstance.passEntry.subscribe((res: string) => {
-      this.meal.instructions.forEach(ins => {
-        if (ins.instruction === instruction) {
-          ins.instruction = res;
-        }
-      });
+      if (this.meal) {
+        this.meal.instructions.forEach(ins => {
+          if (ins.instruction === instruction) {
+            ins.instruction = res;
+          }
+        });
+      } else {
+        this.instructionList.forEach(ins => {
+          if (ins.instruction === instruction) {
+            ins.instruction = res;
+          }
+        });
+      }
     });
   }
 

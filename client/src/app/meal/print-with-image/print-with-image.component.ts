@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from 'src/app/base/base.component';
-import { Meal } from 'src/app/models/repas.model';
+import { Meal, Instruction } from 'src/app/models/repas.model';
 
 @Component({
   selector: 'app-print-with-image',
@@ -71,5 +71,16 @@ export class PrintWithImageComponent extends BaseComponent implements OnInit {
     if (fraction === undefined) fraction = '';
     if (+number === 0) number = '';
     return `${number}${fraction} ${unit}`;
+  }
+
+  instructionListGrouped(): Instruction[] {
+    const res = [];
+    const titlesSet = new Set();
+    const titles = this.meal.instructions.map(ins => ins.title);
+    titles.forEach(title => titlesSet.add(title));
+    titlesSet.forEach(title => {
+      res.push(this.meal.instructions.filter(ins => ins.title === title));
+    });
+    return res;
   }
 }

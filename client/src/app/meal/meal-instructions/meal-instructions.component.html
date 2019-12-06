@@ -1,36 +1,26 @@
 <div class="col-md-12 p-0">
-  <ul class="list-group">
-    <li
-      *ngFor="let instruction of meal.instructions; index as i; let odd = odd"
-      class="list-group-item d-flex justify-content-between align-items-center pointer p-0"
-      [ngClass]="[odd ? 'list-odd' : '']"
-    >
-      <span
-        class="input-group-text"
-        [ngClass]="{
-          'list-odd': odd,
-          'bg-dark': instruction.disabled,
-          'text-light': instruction.disabled
-        }"
-        >{{ i + 1 }}</span
+  <div *ngFor="let instructionList of instructionListGrouped(); index as i">
+    <h3 class="text-center mb-0" [ngClass]="{ 'mt-1': i > 0 }">
+      {{ instructionListGrouped()[i][0].title }}
+    </h3>
+    <ul class="list-group row mx-auto" [sortablejs]="instructionList">
+      <li
+        *ngFor="let instruction of instructionList"
+        class="list-group-item d-flex justify-content-between align-items-center"
       >
-
-      <div
-        class="d-flex w-100"
-        (click)="instruction.disabled = !instruction.disabled"
-      >
-        <div
-          [ngClass]="{ 'list-disabled': instruction.disabled }"
-          class="d-flex px-3 justify-content-between w-100"
-        >
+        <div class="d-flex align-items-center">
+          <i class="fas fa-sort mr-3"></i>
           {{ instruction.instruction }}
-          <span
-            *ngIf="instruction.disabled"
-            class="badge badge-primary badge-pill text-decoration-none"
-            >Finit</span
-          >
         </div>
-      </div>
-    </li>
-  </ul>
+        <div>
+          <span class="badge badge-pill badge-info pointer mr-2">
+            <span aria-hidden="true"><i class="fas fa-edit"></i></span>
+          </span>
+          <span class="badge badge-pill badge-danger pointer">
+            <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
