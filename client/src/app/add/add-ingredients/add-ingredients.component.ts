@@ -1,20 +1,20 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs/internal/operators/takeUntil';
-import { BaseComponent } from 'src/app/base/base.component';
-import { MealService } from 'src/app/meal.service';
-import { IngredientList } from 'src/app/models/add.model';
-import { Meal } from 'src/app/models/repas.model';
+import { Component, OnInit, Input, ChangeDetectorRef } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+import { takeUntil } from "rxjs/internal/operators/takeUntil";
+import { BaseComponent } from "src/app/base/base.component";
+import { MealService } from "src/app/meal.service";
+import { IngredientList } from "src/app/models/add.model";
+import { Meal } from "src/app/models/repas.model";
 
-import { AddService } from '../add.service';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { AddService } from "../add.service";
+import { Observable } from "rxjs";
+import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 
 @Component({
-  selector: 'app-add-ingredients',
-  templateUrl: './add-ingredients.component.html',
-  styleUrls: ['./add-ingredients.component.scss'],
+  selector: "app-add-ingredients",
+  templateUrl: "./add-ingredients.component.html",
+  styleUrls: ["./add-ingredients.component.scss"]
 })
 export class AddIngredientsComponent extends BaseComponent implements OnInit {
   @Input() meal: Meal;
@@ -24,33 +24,33 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
   errors: { name: string; validators: string[]; show: boolean }[];
   meals: Meal[] = [];
   typeArr: string[] = [
-    'Produit laitier',
-    'Légume',
-    'Viande',
-    'Poisson',
-    'Fruit',
-    'Épice',
-    'Autre',
+    "Produit laitier",
+    "Légume",
+    "Viande",
+    "Poisson",
+    "Fruit",
+    "Épice",
+    "Autre"
   ];
   unitArr: string[] = [
-    'c. à thé',
-    'c. à soupe',
-    'ml',
-    'l',
-    'oz',
-    'tasse',
-    'g',
-    'kg',
-    'lb',
-    'unité',
+    "c. à thé",
+    "c. à soupe",
+    "ml",
+    "l",
+    "oz",
+    "tasse",
+    "g",
+    "kg",
+    "lb",
+    "unité"
   ];
 
   // Forms
   ingredientForm = new FormGroup({
-    ingredient: new FormControl('', Validators.required),
-    ingType: new FormControl('', Validators.required),
-    quantity: new FormControl('', Validators.required),
-    unit: new FormControl('', Validators.required),
+    ingredient: new FormControl("", Validators.required),
+    ingType: new FormControl("", Validators.required),
+    quantity: new FormControl("", Validators.required),
+    unit: new FormControl("", Validators.required)
   });
 
   ingredientList: IngredientList[] = [];
@@ -58,7 +58,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
 
   constructor(
     private addService: AddService,
-    private mealService: MealService,
+    private mealService: MealService
   ) {
     super();
   }
@@ -78,22 +78,22 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
   }
 
   get ingredient() {
-    return this.ingredientForm.get('ingredient');
+    return this.ingredientForm.get("ingredient");
   }
   get ingType() {
-    return this.ingredientForm.get('ingType');
+    return this.ingredientForm.get("ingType");
   }
   get quantity() {
-    return this.ingredientForm.get('quantity');
+    return this.ingredientForm.get("quantity");
   }
   get unit() {
-    return this.ingredientForm.get('unit');
+    return this.ingredientForm.get("unit");
   }
 
   submitIngredient(): void {
     if (this.ingredientForm.valid) {
       this.showError = false;
-      this.setShowToFalse('ingredient');
+      this.setShowToFalse("ingredient");
       this.addIngredient();
     } else {
       this.addService.checkForErrorForm(this.ingredientForm);
@@ -101,41 +101,25 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
     }
   }
 
-  getIngredientListByType() {
-    const res = [];
-    this.typeArr.forEach(type => {
-      const temp = this.ingredientList.filter(
-        ing => ing.ingType === type.toLowerCase(),
-      );
-      if (temp.length > 0) {
-        res.push(temp);
-      }
-    });
-    return res;
-  }
-
   addIngredient(): void {
     this.ingredientList.push({
       ingredient: this.ingredient.value,
       ingType: this.typeArr[this.ingType.value - 1].toLowerCase(),
       quantity: this.quantity.value,
-      unit: this.unitArr[this.unit.value - 1].toLowerCase(),
+      unit: this.unitArr[this.unit.value - 1].toLowerCase()
     });
-    this.ingredient.setValue('');
-    this.ingType.setValue('');
-    this.quantity.setValue('');
-    this.unit.setValue('');
+    this.ingredient.setValue("");
+    this.ingType.setValue("");
+    this.quantity.setValue("");
+    this.unit.setValue("");
   }
 
   removeIngredient(ingredient: IngredientList): void {
-    const newList = [];
-    this.ingredientList.forEach((list: any) => {
-      const arr = list.filter(ing => ing.ingredient !== ingredient.ingredient);
-      if (arr.length > 0) {
-        newList.push(arr);
-      }
-    });
-    this.ingredientList = newList;
+    this.ingredientList = this.ingredientList.filter(
+      (ing: IngredientList) =>
+        ing.ingredient !== ingredient.ingredient &&
+        ing.quantity !== ingredient.quantity
+    );
   }
 
   getFormErrors(input: string): boolean {
@@ -153,7 +137,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
       const sameIng = meal.ingredients.filter(ing =>
         ing.ingredient
           .toLowerCase()
-          .startsWith(this.ingredient.value.toLowerCase()),
+          .startsWith(this.ingredient.value.toLowerCase())
       );
       if (sameIng.length > 0) {
         sameIng.forEach(el => tempChoices.add(JSON.stringify(el)));
@@ -168,19 +152,19 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
 
   itemSelected($event): void {
     let ingredient: any = this.ingredientChoices.filter(
-      ing => ing.ingredient === $event.item,
+      ing => ing.ingredient === $event.item
     )[0];
 
     let unit = ingredient.quantity;
-    unit = unit.split(' ').pop();
-    if (unit === 'tasses') {
-      unit = 'tasse';
+    unit = unit.split(" ").pop();
+    if (unit === "tasses") {
+      unit = "tasse";
     }
     this.unit.setValue(this.unitArr.indexOf(unit) + 1);
 
     let type = ingredient.ingType;
-    if (type === 'dairy') {
-      type = 'Produit laitier';
+    if (type === "dairy") {
+      type = "Produit laitier";
     }
     type = type.charAt(0).toUpperCase() + type.slice(1);
     this.ingType.setValue(this.typeArr.indexOf(type) + 1);
@@ -193,7 +177,7 @@ export class AddIngredientsComponent extends BaseComponent implements OnInit {
       map(term =>
         this.checkForSameIngredient()
           .filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)
-          .slice(0, 10),
-      ),
+          .slice(0, 10)
+      )
     );
 }

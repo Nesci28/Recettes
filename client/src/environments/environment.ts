@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backend_url: 'http://localhost:5000',
+  backend_url: "https://recettes-server.now.sh"
 };
 // backend_url: 'https://recettes-server.now.sh',
 
