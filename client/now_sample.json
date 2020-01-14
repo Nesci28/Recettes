@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "recettes",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "dist/recettes"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "index.html"
+    }
+  ]
+}
