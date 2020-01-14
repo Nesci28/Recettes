@@ -13,5 +13,10 @@
       "dest": "index.js"
     }
   ],
-  "env": {}
+  "env": {
+    "DB_USERNAME": "",
+    "DB_PASSWORD": "",
+    "DB_URL": "",
+    "PASSWORD": ""
+  }
 }
